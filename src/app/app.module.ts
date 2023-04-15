@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { LoginComponent } from './login/login.component';
 import { CourseListComponent } from './course-list/course-list.component';
 
 @NgModule({
@@ -15,7 +14,6 @@ import { CourseListComponent } from './course-list/course-list.component';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    LoginComponent,
     CourseListComponent
   ],
   imports: [
