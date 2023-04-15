@@ -1,0 +1,13 @@
+main {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.album {
+    border-radius: 0 0 10px 10px;
+}
+
+h1 {
+    padding: 2%;
+}
