@@ -5,12 +5,3 @@ body {
     height: 100vh;
 }
 
-app-course-list {
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-}
-
-#course_list {
-    display: flex;
-}

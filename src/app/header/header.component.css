@@ -3,6 +3,16 @@ header {
     margin-left: auto;
     margin-right: auto;
     padding: 15px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 1px;
+}
+
+@media screen and (max-width:768px){
+    img{
+        width: 15em;
+        margin-bottom: 1em;
+    }
 }
 
 #logo > h1{

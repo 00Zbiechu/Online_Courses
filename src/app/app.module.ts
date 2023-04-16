@@ -7,7 +7,10 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CourseListComponent } from './course-list/course-list.component';
+import { MainPageComponent } from './main-page/main-page.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +19,9 @@ import { LoginComponent } from './login/login.component';
     FooterComponent,
     SidebarComponent,
     CourseListComponent,
-    LoginComponent
+    LoginComponent,
+    MainPageComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

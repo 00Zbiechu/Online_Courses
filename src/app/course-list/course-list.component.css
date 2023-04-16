@@ -6,6 +6,31 @@ main {
 
 .album {
     border-radius: 0 0 10px 10px;
+    padding-top:1em;
+}
+
+@media screen and (max-width:768px) {
+    .course{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+    .course > div{
+        margin: 1em;
+    }
+}
+
+@media screen and (min-width:768px){
+    .course{
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+
+img{
+    width: 3em;
 }
 
 h1 {
