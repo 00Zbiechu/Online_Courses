@@ -6,31 +6,35 @@ main {
 
 .album {
     border-radius: 0 0 10px 10px;
-    padding-top:1em;
+    padding-top: 1em;
 }
 
 @media screen and (max-width:768px) {
-    .course{
+    .course {
         display: flex;
         flex-direction: column;
         text-align: center;
         align-items: center;
     }
-    .course > div{
+
+    .course>div {
         margin: 1em;
     }
 }
 
-@media screen and (min-width:768px){
-    .course{
+@media screen and (min-width:768px) {
+    .course {
         display: flex;
         justify-content: space-around;
     }
 }
 
 
-img{
+img {
     width: 3em;
+    border: 3px solid black;
+    border-radius: 100%;
+    padding: 4px;
 }
 
 h1 {

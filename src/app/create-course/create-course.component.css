@@ -1,0 +1,18 @@
+#create_course_layout {
+
+    display: flex;
+
+}
+
+app-calendar {
+    width: 50%;
+    background-color: white;
+    padding: 2em;
+    padding-top: 0;
+}
+
+app-create-course-form {
+    width: 50%;
+    background-color: #e6e6e6;
+    padding: 1em;
+}

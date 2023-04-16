@@ -22,7 +22,7 @@
 
 }
 
-.title{
+.title {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     letter-spacing: 1px;
 }
@@ -30,4 +30,10 @@
 .search {
     text-align: center;
     padding: 20px;
+}
+
+aside {
+    -webkit-box-shadow: 0px 1px 10px -4px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 0px 1px 10px -4px rgba(66, 68, 90, 1);
+    box-shadow: 0px 1px 10px -4px rgba(66, 68, 90, 1);
 }

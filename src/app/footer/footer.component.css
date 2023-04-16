@@ -2,4 +2,7 @@ footer {
     margin: 0;
     padding: 0;
     height: 8.2vh;
+    -webkit-box-shadow: 0px 1px 10px -4px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 0px 1px 10px -4px rgba(66, 68, 90, 1);
+    box-shadow: 0px 1px 10px -4px rgba(66, 68, 90, 1);
 }
