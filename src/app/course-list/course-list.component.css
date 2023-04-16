@@ -9,6 +9,17 @@ main {
     padding-top: 1em;
 }
 
+img {
+    width: 3em;
+    border: 3px solid black;
+    border-radius: 100%;
+    padding: 4px;
+}
+
+h1 {
+    padding: 2%;
+}
+
 @media screen and (max-width:768px) {
     .course {
         display: flex;
@@ -27,16 +38,4 @@ main {
         display: flex;
         justify-content: space-around;
     }
-}
-
-
-img {
-    width: 3em;
-    border: 3px solid black;
-    border-radius: 100%;
-    padding: 4px;
-}
-
-h1 {
-    padding: 2%;
 }

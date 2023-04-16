@@ -1,44 +1,43 @@
+section {
+    border: 3px solid black;
+    background-color: white;
+}
+
+label {
+    font-size: 1em;
+    text-align: right;
+}
+
+.form-outline {
+    display: flex;
+    align-items: center;
+}
+
+.form-control {
+    width: 80%;
+    margin: 1em;
+}
+
+#course_title {
+    width: 70%;
+}
+
+h3 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+}
+
+#topic-area {
+    margin: 1em;
+    width: 70%;
+}
+
+#file-picker {
+    width: 70% !important;
+}
+
 @media (min-width: 1025px) {
     .h-custom {
         height: 100vh !important;
     }
 }
-
-section{
-    border: 3px solid black;
-    background-color: white;
-}
-
-label{
-    font-size: 1em;
-    text-align: right;
-}
-
-.form-outline{
-    display: flex;
-    align-items: center;
-}
-
-.form-control{
-    width: 80%;
-    margin: 1em;
-}
-
-#course_title{
-    width: 70%;
-}
-
-h3{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    text-align: center;
-}
-
-#topic-area{
-    margin: 1em;
-    width: 70%;
-}
-
-#file-picker{
-    width: 70% !important;
-}
-

@@ -2,16 +2,6 @@ h1 {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-@media screen and (min-width:768px) {
-
-    #homework {
-        display: flex;
-        justify-content: space-around;
-        background-color: black;
-    }
-
-}
-
 .section-course {
     width: 100%;
     border: 3px solid white;
@@ -32,4 +22,14 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+@media screen and (min-width:768px) {
+
+    #homework {
+        display: flex;
+        justify-content: space-around;
+        background-color: black;
+    }
+
 }
