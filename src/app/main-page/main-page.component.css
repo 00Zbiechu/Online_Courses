@@ -4,8 +4,8 @@ app-course-list {
     width: 80%;
 }
 
-@media screen and (min-width: 576px) {
-    #course_list {
+@media screen and (min-width: 768px) {
+    #course-list {
         display: flex;
     }
 }

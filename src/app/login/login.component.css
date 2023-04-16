@@ -18,3 +18,7 @@ h5 {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 4em;
 }
+
+.container {
+  height: 77vh;
+}
