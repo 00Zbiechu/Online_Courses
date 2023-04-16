@@ -1,18 +1,39 @@
-#create_course_layout {
+@media screen and (min-width:768px) {
 
-    display: flex;
+    #create_course_layout {
+
+        display: flex;
+
+    }
+
+    app-calendar {
+        background-color: white;
+    }
+
+    app-create-course-form {
+        background-color: #e6e6e6;
+    }
 
 }
 
+@media screen and (max-width:768px) {
+
+    app-create-course-form {
+        margin: 2em;
+    }
+
+}
+
+#create_course_layout {}
+
+
 app-calendar {
     width: 50%;
-    background-color: white;
     padding: 2em;
     padding-top: 0;
 }
 
 app-create-course-form {
     width: 50%;
-    background-color: #e6e6e6;
     padding: 1em;
 }

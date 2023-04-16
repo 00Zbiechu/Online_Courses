@@ -14,6 +14,7 @@ import { CreateCourseComponent } from './create-course/create-course.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CreateCourseFormComponent } from './create-course-form/create-course-form.component';
+import { CourseSiteComponent } from './course-site/course-site.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CreateCourseFormComponent } from './create-course-form/create-course-fo
     RegisterComponent,
     CreateCourseComponent,
     CalendarComponent,
-    CreateCourseFormComponent
+    CreateCourseFormComponent,
+    CourseSiteComponent
   ],
   imports: [
     BrowserModule,

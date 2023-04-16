@@ -12,6 +12,7 @@ h3{
 }
 
 full-calendar{
+    margin: 1em;
     color: white;
     padding: 2em;
     background-color: #212529;

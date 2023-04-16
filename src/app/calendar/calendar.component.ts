@@ -13,7 +13,11 @@ export class CalendarComponent {
     initialView: 'dayGridMonth',
     weekends: false,
     events: [
-      { title: 'Meeting', start: new Date() }
+      {
+        id: 'a',
+        title: 'my event',
+        start: '2023-04-16'
+      }
     ]
   };
 
