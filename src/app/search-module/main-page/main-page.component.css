@@ -2,10 +2,15 @@ app-course-list {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
+    z-index: -2;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
     #course-list {
         display: flex;
+    }
+
+    #empty-background{
+        width: 15%;
     }
 }

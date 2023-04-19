@@ -10,7 +10,7 @@ app-create-course-form {
 }
 
 
-@media screen and (min-width:768px) {
+@media screen and (min-width:992px) {
 
     #create_course_layout {
 
@@ -28,7 +28,7 @@ app-create-course-form {
 
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width:992px) {
 
     app-create-course-form {
         margin: 2em;
