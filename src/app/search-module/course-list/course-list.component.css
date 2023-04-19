@@ -35,6 +35,7 @@ h1 {
 
 @media screen and (min-width:992px) {
 
+
     .course {
         display: flex;
         justify-content: space-around;
