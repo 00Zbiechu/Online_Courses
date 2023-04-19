@@ -1,15 +1,39 @@
-h1 {
+h2 {
+    text-align: center;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
+app-carousel {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 2em;
+    color: white;
+    background-color: #191919;
+    border-bottom: 5px solid white;
+}
 
-.todo {
+#todo {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 2em;
 }
 
 @media screen and (min-width:992px) {
+
+    app-carousel {
+        width: 50%;
+    }
+
+    #todo {
+        width: 50%;
+    }
+
+    #course_homework {
+        display: flex;
+        justify-content: center;
+    }
 
     #homework {
         display: flex;

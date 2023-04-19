@@ -23,10 +23,6 @@ header {
         width: 77%;
     }
 
-    img{
-        margin-bottom: 1em;
-    }
-
 }
 
 @media screen and (max-width:992px) {
