@@ -5,8 +5,7 @@
 
 .search {
     text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 @media screen and (max-width:992px) {
@@ -40,15 +39,23 @@
 
     aside {
         position: fixed;
-        top: 15vh;
-        margin: 5px;
-        margin-left: 7px;
+        top: 17vh;
+        height: 100vh;
+        width: 19vw;
 
     }
 
     aside>* {
         margin-top: 1em;
         margin-bottom: 0.9em;
+    }
+
+    #background{
+        z-index: -1;
+        position: fixed;
+        top: 0;
+        height: 100vh;
+        width: 19vw;
     }
 
 
