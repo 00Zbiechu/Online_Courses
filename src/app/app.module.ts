@@ -15,6 +15,8 @@ import { CalendarComponent } from './add-course-module/calendar/calendar.compone
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CreateCourseFormComponent } from './add-course-module/create-course-form/create-course-form.component';
 import { CourseSiteComponent } from './course-module/course-site/course-site.component';
+import { CarouselComponent } from './course-module/carousel/carousel.component';
+import { LightgalleryModule } from 'lightgallery/angular';
 
 
 @NgModule({
@@ -30,12 +32,14 @@ import { CourseSiteComponent } from './course-module/course-site/course-site.com
     CreateCourseComponent,
     CalendarComponent,
     CreateCourseFormComponent,
-    CourseSiteComponent
+    CourseSiteComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FullCalendarModule // register FullCalendar with your app
+    FullCalendarModule,
+    LightgalleryModule
   ],
   providers: [],
   bootstrap: [AppComponent]
