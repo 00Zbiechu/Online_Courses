@@ -13,27 +13,60 @@
 
             <div class="row">
 
-                <div class="col-md-12">
+                <div class="col-md-12" *ngFor="let course of courses">
                     <div class="card mb-4 box-shadow">
                         <div class="card-body course">
 
                             <div>
-                                <img src="/assets/images/computer.png" alt="course_icon">
+                                <img src="/assets/course_icon/{{course.image}}" alt="course_icon">
                             </div>
 
                             <div>
-                                <div>Title</div>
-                                <div>Name Admin</div>
+                                <div>
+                                    <p class="header">Title</p>
+                                </div>
+                                <div>
+                                    <p>{{ course.title }}</p>
+                                </div>
+
+                                <div>
+                                    <p class="header">Admin Name</p>
+                                </div>
+                                <div>
+                                    <p>Admin</p>
+                                </div>
                             </div>
 
                             <div>
-                                <div>Start date</div>
-                                <div>End date</div>
+                                <div>
+                                    <p class="header">Start data</p>
+                                </div>
+                                <div>
+                                    <p>{{ course.startData }}</p>
+                                </div>
+
+                                <div>
+                                    <p class="header">End data</p>
+                                </div>
+                                <div>
+                                    <p>{{ course.endData }}</p>
+                                </div>
                             </div>
 
                             <div>
-                                <div>Subject</div>
-                                <div>Description</div>
+                                <div>
+                                    <p class="header">Topic</p>
+                                </div>
+                                <div>
+                                    <p>{{ course.topic }}</p>
+                                </div>
+
+                                <div>
+                                    <p class="header">Description</p>
+                                </div>
+                                <div>
+                                    <p>{{ course.description }}</p>
+                                </div>
                             </div>
 
                             <div>
@@ -43,162 +76,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-12">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-body course">
-
-                            <div>
-                                <img src="/assets/images/computer.png" alt="course_icon">
-                            </div>
-
-                            <div>
-                                <div>Title</div>
-                                <div>Name Admin</div>
-                            </div>
-
-                            <div>
-                                <div>Start date</div>
-                                <div>End date</div>
-                            </div>
-
-                            <div>
-                                <div>Subject</div>
-                                <div>Description</div>
-                            </div>
-
-                            <div>
-                                <a routerLink="/course"><button class="btn btn-primary">Join</button></a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-body course">
-
-                            <div>
-                                <img src="/assets/images/computer.png" alt="course_icon">
-                            </div>
-
-                            <div>
-                                <div>Title</div>
-                                <div>Name Admin</div>
-                            </div>
-
-                            <div>
-                                <div>Start date</div>
-                                <div>End date</div>
-                            </div>
-
-                            <div>
-                                <div>Subject</div>
-                                <div>Description</div>
-                            </div>
-
-                            <div>
-                                <a routerLink="/course"><button class="btn btn-primary">Join</button></a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-body course">
-
-                            <div>
-                                <img src="/assets/images/computer.png" alt="course_icon">
-                            </div>
-
-                            <div>
-                                <div>Title</div>
-                                <div>Name Admin</div>
-                            </div>
-
-                            <div>
-                                <div>Start date</div>
-                                <div>End date</div>
-                            </div>
-
-                            <div>
-                                <div>Subject</div>
-                                <div>Description</div>
-                            </div>
-
-                            <div>
-                                <a routerLink="/course"><button class="btn btn-primary">Join</button></a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-body course">
-
-                            <div>
-                                <img src="/assets/images/computer.png" alt="course_icon">
-                            </div>
-
-                            <div>
-                                <div>Title</div>
-                                <div>Name Admin</div>
-                            </div>
-
-                            <div>
-                                <div>Start date</div>
-                                <div>End date</div>
-                            </div>
-
-                            <div>
-                                <div>Subject</div>
-                                <div>Description</div>
-                            </div>
-
-                            <div>
-                                <a routerLink="/course"><button class="btn btn-primary">Join</button></a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-body course">
-
-                            <div>
-                                <img src="/assets/images/computer.png" alt="course_icon">
-                            </div>
-
-                            <div>
-                                <div>Title</div>
-                                <div>Name Admin</div>
-                            </div>
-
-                            <div>
-                                <div>Start date</div>
-                                <div>End date</div>
-                            </div>
-
-                            <div>
-                                <div>Subject</div>
-                                <div>Description</div>
-                            </div>
-
-                            <div>
-                                <a routerLink="/course"><button class="btn btn-primary">Join</button></a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
 
             </div>
 

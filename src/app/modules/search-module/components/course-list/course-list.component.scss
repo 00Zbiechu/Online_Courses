@@ -10,14 +10,26 @@ main {
 }
 
 img {
-    width: 3em;
+    width: 5em;
+    height: 5em;
     border: 3px solid black;
     border-radius: 100%;
     padding: 4px;
+    text-align: center;
 }
 
 h1 {
     padding: 2%;
+}
+
+.header{
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+}
+
+p{
+    text-align: center;
 }
 
 @media screen and (max-width:992px) {
@@ -39,5 +51,6 @@ h1 {
     .course {
         display: flex;
         justify-content: space-around;
+        align-items: center;
     }
 }
