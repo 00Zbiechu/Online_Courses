@@ -42,6 +42,6 @@ testem.log
 Thumbs.db
 
 #project - course icon directory
-/src/assets/course_icon/*
+/src/assets/course_icon/*.jpg
 
 
