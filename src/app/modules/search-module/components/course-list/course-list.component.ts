@@ -8,6 +8,11 @@ import { Course, SearchServiceService } from '../../services/search-service.serv
 })
 export class CourseListComponent implements OnInit {
 
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 2;
+  tableSizes: any = [3, 6, 9, 12];
+
   courses: Course[];
 
   constructor(private searchServiceService: SearchServiceService) {
@@ -15,11 +20,29 @@ export class CourseListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.searchServiceService.getCourses().subscribe(value => {
+    this.fetchCourses();
+  }
 
-      this.courses = value;
+  fetchCourses(): void {
+    this.searchServiceService.getCourses().subscribe(
+      (response) => {
+        this.courses = response;
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
-    });
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.fetchCourses();
+  }
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.fetchCourses();
   }
 
 }
