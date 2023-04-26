@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Course, SearchServiceService } from '../../services/search-service.service';
+import { SearchServiceService } from '../../services/search-service.service';
 
 @Component({
   selector: 'app-course-list',
@@ -8,41 +8,79 @@ import { Course, SearchServiceService } from '../../services/search-service.serv
 })
 export class CourseListComponent implements OnInit {
 
-  page: number = 1;
+  page: number = 0;
   count: number = 0;
-  tableSize: number = 2;
-  tableSizes: any = [3, 6, 9, 12];
+  tableSize: number = 5;
+
 
   courses: Course[];
 
-  constructor(private searchServiceService: SearchServiceService) {
+  constructor(private searchService: SearchServiceService) {
 
   }
 
   ngOnInit(): void {
-    this.fetchCourses();
+    this.fetchCourses(this.page);
   }
 
-  fetchCourses(): void {
-    this.searchServiceService.getCourses().subscribe(
-      (response) => {
-        this.courses = response;
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  fetchCourses(pageVar: number): void {
+
+    this.searchService.getCountOfCourses().subscribe((result: Number) =>{
+
+      this.count = result.valueOf();
+
+    });
+
+
+    this.searchService.getCourses(pageVar)
+      .subscribe((page: Page) => {
+        
+        this.courses = page.content;
+
+      });
   }
 
-  onTableDataChange(event: any) {
-    this.page = event;
-    this.fetchCourses();
-  }
+  onPageChange(event: any) {
+    
+    this.page = --event;
+    this.fetchCourses(this.page);
+    this.page = ++event;
+}
+
   onTableSizeChange(event: any): void {
     this.tableSize = event.target.value;
     this.page = 1;
-    this.fetchCourses();
+    this.fetchCourses(this.page);
   }
 
+}
+
+export interface Page {
+  content: Course[]
+  pageable: string
+  last: boolean
+  totalElements: number
+  totalPages: number
+  size: number
+  number: number
+  sort: Sort
+  first: boolean
+  numberOfElements: number
+  empty: boolean
+}
+
+export interface Sort {
+  empty: boolean
+  sorted: boolean
+  unsorted: boolean
+}
+
+export interface Course {
+  id: number
+  title: string
+  startData: string
+  endData: string
+  topic: string
+  description: string
+  image: string
 }
