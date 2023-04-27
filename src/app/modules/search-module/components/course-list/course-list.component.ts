@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchServiceService } from '../../services/search-service.service';
+import { Course } from "./model/Course"
+import { Page } from "./model/Page"
 
 @Component({
   selector: 'app-course-list',
@@ -25,7 +27,7 @@ export class CourseListComponent implements OnInit {
 
   fetchCourses(pageVar: number): void {
 
-    this.searchService.getCountOfCourses().subscribe((result: Number) =>{
+    this.searchService.getCountOfCourses().subscribe((result: Number) => {
 
       this.count = result.valueOf();
 
@@ -34,18 +36,18 @@ export class CourseListComponent implements OnInit {
 
     this.searchService.getCourses(pageVar)
       .subscribe((page: Page) => {
-        
+
         this.courses = page.content;
 
       });
   }
 
   onPageChange(event: any) {
-    
+
     this.page = --event;
     this.fetchCourses(this.page);
     this.page = ++event;
-}
+  }
 
   onTableSizeChange(event: any): void {
     this.tableSize = event.target.value;
@@ -55,32 +57,4 @@ export class CourseListComponent implements OnInit {
 
 }
 
-export interface Page {
-  content: Course[]
-  pageable: string
-  last: boolean
-  totalElements: number
-  totalPages: number
-  size: number
-  number: number
-  sort: Sort
-  first: boolean
-  numberOfElements: number
-  empty: boolean
-}
 
-export interface Sort {
-  empty: boolean
-  sorted: boolean
-  unsorted: boolean
-}
-
-export interface Course {
-  id: number
-  title: string
-  startData: string
-  endData: string
-  topic: string
-  description: string
-  image: string
-}
