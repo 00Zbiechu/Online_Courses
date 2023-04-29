@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { faBookmark, faClock, faList, faScroll, faUser } from '@fortawesome/free-solid-svg-icons';
 import { SearchServiceService } from '../../services/search-service.service';
-import { Course } from "./model/Course"
-import { Page } from "./model/Page"
+import { Course } from "./model/Course";
+import { Page } from "./model/Page";
 
 @Component({
   selector: 'app-course-list',
@@ -9,6 +10,13 @@ import { Page } from "./model/Page"
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit {
+
+  faList = faList;
+  faUser = faUser;
+  faClock = faClock;
+  faBookmark = faBookmark;
+  faScroll = faScroll;
+
 
   page: number = 0;
   count: number = 0;
