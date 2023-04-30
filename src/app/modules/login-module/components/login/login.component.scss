@@ -1,3 +1,7 @@
+.container{
+  min-height: 82vh;
+}
+
 .btn-login {
   font-size: 0.9rem;
   letter-spacing: 0.05rem;
@@ -17,8 +21,4 @@
 h5 {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 4em;
-}
-
-.container {
-  height: 100vh;
 }
