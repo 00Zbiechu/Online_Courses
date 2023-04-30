@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxPaginationModule } from 'ngx-pagination';
 
+import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { LightgalleryModule } from 'lightgallery/angular';
@@ -45,7 +46,8 @@ import { SidebarComponent } from './modules/search-module/components/sidebar/sid
     LightgalleryModule,
     HttpClientModule,
     NgxPaginationModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
