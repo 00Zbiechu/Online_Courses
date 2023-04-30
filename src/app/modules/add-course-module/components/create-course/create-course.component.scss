@@ -1,12 +1,17 @@
 app-calendar {
-    width: 50%;
+    width: 42%;
     padding: 2em;
     padding-top: 0;
+    height: 30vh;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 app-create-course-form {
-    width: 50%;
+    width: 45%;
     padding: 1em;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 
@@ -15,6 +20,8 @@ app-create-course-form {
     #create_course_layout {
 
         display: flex;
+        justify-content: space-between;
+        min-height: 82vh;
 
     }
 
