@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Course } from "./model/Course";
 import { AddCourseServiceService } from '../../services/add-course-service.service';
+import { Course } from "./model/Course";
 
 @Component({
   selector: 'app-create-course-form',
@@ -18,12 +18,11 @@ export class CreateCourseFormComponent {
   }
 
   onCourseCreate() {
-    this.addCourseService.addCourse(this.course, this.file);
+    this.addCourseService.addCourse(this.course,this.file);
   }
 
   onFileSelected(event: any) {
     this.file = event.target.files[0];
   }
-
 
 }
