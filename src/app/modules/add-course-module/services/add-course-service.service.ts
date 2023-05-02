@@ -31,13 +31,20 @@ export class AddCourseServiceService {
   }
 
 
-  uploadImage(image: File) {
+  uploadImage(imageToSave: File) {
 
     const imageFormData = new FormData();
-    imageFormData.append('file', image, this.fileNameFromResponse);
+    imageFormData.append('file', imageToSave, this.fileNameFromResponse);
 
 
-    this.httpClient.post(this.url + '/upload-file', imageFormData, { observe: 'response' });
+    this.httpClient.post(this.url + '/upload-file', imageFormData).pipe(
+      catchError((error) => {
+        console.log(error);
+        return throwError('Something went wrong');
+      })
+    ).subscribe(result => {
+      console.log("Ok")
+    });
 
   }
 

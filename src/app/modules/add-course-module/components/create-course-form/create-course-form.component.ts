@@ -18,7 +18,7 @@ export class CreateCourseFormComponent {
   }
 
   onCourseCreate() {
-    this.addCourseService.addCourse(this.course,this.file);
+    this.addCourseService.addCourse(this.course, this.file);
   }
 
   onFileSelected(event: any) {

@@ -30,15 +30,39 @@ h3 {
     width: 70%;
 }
 
-button{
+#submit {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
 }
 
-@media (max-width: 1025px){
-    
-    section{
+input.ng-invalid {
+    background-color: rgb(255, 223, 228);
+}
+
+input.ng-valid {
+    background-color: lightgreen;
+}
+
+textarea.ng-invalid {
+    background-color: rgb(255, 223, 228);
+}
+
+textarea.ng-valid {
+    background-color: lightgreen;
+}
+
+select.ng-invalid {
+    background-color: rgb(255, 223, 228);
+}
+
+select.ng-valid {
+    background-color: lightgreen;
+}
+
+@media (max-width: 1025px) {
+
+    section {
         padding: 1em;
     }
 
@@ -50,7 +74,7 @@ button{
         height: 100vh !important;
     }
 
-    section{
+    section {
         border: 3px solid black;
     }
 

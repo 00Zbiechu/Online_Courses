@@ -4,34 +4,33 @@
             <div class="card-body p-md-4">
                 <h3>Create New Course</h3>
 
-                <form #courseForm="ngForm" (ngSubmit)="onCourseCreate()">
+                <form #courseForm="ngForm" (ngSubmit)="onCourseCreate()" ngNativeValidate>
 
                     <div class="form-outline d-flex align-items-center">
                         <label for="course_title">Course Title</label>
                         <input type="text" id="course_title" class="form-control" [(ngModel)]="course.title"
-                            name="title" />
+                            name="title" required minlength="3" maxlength="30" />
                     </div>
 
                     <div class="form-outline datepicker">
                         <label for="datapickerstart" class="form-label">Select start data</label>
                         <input type="date" class="form-control" id="datapickerstart" [(ngModel)]="course.startData"
-                            name="start" />
+                            name="start" required />
                     </div>
 
                     <div class="form-outline datepicker">
                         <label for="datapickerend" class="form-label">Select end data</label>
                         <input type="date" class="form-control" id="datapickerend" [(ngModel)]="course.endData"
-                            name="end" />
+                            name="end" required />
                     </div>
 
                     <div class="form-outline">
 
                         <label for="topic-area" class="form-label">Topic area</label>
-                        <select class="select" id="topic-area" [(ngModel)]="course.topic" name="topic">
-                            <option value="1" disabled>Class</option>
-                            <option value="2">Class 1</option>
-                            <option value="3">Class 2</option>
-                            <option value="4">Class 3</option>
+                        <select class="select" id="topic-area" [(ngModel)]="course.topic" name="topic" required
+                            minlength="3" maxlength="30">
+                            <option value="Kurs programowania">Kurs programownia</option>
+                            <option value="Kurs matematyki">Kurs matematyki</option>
                         </select>
 
                     </div>
@@ -39,14 +38,14 @@
                     <div class="form-outline d-flex align-items-center">
                         <label for="password">Password</label>
                         <input type="password" id="password" class="form-control" [(ngModel)]="course.password"
-                            name="password" />
+                            name="password" required minlength="3" maxlength="30">
                     </div>
 
 
                     <div class="form-group form-outline">
                         <label for="description">Course Descriptions</label>
                         <textarea class="form-control" id="description" rows="2" [(ngModel)]="course.description"
-                            name="description"></textarea>
+                            name="description" required minlength="3" maxlength="50"></textarea>
                     </div>
 
 
@@ -56,13 +55,13 @@
                             <div class="form-outline">
                                 <label class="form-label" for="course-icon">Icon of course</label>
                                 <input type="file" id="course-icon" class="form-control" [(ngModel)]="course.image"
-                                    name="image" (change)="onFileSelected($event)" />
+                                    name="image" (change)="onFileSelected($event)" required />
                             </div>
 
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-lg mb-1 d-flex">Add New Course</button>
+                    <input type="submit" id="submit" class="btn btn-primary btn-lg mb-1 d-flex" value="Add New Course">
 
                 </form>
 
