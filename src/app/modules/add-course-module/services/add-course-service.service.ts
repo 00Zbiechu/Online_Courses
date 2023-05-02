@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { CourseForCalendar } from "../components/calendar/model/CourseForCalendar";
 import { Course } from "../components/create-course-form/model/Course";
 
 
@@ -46,6 +47,12 @@ export class AddCourseServiceService {
       console.log("Ok")
     });
 
+  }
+
+
+  getCourses(): Observable<CourseForCalendar[]> {
+    const url = `${this.url}`;
+    return this.httpClient.get<CourseForCalendar[]>(url);
   }
 
 

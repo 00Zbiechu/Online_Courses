@@ -25,4 +25,8 @@ export class CreateCourseFormComponent {
     this.file = event.target.files[0];
   }
 
+  reloadCurrentPage() {
+    window.location.reload();
+  }
+
 }

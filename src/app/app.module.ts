@@ -22,7 +22,6 @@ import { CourseListComponent } from './modules/search-module/components/course-l
 import { MainPageComponent } from './modules/search-module/components/main-page/main-page.component';
 import { SidebarComponent } from './modules/search-module/components/sidebar/sidebar.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

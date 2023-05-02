@@ -29,8 +29,8 @@
                         <label for="topic-area" class="form-label">Topic area</label>
                         <select class="select" id="topic-area" [(ngModel)]="course.topic" name="topic" required
                             minlength="3" maxlength="30">
-                            <option value="Kurs programowania">Kurs programownia</option>
-                            <option value="Kurs matematyki">Kurs matematyki</option>
+                            <option value="Kurs programowania">Programming Course</option>
+                            <option value="Kurs matematyki">Math Course</option>
                         </select>
 
                     </div>
@@ -61,7 +61,8 @@
                         </div>
                     </div>
 
-                    <input type="submit" id="submit" class="btn btn-primary btn-lg mb-1 d-flex" value="Add New Course">
+                    <input type="submit" id="submit" class="btn btn-primary btn-lg mb-1 d-flex" value="Add New Course"
+                        (click)="reloadCurrentPage()">
 
                 </form>
 
