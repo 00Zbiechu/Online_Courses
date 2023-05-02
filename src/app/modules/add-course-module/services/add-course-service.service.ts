@@ -28,6 +28,7 @@ export class AddCourseServiceService {
     ).subscribe(result => {
       this.fileNameFromResponse = result.image;
       this.uploadImage(image);
+      window.location.reload(); //Reset window to show results
     });
   }
 

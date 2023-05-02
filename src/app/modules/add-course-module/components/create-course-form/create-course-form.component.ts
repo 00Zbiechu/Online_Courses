@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AddCourseServiceService } from '../../services/add-course-service.service';
-import { CalendarComponent } from '../calendar/calendar.component';
 import { Course } from "./model/Course";
 
 @Component({
@@ -14,7 +13,7 @@ export class CreateCourseFormComponent {
   file: File;
 
 
-  constructor(private addCourseService: AddCourseServiceService, private calendar: CalendarComponent) {
+  constructor(private addCourseService: AddCourseServiceService) {
     this.course = new Course();
   }
 
@@ -25,9 +24,5 @@ export class CreateCourseFormComponent {
   onFileSelected(event: any) {
     this.file = event.target.files[0];
   }
-
-  // reloadCurrentPage() {
-  //   this.calendar.ngOnInit();
-  // }
 
 }
