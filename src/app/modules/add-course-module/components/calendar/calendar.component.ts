@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { AddCourseServiceService } from '../../services/add-course-service.service';
 import { CourseForCalendar } from './model/CourseForCalendar';
 
+@Injectable({
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
