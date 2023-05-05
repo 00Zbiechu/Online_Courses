@@ -1,7 +1,7 @@
 export interface Course {
     title: string
-    startData: string
-    endData: string
+    startDate: string
+    endDate: string
     topic: string
     description: string
     image: string

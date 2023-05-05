@@ -49,8 +49,8 @@ export class CalendarComponent implements OnInit {
     this.calendarOptions.events = this.courses.map(event => {
       return {
         title: event.title,
-        start: new Date(event.startData),
-        end: new Date(event.endData)
+        start: new Date(event.startDate),
+        end: new Date(event.endDate)
       };
     });
   }

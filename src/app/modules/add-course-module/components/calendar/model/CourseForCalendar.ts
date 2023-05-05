@@ -1,5 +1,5 @@
 export interface CourseForCalendar {
-    title: string
-    startData: string
-    endData: string
+    title: string;
+    startDate: string;
+    endDate: string;
 }

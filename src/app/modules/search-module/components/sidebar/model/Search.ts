@@ -1,20 +1,15 @@
-export class Course {
+export class Search {
     title: string;
     startDate: string;
     endDate: string;
     topic: string;
-    password: string;
-    description: string;
-    image: string;
+
 
     constructor() {
         this.title = "";
         this.startDate = "";
         this.endDate = "";
         this.topic = "";
-        this.password = "";
-        this.description = "";
-        this.image = "";
     }
 
     get getTitle(): string {
@@ -48,28 +43,5 @@ export class Course {
     set setTopic(topic: string) {
         this.topic = topic;
     }
-
-    get getPassword(): string {
-        return this.password;
-    }
-
-    set setPassword(password: string) {
-        this.password = password;
-    }
-
-    get getDescription(): string {
-        return this.description;
-    }
-
-    set setDescription(description: string) {
-        this.description = description;
-    }
-
-    get getImage(): string {
-        return this.image;
-    }
-
-    set setImage(image: string) {
-        this.image = image;
-    }
 }
+

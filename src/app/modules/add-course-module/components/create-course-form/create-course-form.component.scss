@@ -13,11 +13,11 @@ label {
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin-bottom: 1em;
 }
 
 .form-control {
     width: 80%;
-    margin: 1em;
 }
 
 h3 {
@@ -67,4 +67,11 @@ select.ng-valid {
         border: 3px solid black;
     }
 
+}
+
+
+@media (min-width: 1400px){
+    .form-outline {
+        margin-bottom: 2em;
+    }
 }

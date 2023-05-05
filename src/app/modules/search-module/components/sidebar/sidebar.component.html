@@ -3,38 +3,50 @@
     <span class="fs-4 title" style="text-align:center;">Find course</span>
     <hr>
 
-    <div class="search">
-      <label for="name_course">Name of course</label>
-      <br>
-      <input type="text" id="name_course" class="form-text">
-    </div>
+    <form #searchForm="ngForm" (ngSubmit)="sendSearchRequest()">
 
-    <div class="search">
+      <div class="search">
+        <label for="name_course">Name of course</label>
+        <br>
+        <input type="text" id="name_course" class="form-text" [(ngModel)]="search.title" name="title">
+      </div>
+
+      <!-- <div class="search">
       <label for="name_admin">Name of administrator</label>
       <br>
       <input type="text" id="name_admin" class="form-text">
-    </div>
+    </div> -->
+
+      <div class="search">
+
+        <label for="date_start">Start date</label>
+        <br>
+        <input type="date" id="date_start" class="form-text" [(ngModel)]="search.startDate" name="startDate">
+      </div>
+
+      <div class="search">
+        <label for="date_end">End date</label>
+        <br>
+        <input type="date" id="date_end" class="form-text" [(ngModel)]="search.endDate" name="endDate">
+      </div>
+
+      <div class="search">
+        <label for="topic">Subject Area</label>
+        <br>
+        <select id="topic" [(ngModel)]="search.topic" name="topic">
+          <option value="Programming Course">Programming Course</option>
+          <option value="Math Course">Math Course</option>
+        </select>
+      </div>
+
+      <div class="search">
+        <button class="btn btn-primary">Search</button>
+      </div>
+
+    </form>
 
     <div class="search">
-      <label for="date_start">Start date</label>
-      <br>
-      <input type="date" id="date_start" class="form-text">
-    </div>
-
-    <div class="search">
-      <label for="date_end">End date</label>
-      <br>
-      <input type="date" id="date_end" class="form-text">
-    </div>
-
-    <div class="search">
-      <label for="topic">Subject Area</label>
-      <br>
-      <input type="text" id="topic" class="form-text">
-    </div>
-
-    <div class="search">
-      <button class="btn btn-primary">Search</button>
+      <a href="/"><button class="btn btn-light">Reset</button></a>
     </div>
 
   </div>

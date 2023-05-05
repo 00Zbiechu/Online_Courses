@@ -14,13 +14,13 @@
 
                     <div class="form-outline datepicker">
                         <label for="datapickerstart" class="form-label">Select start data</label>
-                        <input type="date" class="form-control" id="datapickerstart" [(ngModel)]="course.startData"
+                        <input type="date" class="form-control" id="datapickerstart" [(ngModel)]="course.startDate"
                             name="start" required />
                     </div>
 
                     <div class="form-outline datepicker">
                         <label for="datapickerend" class="form-label">Select end data</label>
-                        <input type="date" class="form-control" id="datapickerend" [(ngModel)]="course.endData"
+                        <input type="date" class="form-control" id="datapickerend" [(ngModel)]="course.endDate"
                             name="end" required />
                     </div>
 
@@ -43,13 +43,13 @@
 
 
                     <div class="form-group form-outline">
-                        <label for="description">Course Descriptions</label>
+                        <label for="description">Descriptions</label>
                         <textarea class="form-control" id="description" rows="2" [(ngModel)]="course.description"
                             name="description" required minlength="3" maxlength="50"></textarea>
                     </div>
 
 
-                    <div class="row pb-md-0 mb-5">
+                    <div class="row pb-md-0 mb-2">
                         <div class="col-md-12">
 
                             <div class="form-outline">
