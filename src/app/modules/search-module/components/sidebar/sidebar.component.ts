@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SearchFormService } from '../../services/search-form.service';
 import { SearchServiceService } from '../../services/search-service.service';
 import { Course } from './model/Course';
+import { FoundCourses } from './model/FoundCourses';
 import { Search } from "./model/Search";
 
 @Component({
@@ -12,7 +13,7 @@ import { Search } from "./model/Search";
 export class SidebarComponent {
 
   search: Search;
-  course: Course;
+  course: Course[];
 
 
   constructor(private searchService: SearchServiceService, private searchForm: SearchFormService) {
@@ -21,15 +22,16 @@ export class SidebarComponent {
   }
 
 
-  newCourse(course: Course) {
+  newCourse(course: Course[]) {
     this.searchForm.changeCourse(course)
   }
 
   sendSearchRequest() {
-
     this.searchService.searchForCourses(this.search)
-      .subscribe((result: Course) => {
-        this.newCourse(result);
+      .subscribe((result: FoundCourses) => {
+        console.log(result);
+        this.newCourse(result.foundCoursesList);
+
       });
 
   }

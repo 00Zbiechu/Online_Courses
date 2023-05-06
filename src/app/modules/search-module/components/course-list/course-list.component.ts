@@ -39,7 +39,7 @@ export class CourseListComponent implements OnInit, ControlValueAccessor {
   constructor(private searchService: SearchServiceService, private searchForm: SearchFormService) {
     this.searchForm.currentCourse.subscribe(result => {
       this.courses = [];
-      this.courses[0] = result;
+      this.courses = result;
 
     });
   }
@@ -60,7 +60,7 @@ export class CourseListComponent implements OnInit, ControlValueAccessor {
   }
 
   ngOnInit(): void {
-    this.searchForm.currentCourse.subscribe(course => this.courses[0] = course);
+    this.searchForm.currentCourse.subscribe(course => this.courses = course);
     this.fetchCourses(this.page, this.tableSize);
   }
 

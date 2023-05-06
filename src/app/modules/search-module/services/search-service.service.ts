@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Page } from "../components/course-list/model/Page";
 import { Course } from "../components/sidebar/model/Course";
+import { FoundCourses } from '../components/sidebar/model/FoundCourses';
 import { Search } from "../components/sidebar/model/Search";
 
 @Injectable({
@@ -39,7 +40,7 @@ export class SearchServiceService {
       .set('endDate', searchForm.endDate.toString())
       .set('topic', searchForm.topic.toString());
 
-    return this.httpClient.get<Course>(url, { params })
+    return this.httpClient.get<FoundCourses>(url, { params })
 
   }
 
