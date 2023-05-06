@@ -1,6 +1,7 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { faBookmark, faClock, faList, faScroll, faUser } from '@fortawesome/free-solid-svg-icons';
+import { SearchFormService } from '../../services/search-form.service';
 import { SearchServiceService } from '../../services/search-service.service';
 import { Course } from "./model/Course";
 import { Page } from "./model/Page";
@@ -35,9 +36,14 @@ export class CourseListComponent implements OnInit, ControlValueAccessor {
   courses: Course[];
 
 
-  constructor(private searchService: SearchServiceService) {
+  constructor(private searchService: SearchServiceService, private searchForm: SearchFormService) {
+    this.searchForm.currentCourse.subscribe(result => {
+      this.courses = [];
+      this.courses[0] = result;
 
+    });
   }
+
 
 
   writeValue(obj: any): void {
@@ -54,6 +60,7 @@ export class CourseListComponent implements OnInit, ControlValueAccessor {
   }
 
   ngOnInit(): void {
+    this.searchForm.currentCourse.subscribe(course => this.courses[0] = course);
     this.fetchCourses(this.page, this.tableSize);
   }
 
