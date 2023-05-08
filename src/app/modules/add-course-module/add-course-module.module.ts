@@ -6,6 +6,7 @@ import { CreateCourseComponent } from '../add-course-module/components/create-co
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { LoaderModuleModule } from '../loader-module/loader-module.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { BrowserModule } from '@angular/platform-browser';
     CommonModule,
     FullCalendarModule,
     FormsModule,
-    BrowserModule
+    BrowserModule,
+    LoaderModuleModule
   ],
   exports: [
     CalendarComponent,

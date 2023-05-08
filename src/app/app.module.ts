@@ -10,6 +10,7 @@ import { HeaderModuleModule } from './modules/header-module/header-module.module
 import { LoginModuleModule } from './modules/login-module/login-module.module';
 import { RegisterModuleModule } from './modules/register-module/register-module.module';
 import { SearchModuleModule } from './modules/search-module/search-module.module';
+import { LoaderModuleModule } from './modules/loader-module/loader-module.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { SearchModuleModule } from './modules/search-module/search-module.module
     RegisterModuleModule,
     CourseModuleModule,
     AddCourseModuleModule,
-    SearchModuleModule
+    SearchModuleModule,
+    LoaderModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
