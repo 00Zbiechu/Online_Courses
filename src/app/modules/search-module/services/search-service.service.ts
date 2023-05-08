@@ -24,11 +24,13 @@ export class SearchServiceService {
     return this.httpClient.get<number>(url);
   }
 
-  getCourses(page: number, size: number): Observable<Page> {
+  getCourses(page: number, size: number, sort: string, order: string): Observable<Page> {
     const url = `${this.url}/get-course-page`;
     const params = new HttpParams()
       .set('page', page.toString())
-      .set('size', size.toString());
+      .set('size', size.toString())
+      .set('sort', sort)
+      .set('order', order);
     return this.httpClient.get<Page>(url, { params });
   }
 

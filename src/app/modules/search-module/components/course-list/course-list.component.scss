@@ -5,31 +5,75 @@ main {
     min-height: 77vh;
 }
 
+.container {
+    margin-bottom: 2em;
+    padding: 1em;
+}
+
 .album {
-    border-radius: 0 0 10px 10px;
     padding-top: 1em;
     min-height: 77vh;
 }
 
-#items_per_page {
+#pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    div{
+        width: 30%;
+    }
+
+}
+
+#sortby {
     margin: 1em;
     display: flex;
-    justify-content: flex-end;
     align-items: baseline;
-
-}
-
-.form-select {
-    width: 7%;
-}
-
-#items_per_page {
+    justify-content: center;
 
     p {
         margin-right: 1em;
     }
 
+    select{
+        max-width: 30%;
+    }
+
 }
+
+#items_per_page {
+    margin: 1em;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+
+    p {
+        margin-right: 1em;
+    }
+
+    select{
+        max-width: 30%;
+    }
+
+}
+
+#order {
+    margin: 1em;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+
+    p {
+        margin-right: 1em;
+    }
+
+    select{
+        max-width: 50%;
+    }
+
+}
+
 
 img {
     width: 5em;
@@ -73,6 +117,17 @@ ul {
     .course>div {
         margin: 1em;
     }
+
+    #pagination {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    
+        div{
+            width: 100%;
+        }
+    
+    }
 }
 
 @media screen and (min-width:992px) {
@@ -83,4 +138,23 @@ ul {
         justify-content: space-around;
         align-items: center;
     }
+
+    .card {
+        transition: all .2s ease-in-out
+    }
+
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    #pagination {
+        flex-direction: row;
+        justify-content: flex-end;
+
+        select {
+            width: 60%;
+        }
+    }
+
 }

@@ -10,9 +10,6 @@ import { LoaderModuleModule } from '../loader-module/loader-module.module';
   imports: [
     CommonModule,
     LoaderModuleModule
-  ],
-  exports: [
-    LoginComponent
   ]
 })
 export class LoginModuleModule { }

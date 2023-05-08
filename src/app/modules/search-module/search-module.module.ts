@@ -22,11 +22,6 @@ import { LoaderModuleModule } from '../loader-module/loader-module.module';
     FontAwesomeModule,
     FormsModule,
     LoaderModuleModule
-  ],
-  exports: [
-    CourseListComponent,
-    MainPageComponent,
-    SidebarComponent,
-  ],
+  ]
 })
 export class SearchModuleModule { }

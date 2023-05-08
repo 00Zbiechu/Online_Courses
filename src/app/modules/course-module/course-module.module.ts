@@ -17,10 +17,6 @@ import { LoaderModuleModule } from '../loader-module/loader-module.module';
     LightgalleryModule,
     LoaderModuleModule
 
-  ],
-  exports: [
-    CarouselComponent,
-    CourseSiteComponent
   ]
 })
 export class CourseModuleModule { }

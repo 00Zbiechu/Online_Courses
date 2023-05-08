@@ -20,11 +20,6 @@ import { LoaderModuleModule } from '../loader-module/loader-module.module';
     FormsModule,
     BrowserModule,
     LoaderModuleModule
-  ],
-  exports: [
-    CalendarComponent,
-    CreateCourseComponent,
-    CreateCourseFormComponent
-  ],
+  ]
 })
 export class AddCourseModuleModule { }

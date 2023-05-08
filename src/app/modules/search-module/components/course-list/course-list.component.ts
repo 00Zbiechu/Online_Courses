@@ -32,6 +32,10 @@ export class CourseListComponent implements OnInit, ControlValueAccessor {
   tableSize: number = 5;
   tableSizes = [5, 10, 15, 20];
 
+  sortBy: string = 'title';
+
+  order: string = 'ASC';
+
 
   courses: Course[];
 
@@ -61,10 +65,10 @@ export class CourseListComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit(): void {
     this.searchForm.currentCourse.subscribe(course => this.courses = course);
-    this.fetchCourses(this.page, this.tableSize);
+    this.fetchCourses(this.page, this.tableSize, this.sortBy, this.order);
   }
 
-  fetchCourses(pageVar: number, sizeVar: number): void {
+  fetchCourses(pageVar: number, sizeVar: number, sortVar: string, orderVar: string): void {
 
     this.searchService.getCountOfCourses().subscribe((result: Number) => {
 
@@ -73,7 +77,7 @@ export class CourseListComponent implements OnInit, ControlValueAccessor {
     });
 
 
-    this.searchService.getCourses(pageVar, sizeVar)
+    this.searchService.getCourses(pageVar, sizeVar, sortVar, orderVar)
       .subscribe((page: Page) => {
 
         this.courses = page.content;
@@ -84,14 +88,26 @@ export class CourseListComponent implements OnInit, ControlValueAccessor {
   onPageChange(event: any) {
 
     this.page = --event;
-    this.fetchCourses(this.page, this.tableSize);
+    this.fetchCourses(this.page, this.tableSize, this.sortBy, this.order);
     this.page = ++event;
   }
 
   onTableSizeChange(event: any): void {
     this.tableSize = event.target.value;
     this.page = 0;
-    this.fetchCourses(this.page, this.tableSize);
+    this.fetchCourses(this.page, this.tableSize, this.sortBy, this.order);
+  }
+
+  onSortByChange(event: any): void {
+    this.sortBy = event.target.value;
+    this.page = 0;
+    this.fetchCourses(this.page, this.tableSize, this.sortBy, this.order);
+  }
+
+  onOrderChange(event: any): void {
+    this.order = event.target.value;
+    this.page = 0;
+    this.fetchCourses(this.page, this.tableSize, this.sortBy, this.order);
   }
 
 }

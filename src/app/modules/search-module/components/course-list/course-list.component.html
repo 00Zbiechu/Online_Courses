@@ -2,7 +2,8 @@
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">Course List</h1>
-            <p class="lead text-muted text">If you need development in specific areas, on our website you will surely
+            <p class="lead text-muted text MB-2">If you need development in specific areas, on our website you will
+                surely
                 find a course that will meet your expectations.<br> We offer an easy-to-use pagination and search system
                 that makes it quick and easy to find what you're looking for.</p>
         </div>
@@ -13,11 +14,31 @@
 
             <div class="row">
 
-                <div id="items_per_page">
-                    <p>Course per page:</p>
-                    <select class="form-select" (change)="onTableSizeChange($event)" [(ngModel)]="tableSize">
-                        <option name="itemPerPage" *ngFor="let size of tableSizes">{{size}}</option>
-                    </select>
+                <div id="pagination">
+                    <div id="sortby">
+                        <p>Sort by:</p>
+                        <select class="form-select" (change)="onSortByChange($event)" [(ngModel)]="sortBy">
+                            <option name="sortByValue" value="title">Title</option>
+                            <option name="sortByValue" value="startDate">Start Date</option>
+                            <option name="sortByValue" value="endDate">End Date</option>
+                            <option name="sortByValue" value="Topic">Topic</option>
+                        </select>
+                    </div>
+
+                    <div id="order">
+                        <p>Sorting order:</p>
+                        <select class="form-select" (change)="onOrderChange($event)" [(ngModel)]="order">
+                            <option name="orderByValue" value="ASC">Ascending</option>
+                            <option name="orderByValue" value="DESC">Descending</option>
+                        </select>
+                    </div>
+
+                    <div id="items_per_page">
+                        <p>Per page:</p>
+                        <select class="form-select" (change)="onTableSizeChange($event)" [(ngModel)]="tableSize">
+                            <option name="itemPerPage" *ngFor="let size of tableSizes">{{size}}</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="col-md-12" *ngFor="let course of courses | paginate
