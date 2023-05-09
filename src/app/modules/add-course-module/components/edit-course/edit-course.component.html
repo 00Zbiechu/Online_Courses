@@ -1,0 +1,53 @@
+<h3>Edit existing course</h3>
+
+<div class="col-md-12 edit">
+
+    <div class="card mb-4 box-shadow col-md-2" *ngFor="let course of courses">
+        <div class="card-body course">
+
+            <div>
+                <div>
+                    <p class="header">Title</p>
+                </div>
+                <div>
+                    <p>{{ course.title }}</p>
+                </div>
+
+            </div>
+
+            <div>
+                <div>
+                    <p class="header">Start data</p>
+                </div>
+                <div>
+                    <p>{{ course.startDate }}</p>
+                </div>
+
+                <div>
+                    <p class="header">End date</p>
+                </div>
+                <div>
+                    <p>{{ course.endDate }}</p>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <p class="header">Topic</p>
+                </div>
+                <div>
+                    <p>{{ course.topic }}</p>
+                </div>
+
+            </div>
+
+            <div>
+                <a href="/course"><button class="btn btn-primary">Edit</button></a>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

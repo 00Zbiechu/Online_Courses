@@ -20,7 +20,7 @@ app-create-course-form {
     #create_course_layout {
 
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         min-height: 82vh;
 
     }
@@ -29,9 +29,6 @@ app-create-course-form {
         background-color: white;
     }
 
-    app-create-course-form {
-        background-color: #e6e6e6;
-    }
 
 }
 
@@ -57,10 +54,11 @@ app-create-course-form {
     }
     
     app-create-course-form {
-        width: 45%;
+        width: 50%;
         padding: 1em;
         margin-top: auto;
         margin-bottom: auto;
+        margin-right: auto;
     }
 
 
