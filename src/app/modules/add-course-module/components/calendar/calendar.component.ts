@@ -3,6 +3,7 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { AddCourseServiceService } from '../../services/add-course-service.service';
 import { CourseForCalendar } from './model/CourseForCalendar';
+import { CoursesForCalendar } from './model/CoursesForCalendar';
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +36,10 @@ export class CalendarComponent implements OnInit {
 
   fetchCourses(): void {
 
-    this.addCourseService.getCourses()
-      .subscribe((result: CourseForCalendar[]) => {
+    this.addCourseService.getCoursesForCalendar()
+      .subscribe((result: CoursesForCalendar) => {
 
-        this.courses = result;
+        this.courses = result.courseForCalendarList;
         this.setCalendarEvents();
 
       });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AddCourseServiceService } from '../../services/add-course-service.service';
-import { CourseForCalendar } from '../calendar/model/CourseForCalendar';
+import { CoursesForEdit } from './model/CoursesForEdit';
+import { CourseForEdit } from './model/CourseForEdit';
 
 @Component({
   selector: 'app-edit-course',
@@ -9,7 +10,7 @@ import { CourseForCalendar } from '../calendar/model/CourseForCalendar';
 })
 export class EditCourseComponent implements OnInit {
 
-  courses: CourseForCalendar[];
+  courses: CourseForEdit[];
 
   constructor(private addCourseService: AddCourseServiceService) {
 
@@ -23,10 +24,10 @@ export class EditCourseComponent implements OnInit {
 
   fetchCourses(): void {
 
-    this.addCourseService.getCourses()
-      .subscribe((result: CourseForCalendar[]) => {
+    this.addCourseService.getCoursesForEdit()
+      .subscribe((result: CoursesForEdit) => {
 
-        this.courses = result;
+        this.courses = result.courseForEditList;
 
       });
   }

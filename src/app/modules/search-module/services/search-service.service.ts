@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Course } from "../components/course-list/model/Course";
 import { Page } from "../components/course-list/model/Page";
-import { Course } from "../components/sidebar/model/Course";
 import { FoundCourses } from '../components/sidebar/model/FoundCourses';
 import { Search } from "../components/sidebar/model/Search";
 

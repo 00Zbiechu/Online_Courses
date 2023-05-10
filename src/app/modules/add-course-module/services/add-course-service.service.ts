@@ -2,7 +2,8 @@ import { HttpClient, } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { CourseForCalendar } from "../components/calendar/model/CourseForCalendar";
+import { CoursesForCalendar } from "../components/calendar/model/CoursesForCalendar";
+import { CoursesForEdit } from "../components/edit-course/model/CoursesForEdit"
 import { Course } from "../components/create-course-form/model/Course";
 
 
@@ -28,7 +29,7 @@ export class AddCourseServiceService {
     ).subscribe(result => {
       this.fileNameFromResponse = result.image;
       this.uploadImage(image);
-      window.location.reload(); //Reset window to show results
+      window.location.reload();
     });
   }
 
@@ -51,11 +52,15 @@ export class AddCourseServiceService {
   }
 
 
-  getCourses(): Observable<CourseForCalendar[]> {
-    const url = `${this.url}`;
-    return this.httpClient.get<CourseForCalendar[]>(url);
+  getCoursesForCalendar(): Observable<CoursesForCalendar> {
+    const url = `${this.url}/get-course-data-for-calendar`;
+    return this.httpClient.get<CoursesForCalendar>(url);
   }
 
+  getCoursesForEdit(): Observable<CoursesForEdit> {
+    const url = `${this.url}/get-course-data-for-edit`;
+    return this.httpClient.get<CoursesForEdit>(url);
+  }
 
   makeRandom(lengthOfCode: number, possible: string) {
     let text = "";

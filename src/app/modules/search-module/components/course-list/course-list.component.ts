@@ -48,8 +48,6 @@ export class CourseListComponent implements OnInit, ControlValueAccessor {
     });
   }
 
-
-
   writeValue(obj: any): void {
     throw new Error('Method not implemented.');
   }
