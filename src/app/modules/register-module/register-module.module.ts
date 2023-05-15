@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegisterComponent } from './components/register/register.component';
 import { LoaderModuleModule } from '../loader-module/loader-module.module';
-
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,9 @@ import { LoaderModuleModule } from '../loader-module/loader-module.module';
   ],
   imports: [
     CommonModule,
-    LoaderModuleModule
+    LoaderModuleModule,
+    FormsModule,
+    RouterModule
   ]
 })
 export class RegisterModuleModule { }

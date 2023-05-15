@@ -12,7 +12,7 @@ export class LoaderComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.isHidden = true;
-    }, 1000);
+    }, 700);
   }
 
 }

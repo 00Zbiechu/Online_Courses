@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +11,7 @@ import { LoginModuleModule } from './modules/login-module/login-module.module';
 import { RegisterModuleModule } from './modules/register-module/register-module.module';
 import { SearchModuleModule } from './modules/search-module/search-module.module';
 import { LoaderModuleModule } from './modules/loader-module/loader-module.module';
+import { JWTInterceptor } from './modules/login-module/interceptors/jwt.interceptor';
 
 
 @NgModule({
@@ -28,9 +29,15 @@ import { LoaderModuleModule } from './modules/loader-module/loader-module.module
     CourseModuleModule,
     AddCourseModuleModule,
     SearchModuleModule,
-    LoaderModuleModule
+    LoaderModuleModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JWTInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

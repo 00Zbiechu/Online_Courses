@@ -1,7 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './components/login/login.component';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { LoaderModuleModule } from '../loader-module/loader-module.module';
+import { LoginComponent } from './components/login/login.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -9,7 +11,9 @@ import { LoaderModuleModule } from '../loader-module/loader-module.module';
   ],
   imports: [
     CommonModule,
-    LoaderModuleModule
+    LoaderModuleModule,
+    FormsModule,
+    RouterModule
   ]
 })
 export class LoginModuleModule { }

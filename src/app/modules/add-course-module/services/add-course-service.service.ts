@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { CoursesForCalendar } from "../components/calendar/model/CoursesForCalendar";
 import { CoursesForEdit } from "../components/edit-course/model/CoursesForEdit"
 import { Course } from "../components/create-course-form/model/Course";
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -16,7 +17,7 @@ export class AddCourseServiceService {
 
   private url = 'http://localhost:8080/api/courses';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private router: Router) {
   }
 
   addCourse(course: Course, image: File) {
@@ -29,7 +30,7 @@ export class AddCourseServiceService {
     ).subscribe(result => {
       this.fileNameFromResponse = result.image;
       this.uploadImage(image);
-      window.location.reload();
+      this.router.navigate(['/'])
     });
   }
 
