@@ -21,7 +21,9 @@ export class LoginComponent {
   authenticate() {
     this.loginService.authenticate(this.login)
       .subscribe(result => {
+        console.log(result);
         localStorage.setItem('token', result.access_token);
+        localStorage.setItem('refreshToken', result.refresh_token);
         this.loginService.loginState();
         this.router.navigate(['/'])
       });

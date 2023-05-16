@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Authentication } from '../components/login/model/Authentication';
 import { Login } from '../components/login/model/Login';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +22,15 @@ export class LoginServiceService {
     return this.httpClient.post<Authentication>(this.url + '/authenticate', login);
   }
 
-  loginState(){
+  refresh(authentication: Authentication) {
+    return this.httpClient.post<Authentication>(this.url + '/refresh-token', authentication);
+  }
+
+  loginState() {
     this._isLoggedIn.next(true);
   }
 
-  logoutState(){
+  logoutState() {
     this._isLoggedIn.next(false);
   }
 

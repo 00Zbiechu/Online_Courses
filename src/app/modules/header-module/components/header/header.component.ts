@@ -19,6 +19,7 @@ export class HeaderComponent {
     this.headerService.logout().subscribe(
       () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
         this.loginService.logoutState();
         this.router.navigate(['/']);
         window.location.reload();
