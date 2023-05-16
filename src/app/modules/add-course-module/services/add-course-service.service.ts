@@ -30,7 +30,7 @@ export class AddCourseServiceService {
     ).subscribe(result => {
       this.fileNameFromResponse = result.image;
       this.uploadImage(image);
-      this.router.navigate(['/'])
+      window.location.reload();
     });
   }
 

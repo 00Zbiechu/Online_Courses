@@ -11,6 +11,20 @@ header {
     font-size: 2em;
 }
 
+.user-logout{
+    display: flex;
+    align-items: center;
+}
+
+.user-data{
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 1em;
+    p{
+        margin: 0;
+    }
+}
+
 @media screen and (min-width:992px) {
 
     header {
@@ -26,7 +40,14 @@ header {
 }
 
 @media screen and (max-width:992px) {
+
+    
     img {
         width: 15em;
+    }
+
+    .user-logout{
+        justify-content: end;
+        text-align: center;
     }
 }

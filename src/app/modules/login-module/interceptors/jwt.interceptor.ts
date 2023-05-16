@@ -23,6 +23,8 @@ export class JWTInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${accessToken}`
         }
       });
+
+      this.loginService.loginState();
     }
 
     return next.handle(request).pipe(

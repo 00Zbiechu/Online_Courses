@@ -12,9 +12,15 @@
     <li><a routerLink="/create" class="nav-link px-2">New Course</a></li>
   </ul>
 
+  <div class="text-end user-logout">
 
-  <div class="text-end">
-    <a (click)="logoutUser()" routerLink="/"><button type="button" class="btn btn-outline-primary me-2">Log out</button></a>
+    <div class="user-data text-end">
+      <p><strong style="color:rgb(0, 140, 255)">Witaj!</strong> Zbiechu</p>
+      <p>00zbiechu@gmail.com</p>
+    </div>
+
+    <a (click)="logoutUser()" routerLink="/"><button type="button" class="btn btn-outline-primary me-2">Log
+        out</button></a>
   </div>
 </header>
 
