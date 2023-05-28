@@ -1,10 +1,10 @@
 <app-loader></app-loader>
 <div id="create_course_layout">
 
-    <app-calendar></app-calendar>
+    <app-calendar *ngIf="courses" [courses]="courses"></app-calendar>
 
     <app-create-course-form></app-create-course-form>
 
 </div>
 
-<app-edit-course></app-edit-course>
+<app-edit-course *ngIf="courses" [courses]="courses"></app-edit-course>

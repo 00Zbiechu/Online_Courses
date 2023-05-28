@@ -2,10 +2,8 @@ import { HttpClient, } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { CoursesForCalendar } from "../components/calendar/model/CoursesForCalendar";
-import { CoursesForEdit } from "../components/edit-course/model/CoursesForEdit"
 import { Course } from "../components/create-course-form/model/Course";
-import { Router } from '@angular/router';
+import { CoursesForAdmin } from '../components/create-course/model/CoursesForAdmin';
 
 
 @Injectable({
@@ -17,7 +15,7 @@ export class AddCourseServiceService {
 
   private url = 'http://localhost:8080/api/courses';
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(private httpClient: HttpClient) {
   }
 
   addCourse(course: Course, image: File) {
@@ -52,15 +50,9 @@ export class AddCourseServiceService {
 
   }
 
-
-  getCoursesForCalendar(): Observable<CoursesForCalendar> {
-    const url = `${this.url}/get-course-data-for-calendar`;
-    return this.httpClient.get<CoursesForCalendar>(url);
-  }
-
-  getCoursesForEdit(): Observable<CoursesForEdit> {
-    const url = `${this.url}/get-course-data-for-edit`;
-    return this.httpClient.get<CoursesForEdit>(url);
+  getCoursesForAdminPage(): Observable<CoursesForAdmin> {
+    const url = `${this.url}/get-course-data-for-admin`;
+    return this.httpClient.get<CoursesForAdmin>(url);
   }
 
   makeRandom(lengthOfCode: number, possible: string) {

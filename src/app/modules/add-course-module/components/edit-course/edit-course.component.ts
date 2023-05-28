@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { AddCourseServiceService } from '../../services/add-course-service.service';
+import { Component, Input } from '@angular/core';
 import { CoursesForEdit } from './model/CoursesForEdit';
 import { CourseForEdit } from './model/CourseForEdit';
 
@@ -8,28 +7,8 @@ import { CourseForEdit } from './model/CourseForEdit';
   templateUrl: './edit-course.component.html',
   styleUrls: ['./edit-course.component.scss']
 })
-export class EditCourseComponent implements OnInit {
+export class EditCourseComponent {
 
-  courses: CourseForEdit[];
-
-  constructor(private addCourseService: AddCourseServiceService) {
-
-  }
-
-
-  ngOnInit(): void {
-    this.fetchCourses();
-  }
-
-
-  fetchCourses(): void {
-
-    this.addCourseService.getCoursesForEdit()
-      .subscribe((result: CoursesForEdit) => {
-
-        this.courses = result.courseForEditList;
-
-      });
-  }
+  @Input() courses: CourseForEdit[];
 
 }

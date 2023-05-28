@@ -1,9 +1,7 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { AddCourseServiceService } from '../../services/add-course-service.service';
 import { CourseForCalendar } from './model/CourseForCalendar';
-import { CoursesForCalendar } from './model/CoursesForCalendar';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +13,7 @@ import { CoursesForCalendar } from './model/CoursesForCalendar';
 })
 export class CalendarComponent implements OnInit {
 
-  courses: CourseForCalendar[];
+  @Input() courses: CourseForCalendar[];
   Events: any[] = [];
 
   calendarOptions: CalendarOptions = {
@@ -25,24 +23,8 @@ export class CalendarComponent implements OnInit {
     events: []
   };
 
-  constructor(private addCourseService: AddCourseServiceService) {
-
-  }
-
   ngOnInit(): void {
-    this.fetchCourses();
-  }
-
-
-  fetchCourses(): void {
-
-    this.addCourseService.getCoursesForCalendar()
-      .subscribe((result: CoursesForCalendar) => {
-
-        this.courses = result.courseForCalendarList;
-        this.setCalendarEvents();
-
-      });
+    this.setCalendarEvents();
   }
 
 

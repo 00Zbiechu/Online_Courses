@@ -10,16 +10,18 @@ import { HeaderServiceService } from '../../services/header-service.service';
 })
 export class HeaderComponent {
 
+
+
   constructor(public loginService: LoginServiceService, private headerService: HeaderServiceService, private router: Router) {
 
   }
 
 
+
+
   logoutUser() {
     this.headerService.logout().subscribe(
       () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
         this.loginService.logoutState();
         this.router.navigate(['/']);
         window.location.reload();
@@ -29,10 +31,6 @@ export class HeaderComponent {
       }
     );
   }
-
-
-
-
 
 
 }

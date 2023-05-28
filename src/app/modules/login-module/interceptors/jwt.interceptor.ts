@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
@@ -13,10 +13,8 @@ export class JWTInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
 
-    // Pobierz access token z lokalnego składowania
-    const accessToken = localStorage.getItem('token');
+    const accessToken = localStorage.getItem('token') || sessionStorage.getItem('token');
 
-    // Dodaj nagłówek Bearer z access tokenem do żądania
     if (accessToken) {
       request = request.clone({
         setHeaders: {
@@ -29,8 +27,36 @@ export class JWTInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 403) {
-          this.router.navigate(['/login'])
+        if (error.status === 401 || error.status === 403) {
+
+          const accessToken = localStorage.getItem('token') || sessionStorage.getItem('token');
+          const refreshToken = localStorage.getItem('refreshToken') || sessionStorage.getItem('refreshToken');
+
+          if (accessToken == null || refreshToken == null) {
+            this.router.navigate(['/login']);
+            return next.handle(request);
+          }
+
+          return this.loginService.refresh(new Authentication(accessToken!, refreshToken!)).pipe(
+            switchMap((tokens) => {
+              localStorage.setItem('token', tokens.access_token);
+              localStorage.setItem('refreshToken', tokens.refresh_token);
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('refreshToken');
+
+              request = request.clone({
+                setHeaders: {
+                  Authorization: `Bearer ${tokens.access_token}`
+                }
+              });
+
+              return next.handle(request);
+            }),
+            catchError(() => {
+              this.router.navigate(['/login']);
+              return next.handle(request);
+            })
+          );
         }
 
         return throwError(error);

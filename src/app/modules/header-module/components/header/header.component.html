@@ -14,10 +14,10 @@
 
   <div class="text-end user-logout">
 
-    <div class="user-data text-end">
-      <p><strong style="color:rgb(0, 140, 255)">Witaj!</strong> Zbiechu</p>
-      <p>00zbiechu@gmail.com</p>
-    </div>
+    <!-- <div *ngIf="usernameAndEmail" class="user-data text-end">
+      <p><strong style="color:rgb(0, 140, 255)">Witaj!</strong> {{ usernameAndEmail.username }}</p>
+      <p> {{ usernameAndEmail.email }}</p>
+    </div> -->
 
     <a (click)="logoutUser()" routerLink="/"><button type="button" class="btn btn-outline-primary me-2">Log
         out</button></a>
