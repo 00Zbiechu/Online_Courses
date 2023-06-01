@@ -14,10 +14,9 @@
 
   <div class="text-end user-logout">
 
-    <!-- <div *ngIf="usernameAndEmail" class="user-data text-end">
-      <p><strong style="color:rgb(0, 140, 255)">Witaj!</strong> {{ usernameAndEmail.username }}</p>
-      <p> {{ usernameAndEmail.email }}</p>
-    </div> -->
+    <div *ngIf="username" class="user-data text-end">
+      <p><strong style="color:rgb(0, 140, 255)">Witaj!</strong> {{ username }}!</p>
+    </div>
 
     <a (click)="logoutUser()" routerLink="/"><button type="button" class="btn btn-outline-primary me-2">Log
         out</button></a>

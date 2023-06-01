@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsernameAndEmailForEachToken } from 'src/app/modules/header-module/components/header/model/UsernameAndEmailForEachToken';
 import { HeaderServiceService } from 'src/app/modules/header-module/services/header-service.service';
 import { LoginServiceService } from '../../services/login-service.service';
 import { Login } from './model/Login';
+
 
 @Component({
   selector: 'app-login',
@@ -14,19 +14,10 @@ export class LoginComponent {
 
   login: Login;
   rememberMe: boolean = false;
-  usernameAndEmail: UsernameAndEmailForEachToken;
-
 
 
   constructor(private loginService: LoginServiceService, private headerService: HeaderServiceService, private router: Router) {
     this.login = new Login();
-  }
-
-
-  getUsernameAndEmailByToken() {
-    this.loginService.getUsernameAndEmailByToken().subscribe(result => {
-      this.usernameAndEmail = result;
-    })
   }
 
 
@@ -46,9 +37,17 @@ export class LoginComponent {
 
 
         this.loginService.loginState();
-        this.router.navigate(['/']);
-      });
+        this.router.navigate(['/']).then(() => {
+          window.location.reload();
+
+        });
+      })
   }
+
+
+
+
+
 
 
 

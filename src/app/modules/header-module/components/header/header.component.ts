@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginServiceService } from 'src/app/modules/login-module/services/login-service.service';
 import { HeaderServiceService } from '../../services/header-service.service';
@@ -8,12 +8,18 @@ import { HeaderServiceService } from '../../services/header-service.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
+  username: string;
 
 
   constructor(public loginService: LoginServiceService, private headerService: HeaderServiceService, private router: Router) {
 
+  }
+
+
+  ngOnInit(): void {
+    this.username = this.loginService.getUserDataFromToken();
   }
 
 
