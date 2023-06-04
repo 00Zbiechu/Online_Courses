@@ -19,8 +19,8 @@
                         <p>Sort by:</p>
                         <select class="form-select" (change)="onSortByChange($event)" [(ngModel)]="sortBy">
                             <option name="sortByValue" value="title">Title</option>
-                            <option name="sortByValue" value="startDate">Start Date</option>
-                            <option name="sortByValue" value="endDate">End Date</option>
+                            <option name="sortByValue" value="start_date">Start Date</option>
+                            <option name="sortByValue" value="end_date">End Date</option>
                             <option name="sortByValue" value="Topic">Topic</option>
                         </select>
                     </div>
@@ -64,12 +64,12 @@
                                     <p>{{ course.title }}</p>
                                 </div>
 
-                                <!-- <div>
+                                <div>
                                     <p class="header"><fa-icon [icon]="faUser"></fa-icon> Owner</p>
                                 </div>
                                 <div>
-                                    <p>Zbiechu</p>
-                                </div> -->
+                                    <p> {{ course.username }} </p>
+                                </div>
                             </div>
 
                             <div>

@@ -5,4 +5,5 @@ export interface Course {
     topic: string
     description: string
     image: string
+    username: string
 }
