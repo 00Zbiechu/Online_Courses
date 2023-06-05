@@ -44,7 +44,7 @@ export class LoginServiceService {
     this._isLoggedIn.next(false);
   }
 
-  getUserDataFromToken() {
+  getUserDataFromToken(): string {
 
     const token = sessionStorage.getItem('token')! || localStorage.getItem('token')!;
     const decodeToken: any = jwt_decode(token);

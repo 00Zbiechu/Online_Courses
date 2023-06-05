@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginServiceService } from 'src/app/modules/login-module/services/login-service.service';
 import { AddCourseServiceService } from '../../services/add-course-service.service';
 import { Course } from "./model/Course";
 
@@ -13,11 +14,12 @@ export class CreateCourseFormComponent {
   file: File;
 
 
-  constructor(private addCourseService: AddCourseServiceService) {
+  constructor(private addCourseService: AddCourseServiceService, private loginService: LoginServiceService) {
     this.course = new Course();
   }
 
   onCourseCreate() {
+    this.course.username = this.loginService.getUserDataFromToken();
     this.addCourseService.addCourse(this.course, this.file);
   }
 

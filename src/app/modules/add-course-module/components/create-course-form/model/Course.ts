@@ -6,6 +6,7 @@ export class Course {
     password: string;
     description: string;
     image: string;
+    username: string;
 
     constructor() {
         this.title = "";
@@ -15,6 +16,7 @@ export class Course {
         this.password = "";
         this.description = "";
         this.image = "";
+        this.username = "";
     }
 
     get getTitle(): string {
@@ -71,5 +73,13 @@ export class Course {
 
     set setImage(image: string) {
         this.image = image;
+    }
+
+    get getUsername(): string {
+        return this.username;
+    }
+
+    set setUsername(username: string) {
+        this.username = username;
     }
 }

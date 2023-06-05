@@ -1,7 +1,8 @@
-import { HttpClient, } from '@angular/common/http';
+import { HttpClient, HttpParams, } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { LoginServiceService } from '../../login-module/services/login-service.service';
 import { Course } from "../components/create-course-form/model/Course";
 import { CoursesForAdmin } from '../components/create-course/model/CoursesForAdmin';
 
@@ -15,7 +16,7 @@ export class AddCourseServiceService {
 
   private url = 'http://localhost:8080/api/courses';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private loginService: LoginServiceService) {
   }
 
   addCourse(course: Course, image: File) {
@@ -52,7 +53,8 @@ export class AddCourseServiceService {
 
   getCoursesForAdminPage(): Observable<CoursesForAdmin> {
     const url = `${this.url}/get-course-data-for-admin`;
-    return this.httpClient.get<CoursesForAdmin>(url);
+    const params = new HttpParams().set('username', this.loginService.getUserDataFromToken());
+    return this.httpClient.get<CoursesForAdmin>(url, { params });
   }
 
   makeRandom(lengthOfCode: number, possible: string) {
