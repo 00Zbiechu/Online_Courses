@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegisterComponent } from './components/register/register.component';
-import { LoaderModuleModule } from '../loader-module/loader-module.module';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { LoaderModuleModule } from '../loader-module/loader-module.module';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,9 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     LoaderModuleModule,
     FormsModule,
-    RouterModule
+    RouterModule.forChild([
+      { path: '', component: RegisterComponent }
+    ])
   ]
 })
 export class RegisterModuleModule { }

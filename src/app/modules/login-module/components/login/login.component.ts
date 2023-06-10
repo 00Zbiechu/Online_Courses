@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HeaderServiceService } from 'src/app/modules/header-module/services/header-service.service';
 import { LoginServiceService } from '../../services/login-service.service';
 import { Login } from './model/Login';
 
@@ -16,7 +15,7 @@ export class LoginComponent {
   rememberMe: boolean = false;
 
 
-  constructor(private loginService: LoginServiceService, private headerService: HeaderServiceService, private router: Router) {
+  constructor(private loginService: LoginServiceService, private router: Router) {
     this.login = new Login();
   }
 

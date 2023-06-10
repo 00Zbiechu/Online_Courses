@@ -1,17 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateCourseComponent } from './modules/add-course-module/components/create-course/create-course.component';
-import { CourseSiteComponent } from './modules/course-module/components/course-site/course-site.component';
-import { LoginComponent } from './modules/login-module/components/login/login.component';
-import { RegisterComponent } from './modules/register-module/components/register/register.component';
-import { MainPageComponent } from './modules/search-module/components/main-page/main-page.component';
 
 const routes: Routes = [
-  { path: '', component: MainPageComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'create', component: CreateCourseComponent },
-  { path: 'course', component: CourseSiteComponent },
+  { path: '', loadChildren: () => import('./modules/search-module/search-module.module').then(m => m.SearchModuleModule) },
+  { path: 'login', loadChildren: () => import('./modules/login-module/login-module.module').then(m => m.LoginModuleModule) },
+  { path: 'register', loadChildren: () => import('./modules/register-module/register-module.module').then(m => m.RegisterModuleModule) },
+  { path: 'create', loadChildren: () => import('./modules/add-course-module/add-course-module.module').then(m => m.AddCourseModuleModule) },
+  { path: 'course', loadChildren: () => import('./modules/course-module/course-module.module').then(m => m.CourseModuleModule) },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

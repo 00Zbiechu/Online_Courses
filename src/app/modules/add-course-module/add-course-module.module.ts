@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarComponent } from '../add-course-module/components/calendar/calendar.component';
 import { CreateCourseFormComponent } from '../add-course-module/components/create-course-form/create-course-form.component';
@@ -20,8 +20,13 @@ import { EditCourseComponent } from './components/edit-course/edit-course.compon
     CommonModule,
     FullCalendarModule,
     FormsModule,
-    BrowserModule,
-    LoaderModuleModule
+    LoaderModuleModule,
+    RouterModule.forChild([
+      { path: '', component: CreateCourseComponent },
+      { path: '', component: CalendarComponent },
+      { path: '', component: CreateCourseFormComponent },
+      { path: '', component: EditCourseComponent }
+    ])
   ]
 })
 export class AddCourseModuleModule { }
