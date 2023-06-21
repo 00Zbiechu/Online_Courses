@@ -10,18 +10,18 @@
         <label htmlFor="username"><fa-icon [icon]="faList"></fa-icon> Course Title</label>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
-          <input pInputText [(ngModel)]="search.title" [ngModelOptions]="{standalone: true}" />
+          <input pInputText class="p-inputtext-sm" [(ngModel)]="search.title" [ngModelOptions]="{standalone: true}" />
         </span>
       </div>
 
-      <!-- 
       <div class="search">
-        <label for="name_admin">Name of administrator</label>
-        <br>
-        <input type="text" id="name_admin" class="form-text">
-      </div> 
-      -->
-
+        <label htmlFor="username"><fa-icon [icon]="faUser"></fa-icon> Author</label>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText class="p-inputtext-sm" [(ngModel)]="search.username"
+            [ngModelOptions]="{standalone: true}" />
+        </span>
+      </div>
 
       <div class="search">
         <label htmlFor="username"><fa-icon [icon]="faClock"></fa-icon> Start Date</label>
@@ -42,7 +42,7 @@
           [ngModelOptions]="{standalone: true}"></p-dropdown>
       </div>
 
-      <div class="search">
+      <div class="search" id="control-panel">
         <span>
           <p-button icon="pi pi-search" type="submit"></p-button>
           <p-button icon="pi pi-times" styleClass="p-button-danger" type="reset"

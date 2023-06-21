@@ -40,7 +40,8 @@ export class SearchServiceService {
       .set('title', searchForm.title.toString())
       .set('startDate', searchForm.startDate ? searchForm.startDate.toString() : '')
       .set('endDate', searchForm.endDate ? searchForm.endDate.toString() : '')
-      .set('topic', searchForm.topic.toString());
+      .set('topic', searchForm.topic.toString())
+      .set('username', searchForm.username.toString());
 
     return this.httpClient.get<FoundCourses>(url, { params })
 

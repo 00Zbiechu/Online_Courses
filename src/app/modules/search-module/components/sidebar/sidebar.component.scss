@@ -1,27 +1,31 @@
 .title {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     letter-spacing: 1px;
-    margin-top: 1em;
+    margin-top: 0.5em;
 }
 
 hr {
     width: 75%;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .search {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 1em;
+    margin: 2em;
+    margin-bottom: 0;
+    margin-top: 0.4em;
 
     input,
     span,
     p-calendar,
     p-dropdown,
     p-button {
-        margin-top: 5px;
+        margin-top: 2px;
         margin-bottom: 5px;
         margin-left: auto;
         margin-right: auto;
@@ -61,15 +65,10 @@ hr {
 
     aside {
         position: fixed;
-        top: 15vh;
+        top: 13vh;
         height: 100vh;
         width: 20vw;
 
-    }
-
-    aside>* {
-        margin-top: 1em;
-        margin-bottom: 0.9em;
     }
 
     #background {
@@ -82,6 +81,12 @@ hr {
 
     label {
         color: white;
+    }
+
+    #control-panel {
+        p-button {
+            margin-top: 0;
+        }
     }
 
     @media screen and (min-width:1600px) {

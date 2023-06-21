@@ -3,6 +3,7 @@ export class Search {
     startDate: string;
     endDate: string;
     topic: string;
+    username: string;
 
 
     constructor() {
@@ -10,6 +11,7 @@ export class Search {
         this.startDate = "";
         this.endDate = "";
         this.topic = "";
+        this.username = "";
     }
 
     get getTitle(): string {
@@ -42,6 +44,14 @@ export class Search {
 
     set setTopic(topic: string) {
         this.topic = topic;
+    }
+
+    get getUsername(): string {
+        return this.username;
+    }
+
+    set setUsername(username: string) {
+        this.username = username;
     }
 }
 
