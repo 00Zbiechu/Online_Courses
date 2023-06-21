@@ -38,8 +38,8 @@ export class SearchServiceService {
     const url = `${this.url}/search-for-courses`;
     const params = new HttpParams()
       .set('title', searchForm.title.toString())
-      .set('startDate', searchForm.startDate.toString())
-      .set('endDate', searchForm.endDate.toString())
+      .set('startDate', searchForm.startDate ? searchForm.startDate.toString() : '')
+      .set('endDate', searchForm.endDate ? searchForm.endDate.toString() : '')
       .set('topic', searchForm.topic.toString());
 
     return this.httpClient.get<FoundCourses>(url, { params })

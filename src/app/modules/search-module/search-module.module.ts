@@ -1,13 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
 import { LoaderModuleModule } from '../loader-module/loader-module.module';
 import { CourseListComponent } from '../search-module/components/course-list/course-list.component';
 import { MainPageComponent } from '../search-module/components/main-page/main-page.component';
 import { SidebarComponent } from '../search-module/components/sidebar/sidebar.component';
+
 
 @NgModule({
   declarations: [
@@ -16,6 +22,11 @@ import { SidebarComponent } from '../search-module/components/sidebar/sidebar.co
     SidebarComponent,
   ],
   imports: [
+    DropdownModule,
+    CalendarModule,
+    CalendarModule,
+    ButtonModule,
+    InputTextModule,
     CommonModule,
     NgxPaginationModule,
     FontAwesomeModule,

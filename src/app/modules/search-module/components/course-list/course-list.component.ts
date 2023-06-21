@@ -99,7 +99,6 @@ export class CourseListComponent implements OnInit, ControlValueAccessor {
   onSortByChange(event: any): void {
     this.sortBy = event.target.value;
     this.page = 0;
-    console.log(this.sortBy);
     this.fetchCourses(this.page, this.tableSize, this.sortBy, this.order);
   }
 
