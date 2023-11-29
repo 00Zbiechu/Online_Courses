@@ -1,13 +1,13 @@
-<aside class="bg-dark">
+<aside class="bg-dark" id="desktopSidebar">
   <div class="d-flex flex-column flex-shrink-0 text-white">
-    <span class="fs-4 title" style="text-align:center;">Find course</span>
+    <span class="fs-4 title d-flex justify-content-center align-items-center" style="text-align:center;">Find course</span>
+
     <hr>
 
     <form #searchForm="ngForm" (ngSubmit)="sendSearchRequest()">
 
-
       <div class="search">
-        <label htmlFor="username"><fa-icon [icon]="faList"></fa-icon> Course Title</label>
+        <label htmlFor="username"><fa-icon [icon]="faList"></fa-icon> Course title</label>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
           <input pInputText class="p-inputtext-sm" [(ngModel)]="search.title" [ngModelOptions]="{standalone: true}" />
@@ -24,20 +24,19 @@
       </div>
 
       <div class="search">
-        <label htmlFor="username"><fa-icon [icon]="faClock"></fa-icon> Start Date</label>
-        <p-calendar appendTo="body" id="date_start" [(ngModel)]="search.startDate" [showIcon]="true" name="startDate"
-          dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
-      </div>
-
-
-      <div class="search">
-        <label htmlFor="username"><fa-icon [icon]="faClock"></fa-icon> End Date</label>
-        <p-calendar appendTo="body" id="date_end" [(ngModel)]="search.endDate" [showIcon]="true" name="endDate"
+        <label htmlFor="username"><fa-icon [icon]="faClock"></fa-icon> Start date</label>
+        <p-calendar id="date_start" [(ngModel)]="search.startDate" [showIcon]="true" name="startDate"
           dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
       </div>
 
       <div class="search">
-        <label for="topic"><fa-icon [icon]="faBookmark"></fa-icon> Subject Area</label>
+        <label htmlFor="username"><fa-icon [icon]="faClock"></fa-icon> End date</label>
+        <p-calendar id="date_end" [(ngModel)]="search.endDate" [showIcon]="true" name="endDate"
+          dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
+      </div>
+
+      <div class="search">
+        <label for="topic"><fa-icon [icon]="faBookmark"></fa-icon> Subject area</label>
         <p-dropdown [options]="topics" optionValue="name" [(ngModel)]="search.topic" name="topic" optionLabel="name"
           [ngModelOptions]="{standalone: true}"></p-dropdown>
       </div>
@@ -45,14 +44,73 @@
       <div class="search" id="control-panel">
         <span>
           <p-button icon="pi pi-search" type="submit"></p-button>
-          <p-button icon="pi pi-times" styleClass="p-button-danger" type="reset"
+          <p-button icon="pi pi-refresh" styleClass="p-button-danger" type="reset"
             (click)="sendEmptySearchRequest()"></p-button>
         </span>
       </div>
-
     </form>
-
   </div>
 </aside>
 
 <div id="background" class="bg-dark"></div>
+
+<!--mobile sidebar-->
+
+<p-sidebar id="mobileSidebar" [(visible)]="sidebarVisible">
+  <aside>
+
+    <div class="d-flex flex-column flex-shrink-0 text-white">
+      <span class="fs-4 title" style="text-align:center;">Find course</span>
+
+      <hr>
+
+      <form #searchForm="ngForm" (ngSubmit)="sendSearchRequest()">
+
+        <div class="search">
+          <label htmlFor="username"><fa-icon [icon]="faList"></fa-icon> Course title</label>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText class="p-inputtext-sm" [(ngModel)]="search.title" [ngModelOptions]="{standalone: true}" />
+          </span>
+        </div>
+
+        <div class="search">
+          <label htmlFor="username"><fa-icon [icon]="faUser"></fa-icon> Author</label>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText class="p-inputtext-sm" [(ngModel)]="search.username"
+              [ngModelOptions]="{standalone: true}" />
+          </span>
+        </div>
+
+        <div class="search">
+          <label htmlFor="username"><fa-icon [icon]="faClock"></fa-icon> Start date</label>
+          <p-calendar appendTo="body" id="date_start" [(ngModel)]="search.startDate" [showIcon]="true" name="startDate"
+            dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
+        </div>
+
+        <div class="search">
+          <label htmlFor="username"><fa-icon [icon]="faClock"></fa-icon> End date</label>
+          <p-calendar appendTo="body" id="date_end" [(ngModel)]="search.endDate" [showIcon]="true" name="endDate"
+            dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
+        </div>
+
+        <div class="search">
+          <label for="topic"><fa-icon [icon]="faBookmark"></fa-icon> Subject area</label>
+          <p-dropdown [options]="topics" optionValue="name" [(ngModel)]="search.topic" name="topic" optionLabel="name"
+            [ngModelOptions]="{standalone: true}"></p-dropdown>
+        </div>
+
+        <div class="search" id="control-panel">
+          <span>
+            <p-button icon="pi pi-search" type="submit"></p-button>
+            <p-button icon="pi pi-refresh" styleClass="p-button-danger" type="reset"
+              (click)="sendEmptySearchRequest()"></p-button>
+          </span>
+        </div>
+
+      </form>
+    </div>
+  </aside>
+</p-sidebar>
+<p-button id="sidebarButton" (click)="sidebarVisible = true" icon="pi pi-search"></p-button>

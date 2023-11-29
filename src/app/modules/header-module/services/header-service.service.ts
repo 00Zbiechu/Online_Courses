@@ -14,5 +14,4 @@ export class HeaderServiceService {
     const url = `${this.url}/logout`;
     return this.http.post(url, {});
   }
-
 }

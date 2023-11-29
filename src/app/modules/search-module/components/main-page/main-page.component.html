@@ -1,10 +1,14 @@
 <app-loader></app-loader>
+
 <div id="course-list">
 
-  <app-sidebar></app-sidebar>
+  <app-sidebar (searchResult)="setSearchResult($event)" (isSearching)="setIsSearching($event)"
+    (totalSearchedRecords)="setTotalSearchedRecords($event)"
+    [searchPaginationParams]="searchPaginationParams"></app-sidebar>
 
   <div id="empty-background"></div>
 
-  <app-course-list></app-course-list>
+  <app-course-list (searchPaginationOutput)="setPaginationParams($event)" [searchResult]="searchResult"
+    [isSearching]="isSearching" [totalSearchedRecords]="totalSearchedRecords"></app-course-list>
 
 </div>

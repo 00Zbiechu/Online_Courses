@@ -1,35 +1,48 @@
 <app-loader></app-loader>
-<div class="container">
-  <div class="row">
-    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-      <div class="card border-0 shadow rounded-3 my-5">
-        <div class="card-body p-4 p-sm-5">
-          <h5 class="card-title text-center mb-5 fw-light">Sign In</h5>
-          <form (ngSubmit)="authenticate()" #loginForm="ngForm" ngNativeValidate>
-            <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="floatingInput" placeholder="Username"
-                [(ngModel)]="login.username" [ngModelOptions]="{standalone: true}" required>
-              <label for="floatingInput">Username</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                [(ngModel)]="login.password" [ngModelOptions]="{standalone: true}" required>
-              <label for="floatingPassword">Password</label>
-            </div>
+<div id="container">
+  <div class="d-flex justify-content-center">
+    <div class="col-11 col-lg-4">
+      <p-card>
+        <h5 class="card-title text-center mb-5 fw-light">Sign In</h5>
 
-            <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck"
-                [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}">
-              <label class="form-check-label" for="rememberPasswordCheck">
-                Remember password
-              </label>
+        <form [formGroup]="loginForm" (ngSubmit)="authenticate()">
+
+          <div class="form-floating mb-3">
+            <input pInputText type="text" id="floatingInput" placeholder="Username" formControlName="username">
+          </div>
+
+          <div
+            *ngIf="loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)"
+            class="alert alert-danger">
+            <div *ngIf="loginForm.get('username')?.errors?.['required']">
+              Username is required
             </div>
-            <div class="d-grid">
-              <button class="btn btn-primary btn-login text-uppercase fw-bold">Sign in</button>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input pInputText type="password" id="floatingPassword" placeholder="Password" formControlName="password"
+              autocomplete="on">
+          </div>
+
+          <div
+            *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+            class="alert alert-danger">
+            <div *ngIf="loginForm.get('password')?.errors?.['required']">
+              Password is required
             </div>
-          </form>
-        </div>
-      </div>
+          </div>
+
+          <div class="form-check mb-3">
+            <p-checkbox formControlName="rememberMe" inputId="rm" value="Remember me"></p-checkbox>
+            <label class="m-1" for="rm">Remember Me</label>
+          </div>
+
+          <div>
+            <button pButton pRipple label="Sign in" class="p-button-success" type="submit"></button>
+          </div>
+
+        </form>
+      </p-card>
     </div>
   </div>
 </div>

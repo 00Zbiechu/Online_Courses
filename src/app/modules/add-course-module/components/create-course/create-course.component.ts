@@ -1,29 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { AddCourseServiceService } from '../../services/add-course-service.service';
-import { CourseForAdmin } from './model/CourseForAdmin';
-import { CoursesForAdmin } from './model/CoursesForAdmin';
+import { ICourseForAdmin } from './model/ICourseForAdmin';
+import { ICoursesForAdmin } from './model/ICoursesForAdmin';
 
 @Component({
   selector: 'app-create-course',
   templateUrl: './create-course.component.html',
-  styleUrls: ['./create-course.component.scss']
+  styleUrls: ['./create-course.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated
 })
-export class CreateCourseComponent implements OnInit {
+export class CreateCourseComponent {
 
-  courses: CourseForAdmin[];
+  courses: ICourseForAdmin[];
+
+  constructor(private addCourseService: AddCourseServiceService) { }
 
   ngOnInit() {
     this.getCoursesForAdminPage();
   }
 
-  constructor(private addCourseService: AddCourseServiceService) {
-
-  }
-
   getCoursesForAdminPage() {
-    this.addCourseService.getCoursesForAdminPage().subscribe((result: CoursesForAdmin) => {
-      this.courses = result.courseForAdminList;
-    })
+    this.addCourseService.getCoursesForAdminPage().subscribe(
+      (result: ICoursesForAdmin) => {
+        this.courses = result.courseForUserList;
+      }
+    );
   }
-
 }

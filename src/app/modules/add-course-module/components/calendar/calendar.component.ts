@@ -1,7 +1,7 @@
-import { Component, Injectable, Input, OnInit } from '@angular/core';
+import { Component, Injectable, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { CourseForCalendar } from './model/CourseForCalendar';
+import { ICourseForAdmin } from '../create-course/model/ICourseForAdmin';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +9,12 @@ import { CourseForCalendar } from './model/CourseForCalendar';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']
+  styleUrls: ['./calendar.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnChanges {
 
-  @Input() courses: CourseForCalendar[];
+  @Input() courses: ICourseForAdmin[];
   Events: any[] = [];
 
   calendarOptions: CalendarOptions = {
@@ -23,10 +24,9 @@ export class CalendarComponent implements OnInit {
     events: []
   };
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.setCalendarEvents();
   }
-
 
   setCalendarEvents() {
     this.calendarOptions.events = this.courses.map(event => {
@@ -37,7 +37,4 @@ export class CalendarComponent implements OnInit {
       };
     });
   }
-
-
-
 }

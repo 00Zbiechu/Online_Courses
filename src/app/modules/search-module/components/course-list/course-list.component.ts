@@ -1,15 +1,19 @@
-import { Component, OnInit, forwardRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { faBookmark, faClock, faList, faScroll, faUser } from '@fortawesome/free-solid-svg-icons';
-import { SearchFormService } from '../../services/search-form.service';
+import { SelectItem } from 'primeng/api';
 import { SearchServiceService } from '../../services/search-service.service';
-import { Course } from "./model/Course";
-import { Page } from "./model/Page";
+import { ICourseForList } from "./model/ICourseForList";
+import { ICoursePage } from './model/ICoursePage';
+import { IPaginationForCourseList } from './model/IPaginationForCourseList';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -26,26 +30,133 @@ export class CourseListComponent implements OnInit, ControlValueAccessor {
   faBookmark = faBookmark;
   faScroll = faScroll;
 
-
-  page: number = 0;
   count: number = 0;
-  tableSize: number = 5;
   tableSizes = [5, 10, 15, 20];
 
-  sortBy: string = 'title';
+  paginationParams: IPaginationForCourseList = {
+    page: 0,
+    size: 6,
+    sort: 'title',
+    order: 'ASC'
+  };
 
-  order: string = 'ASC';
+  searchPaginationParams: IPaginationForCourseList = {
+    page: 0,
+    size: 6,
+    sort: 'title',
+    order: 'ASC'
+  };
 
+  sortByOptions: SelectItem[] = [
+    { label: 'Title', value: 'title' },
+    { label: 'Start date', value: 'startDate' },
+    { label: 'End date', value: 'endDate' },
+    { label: 'Topic', value: 'topic' }
+  ];
 
-  courses: Course[];
+  orderOptions: SelectItem[] = [
+    { label: 'Ascending', value: 'ASC' },
+    { label: 'Descending', value: 'DESC' }
+  ];
 
+  tableSizeOptions: SelectItem[] = [
+    { label: '6', value: 6 },
+    { label: '12', value: 12 },
+    { label: '18', value: 18 }
+  ]
 
-  constructor(private searchService: SearchServiceService, private searchForm: SearchFormService) {
-    this.searchForm.currentCourse.subscribe(result => {
-      this.courses = [];
-      this.courses = result;
+  tableSizesOptions: SelectItem[];
 
-    });
+  courseForList: ICourseForList[];
+
+  @Input() totalSearchedRecords: number;
+  @Input() searchResult: ICourseForList[];
+  @Input() isSearching: boolean;
+
+  @Output() searchPaginationOutput = new EventEmitter<IPaginationForCourseList>;
+
+  constructor(private searchService: SearchServiceService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.tableSizesOptions = this.tableSizes.map(size => ({ label: size.toString(), value: size }));
+  }
+
+  ngOnChanges() {
+    this.processCourseList();
+  }
+
+  fetchCourses(paginationParamas: IPaginationForCourseList): void {
+    this.searchService.getCourses(this.paginationParams)
+      .subscribe((result: ICoursePage) => {
+        this.courseForList = result.content;
+        this.count = result.totalElements;
+      });
+  }
+
+  processCourseList() {
+    if (this.isSearching) {
+      this.courseForList = this.searchResult;
+    } else {
+      this.fetchCourses(this.paginationParams);
+    }
+  }
+
+  onPageChange(event: any) {
+    this.paginationParams.page = event.page;
+    this.fetchCourses(this.paginationParams);
+  }
+
+  onSearchPageChange(event: any) {
+    this.searchPaginationParams.page = event.page;
+    this.searchPaginationOutput.emit(this.searchPaginationParams);
+  }
+
+  onTableSizeChange(event: any): void {
+    this.paginationParams.size = event.value.value;
+    this.paginationParams.page = 0;
+    this.fetchCourses(this.paginationParams);
+  }
+
+  onSearchTableSizeChange(event: any): void {
+    this.searchPaginationParams.size = event.value.value;
+    this.searchPaginationParams.page = 0;
+    this.searchPaginationOutput.emit(this.searchPaginationParams);
+  }
+
+  onSortByChange(event: any): void {
+    this.paginationParams.sort = event.value.value;
+    this.paginationParams.page = 0;
+    this.fetchCourses(this.paginationParams);
+  }
+
+  onSearchSortByChange(event: any): void {
+    this.searchPaginationParams.sort = event.value.value;
+    this.searchPaginationParams.page = 0;
+    this.searchPaginationOutput.emit(this.searchPaginationParams);
+  }
+
+  onOrderChange(event: any): void {
+    this.paginationParams.order = event.value.value;
+    this.paginationParams.page = 0;
+    this.fetchCourses(this.paginationParams);
+  }
+
+  onSearchOrderChange(event: any): void {
+    this.searchPaginationParams.order = event.value.value;
+    this.searchPaginationParams.page = 0;
+    this.searchPaginationOutput.emit(this.searchPaginationParams);
+  }
+
+  isPhotoAvailable(photo: any): boolean {
+    return photo && photo.length > 0;
+  }
+
+  isSearchingDone(): boolean {
+    return this.isSearching;
+  }
+
+  viewCourseDetails(courseId: number) {
+    this.router.navigate(['/course', courseId]);
   }
 
   writeValue(obj: any): void {
@@ -60,54 +171,4 @@ export class CourseListComponent implements OnInit, ControlValueAccessor {
   setDisabledState?(isDisabled: boolean): void {
     throw new Error('Method not implemented.');
   }
-
-  ngOnInit(): void {
-    this.searchForm.currentCourse.subscribe(course => this.courses = course);
-    this.fetchCourses(this.page, this.tableSize, this.sortBy, this.order);
-  }
-
-  fetchCourses(pageVar: number, sizeVar: number, sortVar: string, orderVar: string): void {
-
-    this.searchService.getCountOfCourses().subscribe((result: Number) => {
-
-      this.count = result.valueOf();
-
-    });
-
-
-    this.searchService.getCourses(pageVar, sizeVar, sortVar, orderVar)
-      .subscribe((page: Page) => {
-
-        this.courses = page.content;
-
-      });
-  }
-
-  onPageChange(event: any) {
-
-    this.page = --event;
-    this.fetchCourses(this.page, this.tableSize, this.sortBy, this.order);
-    this.page = ++event;
-  }
-
-  onTableSizeChange(event: any): void {
-    this.tableSize = event.target.value;
-    this.page = 0;
-    this.fetchCourses(this.page, this.tableSize, this.sortBy, this.order);
-  }
-
-  onSortByChange(event: any): void {
-    this.sortBy = event.target.value;
-    this.page = 0;
-    this.fetchCourses(this.page, this.tableSize, this.sortBy, this.order);
-  }
-
-  onOrderChange(event: any): void {
-    this.order = event.target.value;
-    this.page = 0;
-    this.fetchCourses(this.page, this.tableSize, this.sortBy, this.order);
-  }
-
 }
-
-

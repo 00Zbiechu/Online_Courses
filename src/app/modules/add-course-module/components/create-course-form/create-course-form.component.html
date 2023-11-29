@@ -1,71 +1,120 @@
-<section>
-    <div class="container">
-        <div class="row d-flex justify-content-center align-items-center">
-            <div class="card-body p-4 m-2">
-                <h3>Create New Course</h3>
+<button id="add-course" pButton pRipple icon="pi pi-plus" label="Add new course" class="p-button-success"
+    (click)="showAddDialog()"></button>
 
-                <form #courseForm="ngForm" (ngSubmit)="onCourseCreate()" ngNativeValidate>
+<p-dialog position="top" header="Add new course" [draggable]="false" [resizable]="false" [(visible)]="add"
+    [modal]="true" appendTo="body">
 
-                    <div class="form-outline d-flex align-items-center">
-                        <label for="course_title">Course Title</label>
-                        <input type="text" id="course_title" class="form-control" [(ngModel)]="course.title"
-                            name="title" required minlength="3" maxlength="30" />
-                    </div>
-
-                    <div class="form-outline datepicker">
-                        <label for="datapickerstart" class="form-label">Select start data</label>
-                        <input type="date" class="form-control" id="datapickerstart" [(ngModel)]="course.startDate"
-                            name="start" required />
-                    </div>
-
-                    <div class="form-outline datepicker">
-                        <label for="datapickerend" class="form-label">Select end data</label>
-                        <input type="date" class="form-control" id="datapickerend" [(ngModel)]="course.endDate"
-                            name="end" required />
-                    </div>
-
-                    <div class="form-outline">
-
-                        <label for="topic-area" class="form-label">Topic area</label>
-                        <select class="select" id="topic-area" [(ngModel)]="course.topic" name="topic" required
-                            minlength="3" maxlength="30">
-                            <option value="Programming Course">Programming Course</option>
-                            <option value="Math Course">Math Course</option>
-                        </select>
-
-                    </div>
-
-                    <div class="form-outline d-flex align-items-center">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" class="form-control" [(ngModel)]="course.password"
-                            name="password" required minlength="3" maxlength="30">
-                    </div>
-
-
-                    <div class="form-group form-outline">
-                        <label for="description">Descriptions</label>
-                        <textarea class="form-control" id="description" rows="2" [(ngModel)]="course.description"
-                            name="description" required minlength="3" maxlength="50"></textarea>
-                    </div>
-
-
-                    <div class="row pb-md-0 mb-2">
-                        <div class="col-md-12">
-
-                            <div class="form-outline">
-                                <label class="form-label" for="course-icon">Icon of course</label>
-                                <input type="file" id="course-icon" class="form-control" [(ngModel)]="course.image"
-                                    name="image" (change)="onFileSelected($event)" required />
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <input type="submit" id="submit" class="btn btn-primary btn-lg d-flex" value="Add New Course">
-
-                </form>
-
+    <form [formGroup]="registerForm" (ngSubmit)="addCourse()">
+        <span class="p-float-label">
+            <input pInputText id="title" formControlName="title" />
+            <label htmlFor="title">Title</label>
+        </span>
+        <div *ngIf="registerForm.get('title')?.invalid && (registerForm.get('title')?.dirty || registerForm.get('title')?.touched)"
+            class="alert alert-danger">
+            <div *ngIf="registerForm.get('title')?.errors?.['required']">
+                Title is required
+            </div>
+            <div *ngIf="registerForm.get('title')?.errors?.['minlength']">
+                Title must be at least 3 characters
+            </div>
+            <div *ngIf="registerForm.get('title')?.errors?.['maxlength']">
+                Title can't exceed 30 characters
             </div>
         </div>
-    </div>
-</section>
+
+        <span class="p-float-label">
+            <p-calendar id="startDate" [showIcon]="true" formControlName="startDate"
+                dateFormat="yy-mm-dd" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
+            <label htmlFor="startDate">Start date</label>
+        </span>
+        <div *ngIf="registerForm.get('startDate')?.invalid && (registerForm.get('startDate')?.dirty || registerForm.get('startDate')?.touched)"
+            class="alert alert-danger">
+            <div *ngIf="registerForm.get('startDate')?.errors?.['required']">
+                Start date is required
+            </div>
+        </div>
+
+        <span class="p-float-label">
+            <p-calendar id="endDate" [showIcon]="true" formControlName="endDate" dateFormat="yy-mm-dd"
+                [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
+            <label htmlFor="endDate">End date</label>
+        </span>
+        <div *ngIf="registerForm.get('endDate')?.invalid && (registerForm.get('endDate')?.dirty || registerForm.get('endDate')?.touched)"
+            class="alert alert-danger">
+            <div *ngIf="registerForm.get('endDate')?.errors?.['required']">
+                End date is required
+            </div>
+        </div>
+
+        <span>
+            <br>
+            <p-dropdown placeholder="Select a Topic" [options]="topics" optionValue="name" optionLabel="name"
+                appendTo="body" formControlName="topic" [style]="{'width':'100%'}"></p-dropdown>
+        </span>
+        <div *ngIf="registerForm.get('topic')?.invalid && (registerForm.get('topic')?.dirty || registerForm.get('topic')?.touched)"
+            class="alert alert-danger">
+            <div *ngIf="registerForm.get('topic')?.errors?.['required']">
+                Topic is required
+            </div>
+        </div>
+
+        <span class="p-float-label">
+            <p-password [feedback]="false" formControlName="password" autocomplete="on" [style]="{'width':'100%'}"
+                [inputStyle]="{'width':'100%'}"></p-password>
+            <label for="password">Password</label>
+        </span>
+        <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('username')?.touched)"
+            class="alert alert-danger">
+            <div *ngIf="registerForm.get('password')?.errors?.['required']">
+                Password is required
+            </div>
+            <div *ngIf="registerForm.get('password')?.errors?.['minlength']">
+                Password must be at least 6 characters
+            </div>
+            <div *ngIf="registerForm.get('password')?.errors?.['maxlength']">
+                Password can't exceed 30 characters
+            </div>
+        </div>
+
+        <span class="p-float-label">
+            <p-password [feedback]="false" formControlName="confirmPassword" autocomplete="on"
+                [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-password>
+            <label for="confirm">Confirm password</label>
+        </span>
+        <div *ngIf="registerForm.hasError('passwordsDontMatch')">
+            <div class="alert alert-danger">
+                Passwords do not match
+            </div>
+        </div>
+
+        <span class="p-float-label">
+            <textarea id="float-input" rows="3" cols="30" pInputTextarea formControlName="description"
+                [style]="{'width':'100%'}"></textarea>
+            <label for="float-input">Description</label>
+        </span>
+        <div *ngIf="registerForm.get('description')?.invalid && (registerForm.get('description')?.dirty || registerForm.get('description')?.touched)"
+            class="alert alert-danger">
+            <div *ngIf="registerForm.get('description')?.errors?.['required']">
+                Description is required
+            </div>
+            <div *ngIf="registerForm.get('description')?.errors?.['minlength']">
+                Description must be at least 10 characters
+            </div>
+            <div *ngIf="registerForm.get('description')?.errors?.['maxlength']">
+                Description can't exceed 50 characters
+            </div>
+        </div>
+
+        <span>
+            <br>
+            <p-fileUpload mode="basic" chooseLabel="Choose course photo" accept=".png, .jpg, .jpeg"
+                (onSelect)="onFileSelected($event)"></p-fileUpload>
+        </span>
+
+        <span>
+            <br>
+            <button pButton pRipple label="Add" class="p-button-success" [disabled]="!registerForm.valid"></button>
+        </span>
+    </form>
+
+</p-dialog>

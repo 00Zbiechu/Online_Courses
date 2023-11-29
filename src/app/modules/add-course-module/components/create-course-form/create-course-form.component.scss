@@ -1,80 +1,38 @@
-section {
-    background-color: white;
-}
-
-label {
-    font-size: 1em;
-    text-align: center;
-    width: 30%;
-}
-
-.form-outline {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 1em;
-}
-
-.form-control {
-    width: 80%;
-}
-
-h3 {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    text-align: center;
-    font-size: 2.5em;
-    font-style: bold;
-    margin-bottom: 1em;
-}
-
-#topic-area {
-    margin: 1em;
-    width: 70%;
-}
-
-#submit {
-    text-align: center;
+#add-course {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+    display: flex;
+    margin-top: 1em;
 }
 
+form {
+    width: 80vw;
 
-input.ng-valid {
-    background-color: lightgreen;
-}
+    span {
+        margin-top: 1.8em;
 
-textarea.ng-valid {
-    background-color: lightgreen;
-}
-
-select.ng-valid {
-    background-color: lightgreen;
-}
-
-@media (max-width: 1025px) {
-
-    section {
-        padding: 1em;
+        * {
+            width: 100%;
+        }
     }
 
+    button {
+        text-align: center;
+        margin: 0;
+        margin-top: 2em;
+    }
 }
 
 
-@media (min-width: 1025px) {
-    .h-custom {
-        height: 100vh !important;
+@media screen and (min-width: 992px) {
+    form {
+        width: 40vw;
     }
-
-    section {
-        border: 3px solid rgb(221, 221, 221);
-    }
-
 }
 
-
-@media (min-width: 1400px){
-    .form-outline {
-        margin-bottom: 2em;
+@media screen and (min-width: 1600px) {
+    form {
+        width: 30vw;
     }
 }

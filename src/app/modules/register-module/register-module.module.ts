@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputTextModule } from 'primeng/inputtext';
 import { LoaderModuleModule } from '../loader-module/loader-module.module';
 import { RegisterComponent } from './components/register/register.component';
 
@@ -11,8 +15,12 @@ import { RegisterComponent } from './components/register/register.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     LoaderModuleModule,
-    FormsModule,
+    InputTextModule,
+    FileUploadModule,
+    CardModule,
+    ButtonModule,
     RouterModule.forChild([
       { path: '', component: RegisterComponent }
     ])

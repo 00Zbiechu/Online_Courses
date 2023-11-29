@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Authentication } from '../components/register/model/Authentication';
+import { IAuthentication } from '../components/register/model/IAuthentication';
 import { Register } from '../components/register/model/Register';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,11 @@ export class RegisterServiceService {
 
   constructor(private httpClient: HttpClient) { }
 
+  registration(register: Register): Observable<IAuthentication> {
+    return this.httpClient.post<IAuthentication>(this.url + '/register', register);
+  }
 
-  registration(register: Register) {
-    return this.httpClient.post<Authentication>(this.url + '/register', register);
+  uploadPhoto(photo: FormData) {
+    return this.httpClient.post(this.url + "/upload-photo", photo);
   }
 }

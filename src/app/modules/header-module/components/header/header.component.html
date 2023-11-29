@@ -1,47 +1,23 @@
-<header class="py-3 bg-dark" *ngIf="loginService.isLoggedIn | async; else loggedOut">
+<p-menubar [model]="items" styleClass="menubar">
+  <ng-template pTemplate="start">
+    <a routerLink="/"><img id="logo" src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="60"
+        class="m-1" /></a>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <a routerLink="/"><img id="mlogo" src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="60"
+        class="m-1" /></a>
+    <div id="userwelcome" *ngIf="isUserDataSet()">
 
-
-  <a routerLink="/">
-    <div id="logo">
-      <a routerLink="/"><img src="/assets/images/logo.png"></a>
-    </div>
-  </a>
-
-  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-    <li><a routerLink="/" class="nav-link px-2 link-light">Course List</a></li>
-    <li><a routerLink="/create" class="nav-link px-2">New Course</a></li>
-  </ul>
-
-  <div class="text-end user-logout">
-
-    <div *ngIf="username" class="user-data text-end">
-      <p><strong style="color:rgb(0, 140, 255)">Witaj!</strong> {{ username }}!</p>
-    </div>
-
-    <a (click)="logoutUser()" routerLink="/"><button type="button" class="btn btn-outline-primary me-2">Log
-        out</button></a>
-  </div>
-</header>
-
-
-<ng-template #loggedOut>
-  <header class="py-3 bg-dark">
-
-
-    <a routerLink="/">
-      <div id="logo">
-        <a routerLink="/"><img src="/assets/images/logo.png"></a>
+      <div id="userdata">
+        <p>Witaj <b>{{userData?.username}}</b> !</p>
+        <p id="usermail"><b>{{userData?.mail}}</b></p>
       </div>
-    </a>
 
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a routerLink="/" class="nav-link px-2 link-light">Course List</a></li>
-    </ul>
-
-
-    <div class="text-end">
-      <a routerLink="/login"><button type="button" class="btn btn-outline-primary me-2">Login</button></a>
-      <a routerLink="/register"><button type="button" class="btn btn-primary">Sign-up</button></a>
+      <p-avatar *ngIf="isUserPhotoSet()" image="data:image/jpeg;base64,{{userPhoto}}" styleClass="mr-3"
+        size="large"></p-avatar>
+      <p-avatar *ngIf="!isUserPhotoSet()" icon="pi pi-user" styleClass="mr-3" size="large"
+        [style]="{ 'background-color': '#4caf4f', color: '#ffffff' }"></p-avatar>
+        
     </div>
-  </header>
-</ng-template>
+  </ng-template>
+</p-menubar>

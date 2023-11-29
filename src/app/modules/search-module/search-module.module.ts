@@ -4,11 +4,14 @@ import { FormsModule } from '@angular/forms';
 
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { PaginatorModule } from 'primeng/paginator';
+import { SidebarModule } from 'primeng/sidebar';
+import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
 import { LoaderModuleModule } from '../loader-module/loader-module.module';
 import { CourseListComponent } from '../search-module/components/course-list/course-list.component';
 import { MainPageComponent } from '../search-module/components/main-page/main-page.component';
@@ -26,9 +29,12 @@ import { SidebarComponent } from '../search-module/components/sidebar/sidebar.co
     CalendarModule,
     CalendarModule,
     ButtonModule,
+    SidebarModule,
     InputTextModule,
+    PaginatorModule,
+    DividerModule,
+    CardModule,
     CommonModule,
-    NgxPaginationModule,
     FontAwesomeModule,
     FormsModule,
     LoaderModuleModule,

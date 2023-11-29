@@ -1,10 +1,22 @@
 <app-loader></app-loader>
-<div id="create_course_layout">
 
-    <app-calendar *ngIf="courses" [courses]="courses"></app-calendar>
+<section class="jumbotron text-center my-4">
+    <div class="container">
+        <h1>Manage courses</h1>
+        <p class="lead text-muted text mb-2">Explore our user-friendly platform designed for creating and managing
+            courses tailored to your unique needs. Enjoy an intuitive interface for crafting and overseeing personalized
+            educational journeys, making learning a seamless and rewarding experience.</p>
+    </div>
+</section>
 
-    <app-create-course-form></app-create-course-form>
+<div class="d-flex flex-column flex-lg-row justify-content-md-around">
 
+    <div class="col-12 col-lg-6 col-xxl-7 mb-3">
+        <app-calendar [courses]="courses"></app-calendar>
+    </div>
+
+    <div class="col-12 col-lg-5 col-xxl-4">
+        <app-edit-course [courses]="courses"></app-edit-course>
+    </div>
 </div>
 
-<app-edit-course *ngIf="courses" [courses]="courses"></app-edit-course>

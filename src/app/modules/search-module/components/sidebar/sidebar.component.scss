@@ -1,3 +1,7 @@
+#desktopSidebar {
+    display: none;
+}
+
 .title {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     letter-spacing: 1px;
@@ -6,41 +10,41 @@
 
 hr {
     width: 75%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    margin: 0.5em auto;
 }
 
 .search {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 2em;
-    margin-bottom: 0;
-    margin-top: 0.4em;
-
-    input,
-    span,
-    p-calendar,
-    p-dropdown,
-    p-button {
-        margin-top: 2px;
-        margin-bottom: 5px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    span p-button {
-        margin: 0.5em;
-    }
-
-    label {
-        text-align: center;
-    }
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-bottom: 0.4em;
 }
 
-@media screen and (max-width:992px) {
+.search input,
+.search span,
+.search p-calendar,
+.search p-dropdown,
+.search p-button {
+    margin: 2px auto 5px;
+}
+
+.search span p-button {
+    margin: 0.5em;
+}
+
+.search label {
+    text-align: center;
+}
+
+#sidebarButton {
+    position: fixed;
+    top: 11vh;
+    left: 1vw;
+}
+
+@media screen and (max-width: 1200px) {
 
     aside {
         background-color: white !important;
@@ -58,17 +62,23 @@ hr {
     .title {
         font-size: 2em !important;
     }
-
 }
 
-@media screen and (min-width:1200px) {
+@media screen and (min-width: 1200px) {
+
+    #sidebarButton {
+        display: none;
+    }
+
+    #desktopSidebar {
+        display: block;
+    }
 
     aside {
         position: fixed;
-        top: 13vh;
+        top: 11vh;
         height: 100vh;
         width: 20vw;
-
     }
 
     #background {
@@ -83,24 +93,22 @@ hr {
         color: white;
     }
 
-    #control-panel {
-        p-button {
-            margin-top: 0;
-        }
+    #control-panel p-button {
+        margin-top: 0;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+
+    aside {
+        width: 15vw;
     }
 
-    @media screen and (min-width:1600px) {
-
-        aside {
-            width: 17vw;
-
-        }
-
-        #background {
-            width: 17vw;
-        }
-
+    #background {
+        width: 15vw;
     }
 
-
+    .search {
+        margin-bottom: 1em;
+    }
 }

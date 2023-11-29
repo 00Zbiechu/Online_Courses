@@ -1,5 +1,10 @@
-.container{
-  min-height: 82vh;
+#container {
+  position: relative;
+  top: 5vh;
+}
+
+input {
+  width: 100%;
 }
 
 .card-img-left {
@@ -8,22 +13,6 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.btn-login {
-  font-size: 0.9rem;
-  letter-spacing: 0.05rem;
-  padding: 0.75rem 1rem;
-}
-
-.btn-google {
-  color: white !important;
-  background-color: #ea4335;
-}
-
-.btn-facebook {
-  color: white !important;
-  background-color: #3b5998;
 }
 
 h5 {

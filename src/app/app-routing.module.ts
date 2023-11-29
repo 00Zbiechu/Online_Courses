@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./modules/login-module/login-module.module').then(m => m.LoginModuleModule) },
   { path: 'register', loadChildren: () => import('./modules/register-module/register-module.module').then(m => m.RegisterModuleModule) },
   { path: 'create', loadChildren: () => import('./modules/add-course-module/add-course-module.module').then(m => m.AddCourseModuleModule) },
-  { path: 'course', loadChildren: () => import('./modules/course-module/course-module.module').then(m => m.CourseModuleModule) },
+  { path: 'course/:id', loadChildren: () => import('./modules/course-module/course-module.module').then(m => m.CourseModuleModule) },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

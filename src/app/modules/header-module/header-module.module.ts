@@ -2,6 +2,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AvatarModule } from 'primeng/avatar';
+import { ButtonModule } from 'primeng/button';
+import { BadgeModule } from 'primeng/badge';
+import { MenubarModule } from 'primeng/menubar';
 import { HeaderComponent } from './components/header/header.component';
 
 
@@ -13,6 +17,10 @@ import { HeaderComponent } from './components/header/header.component';
   imports: [
     CommonModule,
     RouterModule,
+    MenubarModule,
+    ButtonModule,
+    AvatarModule,
+    BadgeModule,
     HttpClientModule,
     RouterModule
   ],

@@ -1,15 +1,17 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import jwt_decode from 'jwt-decode';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { IPhoto } from '../../header-module/components/header/model/IPhoto';
 import { Authentication } from '../components/login/model/Authentication';
 import { Login } from '../components/login/model/Login';
-import jwt_decode from 'jwt-decode'
+import { Refresh } from '../components/login/model/Refresh';
+import { UserData } from '../components/login/model/UserData';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginServiceService {
-
 
   private url = 'http://localhost:8080/api/users';
 
@@ -18,13 +20,12 @@ export class LoginServiceService {
 
   constructor(private httpClient: HttpClient) { }
 
-
-  authenticate(login: Login) {
+  authenticate(login: Login): Observable<Authentication> {
     return this.httpClient.post<Authentication>(this.url + '/authenticate', login);
   }
 
-  refresh(authentication: Authentication) {
-    return this.httpClient.post<Authentication>(this.url + '/refresh-token', authentication);
+  refresh(refreshToken: Refresh): Observable<Authentication> {
+    return this.httpClient.post<Authentication>(this.url + '/refresh-token', refreshToken);
   }
 
   loginState() {
@@ -44,15 +45,16 @@ export class LoginServiceService {
     this._isLoggedIn.next(false);
   }
 
-  getUserDataFromToken(): string {
-
+  getUserDataFromToken(): UserData {
     const token = sessionStorage.getItem('token')! || localStorage.getItem('token')!;
     const decodeToken: any = jwt_decode(token);
-    return decodeToken.sub;
-
+    var userData = new UserData();
+    userData.username = decodeToken.sub;
+    userData.mail = decodeToken.mail;
+    return userData;
   }
 
-
-
-
+  getUserPhoto(): Observable<IPhoto> {
+    return this.httpClient.get<IPhoto>(this.url + "/get-photo");
+  }
 }

@@ -1,53 +1,341 @@
-<h3>Edit existing course</h3>
+<app-create-course-form></app-create-course-form>
+<h3>Your courses</h3>
 
 <div class="col-md-12 edit">
+    <ng-container *ngIf="courses && courses.length > 0; else noCourses">
 
-    <div class="card mb-4 box-shadow col-md-2" *ngFor="let course of courses">
-        <div class="card-body course">
+        <!--desktop scroller-->
+        <div id="desktop-scroller">
+            <p-virtualScroller [value]="courses" class="border-1 surface-border border-round" scrollHeight="70vh"
+                [itemSize]="260">
+                <ng-template pTemplate="course" let-course>
+                    <div class="flex p-2 h-full" [ngClass]="{ 'surface-hover': course?.index % 2 === 0 }">
+                        <p-card header="{{ course?.title }}">
+                            <div
+                                class="d-flex flex-column flex-md-row justify-content-md-around course align-items-center">
+                                <div>
+                                    <b><i class="pi pi-clock"></i> Start date</b>
+                                    <p>{{ course?.startDate }}</p>
+                                </div>
 
-            <div>
-                <div>
-                    <p class="header">Title</p>
-                </div>
-                <div>
-                    <p>{{ course.title }}</p>
-                </div>
+                                <div>
+                                    <b><i class="pi pi-calendar-times pi-list"></i> End date</b>
+                                    <p>{{ course?.endDate }}</p>
+                                </div>
 
-            </div>
+                                <div>
+                                    <b><i class="pi pi-list"></i> Topic</b>
+                                    <p>{{ course?.topic }}</p>
+                                </div>
+                            </div>
 
-            <div>
-                <div>
-                    <p class="header">Start data</p>
-                </div>
-                <div>
-                    <p>{{ course.startDate }}</p>
-                </div>
+                            <div id="mobile-buttons" class="d-flex">
+                                <button pButton pRipple icon="pi pi-search" [style]="{'color':'white'}"
+                                    (click)="viewCourseDetails(course.id)"></button>
+                                <button pButton pRipple icon="pi pi-file-edit" class="p-button-secondary"
+                                    (click)="showEditDialog()"></button>
 
-                <div>
-                    <p class="header">End date</p>
-                </div>
-                <div>
-                    <p>{{ course.endDate }}</p>
-                </div>
-            </div>
+                                <p-dialog position="top" header="Edit course data" [draggable]="false"
+                                    [resizable]="false" [(visible)]="edit" [modal]="true" appendTo="body">
 
-            <div>
-                <div>
-                    <p class="header">Topic</p>
-                </div>
-                <div>
-                    <p>{{ course.topic }}</p>
-                </div>
+                                    <form [formGroup]="registerForm" (ngSubmit)="editCourse(course.id)">
+                                        <span class="p-float-label">
+                                            <input pInputText id="title" formControlName="title" />
+                                            <label htmlFor="title">Title</label>
+                                        </span>
+                                        <div *ngIf="registerForm.get('title')?.invalid && (registerForm.get('title')?.dirty || registerForm.get('title')?.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="registerForm.get('title')?.errors?.['required']">
+                                                Title is required
+                                            </div>
+                                            <div *ngIf="registerForm.get('title')?.errors?.['minlength']">
+                                                Title must be at least 3 characters
+                                            </div>
+                                            <div *ngIf="registerForm.get('title')?.errors?.['maxlength']">
+                                                Title can't exceed 30 characters
+                                            </div>
+                                        </div>
 
-            </div>
+                                        <span class="p-float-label">
+                                            <p-calendar id="startDate" [showIcon]="true" formControlName="startDate"
+                                                dateFormat="yy-mm-dd" [style]="{'width':'100%'}"
+                                                [inputStyle]="{'width':'100%'}"></p-calendar>
+                                            <label htmlFor="startDate">Start date</label>
+                                        </span>
+                                        <div *ngIf="registerForm.get('startDate')?.invalid && (registerForm.get('startDate')?.dirty || registerForm.get('startDate')?.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="registerForm.get('startDate')?.errors?.['required']">
+                                                Start date is required
+                                            </div>
+                                        </div>
 
-            <div>
-                <a href="/course"><button class="btn btn-primary">Edit</button></a>
-            </div>
+                                        <span class="p-float-label">
+                                            <p-calendar id="endDate" [showIcon]="true" formControlName="endDate"
+                                                dateFormat="yy-mm-dd" [style]="{'width':'100%'}"
+                                                [inputStyle]="{'width':'100%'}"></p-calendar>
+                                            <label htmlFor="endDate">End date</label>
+                                        </span>
+                                        <div *ngIf="registerForm.get('endDate')?.invalid && (registerForm.get('endDate')?.dirty || registerForm.get('endDate')?.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="registerForm.get('endDate')?.errors?.['required']">
+                                                End date is required
+                                            </div>
+                                        </div>
 
+                                        <span>
+                                            <br>
+                                            <p-dropdown placeholder="Select a Topic" [options]="topics"
+                                                optionValue="name" optionLabel="name" appendTo="body"
+                                                formControlName="topic" [style]="{'width':'100%'}"></p-dropdown>
+                                        </span>
+                                        <div *ngIf="registerForm.get('topic')?.invalid && (registerForm.get('topic')?.dirty || registerForm.get('topic')?.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="registerForm.get('topic')?.errors?.['required']">
+                                                Topic is required
+                                            </div>
+                                        </div>
+
+                                        <span class="p-float-label">
+                                            <p-password [feedback]="false" formControlName="password" autocomplete="on"
+                                                [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-password>
+                                            <label for="password">Password</label>
+                                        </span>
+                                        <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('username')?.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="registerForm.get('password')?.errors?.['required']">
+                                                Password is required
+                                            </div>
+                                            <div *ngIf="registerForm.get('password')?.errors?.['minlength']">
+                                                Password must be at least 6 characters
+                                            </div>
+                                            <div *ngIf="registerForm.get('password')?.errors?.['maxlength']">
+                                                Password can't exceed 30 characters
+                                            </div>
+                                        </div>
+
+                                        <span class="p-float-label">
+                                            <p-password [feedback]="false" formControlName="confirmPassword"
+                                                autocomplete="on" [style]="{'width':'100%'}"
+                                                [inputStyle]="{'width':'100%'}"></p-password>
+                                            <label for="confirm">Confirm password</label>
+                                        </span>
+                                        <div *ngIf="registerForm.hasError('passwordsDontMatch')">
+                                            <div class="alert alert-danger">
+                                                Passwords do not match
+                                            </div>
+                                        </div>
+
+                                        <span class="p-float-label">
+                                            <textarea id="float-input" rows="3" cols="30" pInputTextarea
+                                                formControlName="description" [style]="{'width':'100%'}"></textarea>
+                                            <label for="float-input">Description</label>
+                                        </span>
+                                        <div *ngIf="registerForm.get('description')?.invalid && (registerForm.get('description')?.dirty || registerForm.get('description')?.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="registerForm.get('description')?.errors?.['required']">
+                                                Description is required
+                                            </div>
+                                            <div *ngIf="registerForm.get('description')?.errors?.['minlength']">
+                                                Description must be at least 10 characters
+                                            </div>
+                                            <div *ngIf="registerForm.get('description')?.errors?.['maxlength']">
+                                                Description can't exceed 50 characters
+                                            </div>
+                                        </div>
+
+                                        <span>
+                                            <br>
+                                            <p-fileUpload mode="basic" chooseLabel="Choose course photo"
+                                                accept=".png, .jpg, .jpeg"
+                                                (onSelect)="onFileSelected($event)"></p-fileUpload>
+                                        </span>
+
+                                        <span>
+                                            <br>
+                                            <button pButton pRipple label="Edit" class="p-button-success"
+                                                [disabled]="!registerForm.valid"></button>
+                                        </span>
+                                    </form>
+
+                                </p-dialog>
+
+                                <p-confirmPopup></p-confirmPopup>
+                                <button pButton pRipple icon="pi pi-times" class="p-button-danger"
+                                    (click)="delete($event, course?.id)"></button>
+                            </div>
+                        </p-card>
+                    </div>
+                </ng-template>
+            </p-virtualScroller>
         </div>
 
+        <!--mobile scroller-->
 
-    </div>
+        <div id="mobile-scroller">
+            <p-virtualScroller [value]="courses" class="border-1 surface-border border-round" scrollHeight="70vh"
+                [itemSize]="380">
+                <ng-template pTemplate="course" let-course>
+                    <div class="flex p-2 h-full" [ngClass]="{ 'surface-hover': course?.index % 2 === 0 }">
+                        <p-card header="{{ course?.title }}">
+                            <div
+                                class="d-flex flex-column flex-md-row justify-content-md-around course align-items-center">
+                                <div>
+                                    <b><i class="pi pi-clock"></i> Start date</b>
+                                    <p>{{ course?.startDate }}</p>
+                                </div>
 
+                                <div>
+                                    <b><i class="pi pi-calendar-times pi-list"></i> End date</b>
+                                    <p>{{ course?.endDate }}</p>
+                                </div>
+
+                                <div>
+                                    <b><i class="pi pi-list"></i> Topic</b>
+                                    <p>{{ course?.topic }}</p>
+                                </div>
+                            </div>
+
+                            <div id="mobile-buttons" class="d-flex">
+                                <button pButton pRipple icon="pi pi-search" [style]="{'color':'white'}"
+                                    (click)="viewCourseDetails(course.id)"></button>
+                                <button pButton pRipple icon="pi pi-file-edit" class="p-button-secondary"
+                                    (click)="showEditDialog()"></button>
+
+                                <p-dialog position="top" header="Edit course data" [draggable]="false"
+                                    [resizable]="false" [(visible)]="edit" [modal]="true" appendTo="body">
+
+                                    <form [formGroup]="registerForm" (ngSubmit)="editCourse(course.id)">
+                                        <span class="p-float-label">
+                                            <input pInputText id="title" formControlName="title" />
+                                            <label htmlFor="title">Title</label>
+                                        </span>
+                                        <div *ngIf="registerForm.get('title')?.invalid && (registerForm.get('title')?.dirty || registerForm.get('title')?.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="registerForm.get('title')?.errors?.['required']">
+                                                Title is required
+                                            </div>
+                                            <div *ngIf="registerForm.get('title')?.errors?.['minlength']">
+                                                Title must be at least 3 characters
+                                            </div>
+                                            <div *ngIf="registerForm.get('title')?.errors?.['maxlength']">
+                                                Title can't exceed 30 characters
+                                            </div>
+                                        </div>
+
+                                        <span class="p-float-label">
+                                            <p-calendar id="startDate" [showIcon]="true" formControlName="startDate"
+                                                dateFormat="yy-mm-dd" [style]="{'width':'100%'}"
+                                                [inputStyle]="{'width':'100%'}"></p-calendar>
+                                            <label htmlFor="startDate">Start date</label>
+                                        </span>
+                                        <div *ngIf="registerForm.get('startDate')?.invalid && (registerForm.get('startDate')?.dirty || registerForm.get('startDate')?.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="registerForm.get('startDate')?.errors?.['required']">
+                                                Start date is required
+                                            </div>
+                                        </div>
+
+                                        <span class="p-float-label">
+                                            <p-calendar id="endDate" [showIcon]="true" formControlName="endDate"
+                                                dateFormat="yy-mm-dd" [style]="{'width':'100%'}"
+                                                [inputStyle]="{'width':'100%'}"></p-calendar>
+                                            <label htmlFor="endDate">End date</label>
+                                        </span>
+                                        <div *ngIf="registerForm.get('endDate')?.invalid && (registerForm.get('endDate')?.dirty || registerForm.get('endDate')?.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="registerForm.get('endDate')?.errors?.['required']">
+                                                End date is required
+                                            </div>
+                                        </div>
+
+                                        <span>
+                                            <br>
+                                            <p-dropdown placeholder="Select a Topic" [options]="topics"
+                                                optionValue="name" optionLabel="name" appendTo="body"
+                                                formControlName="topic" [style]="{'width':'100%'}"></p-dropdown>
+                                        </span>
+                                        <div *ngIf="registerForm.get('topic')?.invalid && (registerForm.get('topic')?.dirty || registerForm.get('topic')?.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="registerForm.get('topic')?.errors?.['required']">
+                                                Topic is required
+                                            </div>
+                                        </div>
+
+                                        <span class="p-float-label">
+                                            <p-password [feedback]="false" formControlName="password" autocomplete="on"
+                                                [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-password>
+                                            <label for="password">Password</label>
+                                        </span>
+                                        <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('username')?.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="registerForm.get('password')?.errors?.['required']">
+                                                Password is required
+                                            </div>
+                                            <div *ngIf="registerForm.get('password')?.errors?.['minlength']">
+                                                Password must be at least 6 characters
+                                            </div>
+                                            <div *ngIf="registerForm.get('password')?.errors?.['maxlength']">
+                                                Password can't exceed 30 characters
+                                            </div>
+                                        </div>
+
+                                        <span class="p-float-label">
+                                            <p-password [feedback]="false" formControlName="confirmPassword"
+                                                autocomplete="on" [style]="{'width':'100%'}"
+                                                [inputStyle]="{'width':'100%'}"></p-password>
+                                            <label for="confirm">Confirm password</label>
+                                        </span>
+                                        <div *ngIf="registerForm.hasError('passwordsDontMatch')">
+                                            <div class="alert alert-danger">
+                                                Passwords do not match
+                                            </div>
+                                        </div>
+
+                                        <span class="p-float-label">
+                                            <textarea id="float-input" rows="3" cols="30" pInputTextarea
+                                                formControlName="description" [style]="{'width':'100%'}"></textarea>
+                                            <label for="float-input">Description</label>
+                                        </span>
+                                        <div *ngIf="registerForm.get('description')?.invalid && (registerForm.get('description')?.dirty || registerForm.get('description')?.touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="registerForm.get('description')?.errors?.['required']">
+                                                Description is required
+                                            </div>
+                                            <div *ngIf="registerForm.get('description')?.errors?.['minlength']">
+                                                Description must be at least 10 characters
+                                            </div>
+                                            <div *ngIf="registerForm.get('description')?.errors?.['maxlength']">
+                                                Description can't exceed 50 characters
+                                            </div>
+                                        </div>
+
+                                        <span>
+                                            <br>
+                                            <p-fileUpload mode="basic" chooseLabel="Choose course photo"
+                                                accept=".png, .jpg, .jpeg"
+                                                (onSelect)="onFileSelected($event)"></p-fileUpload>
+                                        </span>
+
+                                        <span>
+                                            <br>
+                                            <button pButton pRipple label="Edit" class="p-button-success"
+                                                [disabled]="!registerForm.valid"></button>
+                                        </span>
+                                    </form>
+                                </p-dialog>
+
+                                <p-confirmPopup></p-confirmPopup>
+                                <button pButton pRipple icon="pi pi-times" class="p-button-danger"
+                                    (click)="delete($event, course?.id)"></button>
+                            </div>
+                        </p-card>
+                    </div>
+                </ng-template>
+            </p-virtualScroller>
+        </div>
+    </ng-container>
+
+    <ng-template #noCourses>
+        <p class="no-courses">You don't have any courses.</p>
+    </ng-template>
 </div>

@@ -1,10 +1,9 @@
-import { HttpClient, HttpParams, } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { LoginServiceService } from '../../login-module/services/login-service.service';
+import { Observable } from 'rxjs';
 import { Course } from "../components/create-course-form/model/Course";
-import { CoursesForAdmin } from '../components/create-course/model/CoursesForAdmin';
+import { ICourseForAdmin } from '../components/create-course/model/ICourseForAdmin';
+import { ICoursesForAdmin } from '../components/create-course/model/ICoursesForAdmin';
 
 
 @Injectable({
@@ -12,58 +11,34 @@ import { CoursesForAdmin } from '../components/create-course/model/CoursesForAdm
 })
 export class AddCourseServiceService {
 
-  private fileNameFromResponse: string;
-
   private url = 'http://localhost:8080/api/courses';
 
-  constructor(private httpClient: HttpClient, private loginService: LoginServiceService) {
+  constructor(private httpClient: HttpClient) { }
+
+  editCourse(courseId: number, course: Course): Observable<ICourseForAdmin> {
+    course.id = courseId;
+    return this.httpClient.post<ICourseForAdmin>(this.url + '/edit-course', course);
   }
 
-  addCourse(course: Course, image: File) {
-
-    return this.httpClient.post<Course>(this.url + '/add-course', course).pipe(
-      catchError((error) => {
-        console.log(error);
-        return throwError('Something went wrong');
-      })
-    ).subscribe(result => {
-      this.fileNameFromResponse = result.image;
-      this.uploadImage(image);
-      window.location.reload();
-    });
+  addCourse(course: Course): Observable<ICourseForAdmin> {
+    return this.httpClient.post<ICourseForAdmin>(this.url + '/add-course', course);
   }
 
-
-  uploadImage(imageToSave: File) {
-
-    const imageFormData = new FormData();
-    imageFormData.append('file', imageToSave, this.fileNameFromResponse);
-
-
-    this.httpClient.post(this.url + '/upload-file', imageFormData).pipe(
-      catchError((error) => {
-        console.log(error);
-        return throwError('Something went wrong');
-      })
-    ).subscribe(result => {
-      console.log("Ok")
-    });
-
+  uploadPhoto(photo: FormData) {
+    return this.httpClient.post(this.url + "/upload-photo", photo);
   }
 
-  getCoursesForAdminPage(): Observable<CoursesForAdmin> {
-    const url = `${this.url}/get-course-data-for-admin`;
-    const params = new HttpParams().set('username', this.loginService.getUserDataFromToken());
-    return this.httpClient.get<CoursesForAdmin>(url, { params });
+  getCoursesForAdminPage(): Observable<ICoursesForAdmin> {
+    const url = `${this.url}/get-courses-for-user`;
+    return this.httpClient.get<ICoursesForAdmin>(url);
   }
 
-  makeRandom(lengthOfCode: number, possible: string) {
-    let text = "";
-    for (let i = 0; i < lengthOfCode; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text + ".jpg";
+  deleteCourse(courseId: number) {
+    const url = `${this.url}/delete-course`;
+
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("courseId", courseId);
+
+    return this.httpClient.delete<ICoursesForAdmin>(url, { params: queryParams });
   }
-
-
 }

@@ -1,52 +1,94 @@
 <app-loader></app-loader>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-10 col-xl-9 mx-auto">
-            <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
-                <div class="card-img-left d-none d-md-flex">
-                </div>
-                <div class="card-body p-4 p-sm-5">
-                    <h5 class="card-title text-center mb-5 fw-light">Register</h5>
-                    <form (ngSubmit)="registration()" #registerForm="ngForm" ngNativeValidate>
+<div id="container">
+    <div class="d-flex justify-content-center">
+        <div class="col-11 col-lg-4">
+            <p-card>
+                <h5 class="card-title text-center mb-5 fw-light">Register</h5>
+                <form [formGroup]="registerForm" (ngSubmit)="registration()">
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInputUsername" placeholder="Username"
-                                required autofocus [(ngModel)]="register.username"
-                                [ngModelOptions]="{standalone: true}" required>
-                            <label for="floatingInputUsername">Username</label>
+                    <div class="form-floating mb-3">
+                        <input pInputText formControlName="username" type="text" id="floatingInputUsername"
+                            placeholder="Username" autofocus>
+                    </div>
+
+                    <div *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="registerForm.get('username')?.errors?.['required']">
+                            Username is required
                         </div>
-
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInputEmail"
-                                placeholder="mail@example.com" [(ngModel)]="register.email"
-                                [ngModelOptions]="{standalone: true}" required>
-                            <label for="floatingInputEmail">Email address</label>
+                        <div *ngIf="registerForm.get('username')?.errors?.['minlength']">
+                            Username must be at least 3 characters
                         </div>
-
-                        <hr>
-
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                                [(ngModel)]="register.password" [ngModelOptions]="{standalone: true}">
-                            <label for="floatingPassword" required>Password</label>
+                        <div *ngIf="registerForm.get('username')?.errors?.['maxlength']">
+                            Username can't exceed 20 characters
                         </div>
+                    </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingPasswordConfirm"
-                                placeholder="Confirm Password">
-                            <label for="floatingPasswordConfirm" required>Confirm Password</label>
+                    <div class="form-floating mb-3">
+                        <input pInputText formControlName="email" type="email" id="floatingInputEmail"
+                            placeholder="mail@example.com">
+                    </div>
+
+                    <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="registerForm.get('email')?.errors?.['required']">
+                            Email is required
                         </div>
-
-                        <div class="d-grid mb-2">
-                            <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase"
-                                type="submit" required>Register</button>
+                        <div *ngIf="registerForm.get('email')?.errors?.['email']">
+                            Please enter a valid email address
                         </div>
+                        <div *ngIf="registerForm.get('email')?.errors?.['minlength']">
+                            Email must be at least 3 characters
+                        </div>
+                        <div *ngIf="registerForm.get('email')?.errors?.['maxlength']">
+                            Email can't exceed 40 characters
+                        </div>
+                    </div>
 
-                        <a class="d-block text-center mt-2 small" href="/login">Have an account? Sign In</a>
+                    <hr>
 
-                    </form>
-                </div>
-            </div>
+                    <div class="form-floating mb-3">
+                        <input pInputText formControlName="password" type="password" id="floatingPassword"
+                            placeholder="Password" autocomplete="on">
+                    </div>
+
+                    <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('username')?.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="registerForm.get('password')?.errors?.['required']">
+                            Password is required
+                        </div>
+                        <div *ngIf="registerForm.get('password')?.errors?.['minlength']">
+                            Password must be at least 6 characters
+                        </div>
+                        <div *ngIf="registerForm.get('password')?.errors?.['maxlength']">
+                            Password can't exceed 30 characters
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input pInputText formControlName="confirmPassword" type="password" id="floatingPasswordConfirm"
+                            placeholder="Confirm Password" autocomplete="on">
+                    </div>
+
+                    <div *ngIf="registerForm.hasError('passwordsDontMatch')">
+                        <div class="alert alert-danger">
+                            Passwords do not match
+                        </div>
+                    </div>
+
+                    <p-fileUpload mode="basic" chooseLabel="User Photo" name="photo" accept=".png, .jpg, .jpeg"
+                        url="https://www.primefaces.org/cdn/api/upload.php" (onSelect)="onFileSelected($event)">
+                    </p-fileUpload>
+
+                    <hr>
+
+                    <div class="d-grid mb-2">
+                        <button pButton pRipple label="Submit" class="p-button-success" type="submit"></button>
+                    </div>
+
+                    <a class="d-block text-center mt-2 small" href="/login">Have an account? Sign In</a>
+                </form>
+            </p-card>
         </div>
     </div>
 </div>

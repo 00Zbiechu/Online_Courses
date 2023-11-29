@@ -1,125 +1,112 @@
 <main class="my-4">
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">Course List</h1>
-            <p class="lead text-muted text MB-2">If you need development in specific areas, on our website you will
+            <h1 class="jumbotron-heading">Course list</h1>
+            <p class="lead text-muted text mb-2">If you need development in specific areas, on our website you will
                 surely
-                find a course that will meet your expectations.<br> We offer an easy-to-use pagination and search system
+                find a course that will meet your expectations. We offer an easy-to-use pagination and search system
                 that makes it quick and easy to find what you're looking for.</p>
         </div>
     </section>
 
-    <div class="album bg-light p-4">
+    <div class="album p-4 bg-light">
         <div class="container">
 
-            <div class="row">
-
-                <div id="pagination">
-                    <div id="sortby">
-                        <p>Sort by:</p>
-                        <select class="form-select" (change)="onSortByChange($event)" [(ngModel)]="sortBy">
-                            <option name="sortByValue" value="title">Title</option>
-                            <option name="sortByValue" value="start_date">Start Date</option>
-                            <option name="sortByValue" value="end_date">End Date</option>
-                            <option name="sortByValue" value="Topic">Topic</option>
-                        </select>
-                    </div>
-
-                    <div id="order">
-                        <p>Sorting order:</p>
-                        <select class="form-select" (change)="onOrderChange($event)" [(ngModel)]="order">
-                            <option name="orderByValue" value="ASC">Ascending</option>
-                            <option name="orderByValue" value="DESC">Descending</option>
-                        </select>
-                    </div>
-
-                    <div id="items_per_page">
-                        <p>Per page:</p>
-                        <select class="form-select" (change)="onTableSizeChange($event)" [(ngModel)]="tableSize">
-                            <option name="itemPerPage" *ngFor="let size of tableSizes">{{size}}</option>
-                        </select>
-                    </div>
+            <div class="pagination" *ngIf="!isSearchingDone()">
+                <div id="sortby">
+                    <p>Sort by:</p>
+                    <p-dropdown [options]="sortByOptions" optionLabel="label"
+                        (onChange)="onSortByChange($event)"></p-dropdown>
                 </div>
 
-                <div class="col-md-12" *ngFor="let course of courses | paginate
-                                                                        : {
-                                                                            itemsPerPage: tableSize,
-                                                                            currentPage: page,
-                                                                            totalItems: count
-                                                                        };
-                                                                        let i = index">
-
-                    <div class="card mb-4 box-shadow" *ngIf="course">
-                        <div class="card-body course">
-
-                            <div>
-                                <img [src]="'assets/course_icon/' + course.image" alt="Course Icon">
-                            </div>
-
-                            <div>
-                                <div>
-                                    <p class="header"><fa-icon [icon]="faList"></fa-icon> Title</p>
-                                </div>
-                                <div>
-                                    <p>{{ course.title }}</p>
-                                </div>
-
-                                <div>
-                                    <p class="header"><fa-icon [icon]="faUser"></fa-icon> Owner</p>
-                                </div>
-                                <div>
-                                    <p> {{ course.username }} </p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div>
-                                    <p class="header"><fa-icon [icon]="faClock"></fa-icon> Start data</p>
-                                </div>
-                                <div>
-                                    <p>{{ course.startDate }}</p>
-                                </div>
-
-                                <div>
-                                    <p class="header"><fa-icon [icon]="faClock"></fa-icon> End data</p>
-                                </div>
-                                <div>
-                                    <p>{{ course.endDate }}</p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div>
-                                    <p class="header"><fa-icon [icon]="faBookmark"></fa-icon> Topic</p>
-                                </div>
-                                <div>
-                                    <p>{{ course.topic }}</p>
-                                </div>
-
-                                <div>
-                                    <p class="header"><fa-icon [icon]="faScroll"></fa-icon> Description</p>
-                                </div>
-                                <div>
-                                    <p>{{ course.description }}</p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <a href="/course"><button class="btn btn-primary">Join</button></a>
-                            </div>
-
-                        </div>
-                    </div>
+                <div id="order">
+                    <p>Sorting order:</p>
+                    <p-dropdown [options]="orderOptions" optionLabel="label"
+                        (onChange)="onOrderChange($event)"></p-dropdown>
                 </div>
 
+                <div id="items_per_page">
+                    <p>Per page:</p>
+                    <p-dropdown [options]="tableSizeOptions" optionLabel="label"
+                        (onChange)="onTableSizeChange($event)"></p-dropdown>
+                </div>
             </div>
 
-            <div class="d-flex justify-content-center">
-                <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onPageChange($event)">
-                </pagination-controls>
+            <div class="pagination" *ngIf="isSearchingDone()">
+                <div id="sortby">
+                    <p>Sort by:</p>
+                    <p-dropdown [options]="sortByOptions" optionLabel="label"
+                        (onChange)="onSearchSortByChange($event)"></p-dropdown>
+                </div>
+
+                <div id="order">
+                    <p>Sorting order:</p>
+                    <p-dropdown [options]="orderOptions" optionLabel="label"
+                        (onChange)="onSearchOrderChange($event)"></p-dropdown>
+                </div>
+
+                <div id="items_per_page">
+                    <p>Per page:</p>
+                    <p-dropdown [options]="tableSizeOptions" optionLabel="label"
+                        (onChange)="onSearchTableSizeChange($event)"></p-dropdown>
+                </div>
             </div>
 
+            <div class="row justify-content-center">
+                <ng-container *ngFor="let course of courseForList">
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3
+                        mt-2 mb-3">
+                        <p-card *ngIf="course" [header]="course.title">
+
+                            <ng-template pTemplate="header">
+
+                                <img *ngIf="!isPhotoAvailable(course.photo)"
+                                    src="https://primefaces.org/cdn/primeng/images/usercard.png" alt="Course photo"
+                                    class="course_icon" />
+
+                                <img *ngIf="isPhotoAvailable(course.photo)"
+                                    [src]="'data:image/jpeg;base64,' + course.photo" alt="Course photo"
+                                    class="course_icon">
+
+                            </ng-template>
+
+                            <div>
+                                <p><b><fa-icon [icon]="faBookmark"></fa-icon> Topic</b> {{ course.topic }}</p>
+                            </div>
+
+                            <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'"></p-divider>
+
+                            <div>
+                                <p><b><fa-icon [icon]="faScroll"></fa-icon> Description</b></p>
+                                <p>{{ course.description }}</p>
+                            </div>
+
+                            <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'"></p-divider>
+
+                            <div>
+                                <p><b><fa-icon [icon]="faClock"></fa-icon> Beginning</b> {{ course.startDate }}</p>
+                            </div>
+
+                            <div>
+                                <p><b><fa-icon [icon]="faClock"></fa-icon> End</b> {{ course.endDate }}</p>
+                            </div>
+
+                            <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'"></p-divider>
+
+                            <div>
+                                <p><b><fa-icon [icon]="faUser"></fa-icon> Author</b> {{ course.username }}</p>
+                            </div>
+                            <p-button icon="pi pi-sign-in" label="Join"
+                                (onClick)="viewCourseDetails(course.id)"></p-button>
+                        </p-card>
+                    </div>
+                </ng-container>
+            </div>
         </div>
-    </div>
+        <p-paginator *ngIf="!isSearchingDone()" (onPageChange)="onPageChange($event)" [rows]="paginationParams.size"
+            [totalRecords]="count"></p-paginator>
 
+        <p-paginator *ngIf="isSearchingDone()" (onPageChange)="onSearchPageChange($event)"
+            [rows]="searchPaginationParams.size" [totalRecords]="totalSearchedRecords"></p-paginator>
+    </div>
 </main>
