@@ -1,4 +1,4 @@
-import { Component, Injectable, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Injectable, Input, OnChanges, ViewEncapsulation } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { ICourseForAdmin } from '../create-course/model/ICourseForAdmin';
