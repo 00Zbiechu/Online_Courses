@@ -60,12 +60,8 @@ export class RegisterComponent {
       this.registerService.registration(userData).subscribe(result => {
         sessionStorage.setItem('token', result.accessToken);
         sessionStorage.setItem('refreshToken', result.refreshToken);
-        this.loginService.loginState();
         this.saveUserPhoto();
-        this.router.navigate(['/']).then(() => {
-          window.location.reload();
-          window.location.reload();
-        });
+        this.router.navigate(['/login']);
       });
     }
   }

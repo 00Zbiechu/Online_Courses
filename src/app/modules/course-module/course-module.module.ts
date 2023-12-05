@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { AccordionModule } from 'primeng/accordion';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { CarouselModule } from 'primeng/carousel';
+import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { TabViewModule } from 'primeng/tabview';
 import { LoaderModuleModule } from '../loader-module/loader-module.module';
@@ -20,7 +24,11 @@ import { VisitorPageComponent } from './components/visitor-page/visitor-page.com
     CommonModule,
     TabViewModule,
     AngularEditorModule,
+    CardModule,
+    ButtonModule,
+    CarouselModule,
     AccordionModule,
+    FileUploadModule,
     InputTextModule,
     LoaderModuleModule,
     RouterModule.forChild([
