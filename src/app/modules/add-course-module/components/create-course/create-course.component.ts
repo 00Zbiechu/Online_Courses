@@ -23,6 +23,7 @@ export class CreateCourseComponent {
     this.addCourseService.getCoursesForAdminPage().subscribe(
       (result: ICoursesForAdmin) => {
         this.courses = result.courseForUserList;
+        console.log(this.courses);
       }
     );
   }

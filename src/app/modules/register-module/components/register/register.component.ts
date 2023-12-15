@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginServiceService } from 'src/app/modules/login-module/services/login-service.service';
 import { RegisterServiceService } from '../../services/register-service.service';
 
 @Component({
@@ -15,7 +14,7 @@ export class RegisterComponent {
   fileToUpload: File | null = null;
   registerForm: FormGroup;
 
-  constructor(private loginService: LoginServiceService, private formBuilder: FormBuilder, private registerService: RegisterServiceService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private registerService: RegisterServiceService, private router: Router) {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(40)]],
@@ -46,21 +45,20 @@ export class RegisterComponent {
     }
   }
 
-  saveUserPhoto() {
-    if (this.fileToUpload) {
-      const formData: FormData = new FormData();
-      formData.append('photo', this.fileToUpload);
-      this.registerService.uploadPhoto(formData).subscribe();
-    }
-  }
-
   registration() {
     if (this.registerForm.valid) {
       const userData = this.registerForm.value;
-      this.registerService.registration(userData).subscribe(result => {
-        sessionStorage.setItem('token', result.accessToken);
-        sessionStorage.setItem('refreshToken', result.refreshToken);
-        this.saveUserPhoto();
+
+      console.log(this.registerForm.value.username);
+
+      const formData: FormData = new FormData();
+      formData.append('userDTO', new Blob([JSON.stringify(userData)], { type: 'application/json' }));
+
+      if (this.fileToUpload != null) {
+        formData.append("photo", this.fileToUpload);
+      }
+
+      this.registerService.registration(formData).subscribe(result => {
         this.router.navigate(['/login']);
       });
     }
