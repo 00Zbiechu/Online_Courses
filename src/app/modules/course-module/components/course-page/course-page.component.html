@@ -1,3 +1,3 @@
 <app-loader></app-loader>
-<app-owner-page *ngIf="checkIfLoggedUserIsOwner()"></app-owner-page>
+<app-owner-page [courseId]="courseId" *ngIf="checkIfLoggedUserIsOwner()"></app-owner-page>
 <app-visitor-page *ngIf="!checkIfLoggedUserIsOwner()"></app-visitor-page>

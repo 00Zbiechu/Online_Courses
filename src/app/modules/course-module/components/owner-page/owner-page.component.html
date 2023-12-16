@@ -1,3 +1,14 @@
+<section class="jumbotron text-center my-4">
+    <div class="container">
+        <h1>Create content</h1>
+        <p class="lead text-muted text mb-2">Explore our new feature for adding topics to courses! Easily share notes
+            and attachments, while browsing through engaging content. Discover a fresh way to collaborate, share
+            knowledge, and grow together with us!
+            Additionally, you can enhance collaboration by effortlessly adding members to your courses, fostering a
+            dynamic learning
+            community.</p>
+    </div>
+</section>
 <div id="container" class="d-flex col-12 col-md-11"><p-tabView styleClass="tabview-custom">
         <p-tabPanel>
             <ng-template pTemplate="header">
@@ -7,99 +18,98 @@
             <div class="d-flex justify-content-md-around flex-column flex-md-row">
 
                 <div class="col-12 col-md-5">
-                    <h2>Add new topic</h2>
-                    <form class="d-flex flex-column">
+                    <h2 class="text-center">Add new topic</h2>
+                    <form [formGroup]="topicForm" (ngSubmit)="addTopic(courseId)" class="d-flex flex-column">
 
                         <div>
-                            <label htmlFor="username" class="col-12"><b><i class="pi pi-pencil"></i> Topic:</b></label>
-                            <input pInputText [style]="{'width':'100%'}" />
+                            <label htmlFor="title" class="col-12"><b><i class="pi pi-pencil"></i> Topic</b></label>
+                            <input pInputText [style]="{'width':'100%'}" id="title" formControlName="title" />
+                        </div>
+                        <div *ngIf="topicForm.get('title')?.invalid && (topicForm.get('title')?.dirty || topicForm.get('title')?.touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="topicForm.get('title')?.errors?.['required']">
+                                Title is required
+                            </div>
+                            <div *ngIf="topicForm.get('title')?.errors?.['minlength']">
+                                Title must be at least 5 characters
+                            </div>
+                            <div *ngIf="topicForm.get('title')?.errors?.['maxlength']">
+                                Title can't exceed 50 characters
+                            </div>
                         </div>
 
                         <div>
-                            <label htmlFor="content" class="col-12"><b><i class="pi pi-book"></i> Content:</b></label>
-                            <angular-editor id="content" [placeholder]="'Enter text here...'"
-                                [config]="editorConfig"></angular-editor>
+                            <label htmlFor="note" class="col-12"><b><i class="pi pi-book"></i> Content</b></label>
+                            <angular-editor id="note" [placeholder]="'Enter text here...'" [config]="editorConfig"
+                                formControlName="note"></angular-editor>
+                        </div>
+                        <div *ngIf="topicForm.get('note')?.invalid && (topicForm.get('note')?.dirty || topicForm.get('note')?.touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="topicForm.get('note')?.errors?.['required']">
+                                Content is required
+                            </div>
+                            <div *ngIf="topicForm.get('note')?.errors?.['minlength']">
+                                Content must be at least 10 characters
+                            </div>
+                            <div *ngIf="topicForm.get('note')?.errors?.['maxlength']">
+                                Content can't exceed 3000 characters
+                            </div>
                         </div>
 
                         <div>
                             <label htmlFor="files" class="col-12"><b><i class="pi pi-file"></i> Select
-                                    files:</b></label>
-                            <p-fileUpload id="files" name="demo[]" [multiple]=" true" accept="image/*">
+                                    files</b></label>
+                            <p-fileUpload id="files" [multiple]=" true" (onSelect)="onFileSelected($event)">
                             </p-fileUpload>
                         </div>
 
-                        <button pButton pRipple label="Save" class="p-button-success"></button>
+                        <button pButton pRipple label="Save" class="p-button-success" type="submit"></button>
                     </form>
                 </div>
 
+                <p-divider id="desktop-divider" layout="vertical"></p-divider>
+
+                <p-divider id="divider"></p-divider>
 
                 <div class="col-12 col-md-6">
-                    <h2 style="margin-top: 2em;">Your topics</h2>
-                    <p-card style="margin-top: 1em; display: flex;">
-                        <p-accordion [activeIndex]="0">
-                            <p-accordionTab header="Header I">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut
-                                    labore
-                                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                    laboris
-                                    nisi
-                                    ut
-                                    aliquip ex ea commodo
-                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                                    dolore
-                                    eu
-                                    fugiat
-                                    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                                    officia
-                                    deserunt
-                                    mollit anim id est laborum.
-                                </p>
-
-                                <!-- <p-carousel [numVisible]="3" [numScroll]="3" [circular]="false">
-                                    <ng-template>
-                                        <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
-                                            <div class="mb-3">
-                                                <img src="https://primefaces.org/cdn/primeng/images/demo/product" class="w-6 shadow-2" />
-                                            </div>
-                                            <div>
-                                                <h4 class="mb-1">Test</h4>
-                                                <h6 class="mt-0 mb-3">Test</h6>
-                                                <div class="car-buttons mt-5">
-                                                    <p-button type="button"
-                                                        styleClass="p-button p-button-rounded mr-2"
-                                                        icon="pi pi-search"></p-button>
-                                                    <p-button type="button"
-                                                        styleClass="p-button-success p-button-rounded mr-2"
-                                                        icon="pi pi-star-fill"></p-button>
-                                                </div>
-                                            </div>
+                    <h2 class="text-center">Your topics</h2>
+                    <ng-container *ngIf="topics && topics.length > 0; else noTopics">
+                        <p-card>
+                            <p-accordion [activeIndex]="0" class="col-12">
+                                <div *ngFor="let topic of topics;">
+                                    <p-accordionTab header="{{topic.title}}">
+                                        <p-divider align="center" type="solid">
+                                            <b>Note</b>
+                                        </p-divider>
+                                        <div [innerHTML]="topic.notes.at(0)?.data"></div>
+                                        <div *ngIf="topic.files && topic.files.length > 0;">
+                                            <p-divider align="center" type="solid">
+                                                <b>Attachments</b>
+                                            </p-divider>
+                                            <p-carousel [value]="topic.files">
+                                                <ng-template let-file pTemplate="file">
+                                                    <div class="border-1 surface-border border-round text-center">
+                                                        <div>
+                                                            <h5 class="mb-1">{{ file.name }}</h5>
+                                                            <h6 class="mt-0 mb-3">{{ file.type }}</h6>
+                                                            <div class="car-buttons mt-5 mb-3">
+                                                                <p-button type="button"
+                                                                    styleClass="p-button p-button-rounded mr-2"
+                                                                    icon="pi pi-search"></p-button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
+                                            </p-carousel>
                                         </div>
-                                    </ng-template>
-                                </p-carousel> -->
-                            </p-accordionTab>
-                            <p-accordionTab header="Header II">
-                                <p>
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                                    doloremque
-                                    laudantium,
-                                    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-                                    beatae
-                                    vitae
-                                    dicta sunt explicabo. Nemo enim
-                                    ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                                    consequuntur
-                                    magni
-                                    dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed
-                                    quia
-                                    non
-                                    numquam
-                                    eius modi.
-                                </p>
-                            </p-accordionTab>
-                        </p-accordion>
-                    </p-card>
+                                    </p-accordionTab>
+                                </div>
+                            </p-accordion>
+                        </p-card>
+                    </ng-container>
+                    <ng-template #noTopics>
+                        <p class="text-center m-2">You don't have any topic.</p>
+                    </ng-template>
                 </div>
             </div>
         </p-tabPanel>

@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
+import { DividerModule } from 'primeng/divider';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { TabViewModule } from 'primeng/tabview';
@@ -23,9 +25,11 @@ import { VisitorPageComponent } from './components/visitor-page/visitor-page.com
   imports: [
     CommonModule,
     TabViewModule,
+    ReactiveFormsModule,
     AngularEditorModule,
     CardModule,
     ButtonModule,
+    DividerModule,
     CarouselModule,
     AccordionModule,
     FileUploadModule,

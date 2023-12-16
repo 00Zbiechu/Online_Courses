@@ -48,9 +48,6 @@ export class RegisterComponent {
   registration() {
     if (this.registerForm.valid) {
       const userData = this.registerForm.value;
-
-      console.log(this.registerForm.value.username);
-
       const formData: FormData = new FormData();
       formData.append('userDTO', new Blob([JSON.stringify(userData)], { type: 'application/json' }));
 

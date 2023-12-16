@@ -1,7 +1,8 @@
-import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICourseForList } from '../../search-module/components/course-list/model/ICourseForList';
 import { Observable } from 'rxjs';
+import { ICourseForList } from '../../search-module/components/course-list/model/ICourseForList';
+import { ITopics } from '../components/owner-page/model/ITopics';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +16,15 @@ export class CourseServiceService {
   getCourseData(courseId: number): Observable<ICourseForList> {
     const params = new HttpParams().set('courseId', courseId.toString());
     return this.httpClient.get<ICourseForList>(this.url + '/get-course', { params });
+  }
+
+  getTopics(courseId: number): Observable<ITopics> {
+    const params = new HttpParams().set('courseId', courseId.toString());
+    return this.httpClient.get<ITopics>(this.url + '/get-topics', { params });
+  }
+
+  addTopic(courseId: number, formData: FormData): Observable<ITopics> {
+    const params = new HttpParams().set('courseId', courseId.toString());
+    return this.httpClient.post<ITopics>(this.url + '/add-topic', formData, { params });
   }
 }

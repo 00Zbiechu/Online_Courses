@@ -1,11 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ITopic } from 'src/app/modules/search-module/components/sidebar/model/ITopic';
 import { AddCourseServiceService } from '../../services/add-course-service.service';
 import { ICourseForEdit } from './model/ICourseForEdit';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-course',

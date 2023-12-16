@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UserData } from 'src/app/modules/login-module/components/login/model/UserData';
+import { LoginServiceService } from 'src/app/modules/login-module/services/login-service.service';
 import { ICourseForList } from 'src/app/modules/search-module/components/course-list/model/ICourseForList';
 import { CourseServiceService } from '../../services/course-service.service';
-import { LoginServiceService } from 'src/app/modules/login-module/services/login-service.service';
-import { UserData } from 'src/app/modules/login-module/components/login/model/UserData';
 
 @Component({
   selector: 'app-course-page',
@@ -12,7 +12,7 @@ import { UserData } from 'src/app/modules/login-module/components/login/model/Us
 })
 export class CoursePageComponent {
 
-  courseId: string;
+  courseId: number;
   courseData: ICourseForList;
   userData: UserData;
   owner: boolean;
@@ -20,7 +20,7 @@ export class CoursePageComponent {
   constructor(private route: ActivatedRoute, private courseService: CourseServiceService, private loginService: LoginServiceService) { }
 
   ngOnInit() {
-    this.courseId = this.route.snapshot.paramMap.get('id')!;
+    this.courseId = parseInt(this.route.snapshot.paramMap.get('id')!);
     this.courseService.getCourseData(Number(this.courseId)).subscribe(result => {
       this.courseData = result;
     });

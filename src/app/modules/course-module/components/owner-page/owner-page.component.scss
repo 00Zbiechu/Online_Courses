@@ -1,3 +1,9 @@
+h1 {
+    padding: 2%;
+    font-weight: bold;
+    margin: 0;
+}
+
 #container {
     margin-left: auto;
     margin-right: auto;
@@ -6,10 +12,32 @@
 
 label {
     text-align: left;
-    margin-top: 2.5em;
+    margin-top: 1em;
     margin-bottom: 0.8em;
 }
 
 button {
     margin-top: 1em;
+    margin-bottom: 2em;
+}
+
+#divider {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+#desktop-divider {
+    margin-top: 2em;
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+
+    #divider {
+        display: none;
+    }
+
+    #desktop-divider {
+        display: block;
+    }
 }
