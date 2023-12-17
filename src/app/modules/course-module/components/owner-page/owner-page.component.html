@@ -9,7 +9,7 @@
             community.</p>
     </div>
 </section>
-<div id="container" class="d-flex col-12 col-md-11"><p-tabView styleClass="tabview-custom">
+<div id="container" class="d-flex col-12 col-md-10"><p-tabView styleClass="tabview-custom">
         <p-tabPanel>
             <ng-template pTemplate="header">
                 <span><i class="pi pi-calendar"></i> Course</span>
@@ -59,7 +59,8 @@
                         <div>
                             <label htmlFor="files" class="col-12"><b><i class="pi pi-file"></i> Select
                                     files</b></label>
-                            <p-fileUpload id="files" [multiple]=" true" (onSelect)="onFileSelected($event)">
+                            <p-fileUpload id="files" [multiple]=" true" [showUploadButton]="false"
+                                (onSelect)="onFilesSelected($event)">
                             </p-fileUpload>
                         </div>
 
@@ -71,7 +72,7 @@
 
                 <p-divider id="divider"></p-divider>
 
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-5">
                     <h2 class="text-center">Your topics</h2>
                     <ng-container *ngIf="topics && topics.length > 0; else noTopics">
                         <p-card>
@@ -86,7 +87,7 @@
                                             <p-divider align="center" type="solid">
                                                 <b>Attachments</b>
                                             </p-divider>
-                                            <p-carousel [value]="topic.files">
+                                            <p-carousel id="attachments" [value]="topic.files">
                                                 <ng-template let-file pTemplate="file">
                                                     <div class="border-1 surface-border border-round text-center">
                                                         <div>
@@ -101,6 +102,20 @@
                                                     </div>
                                                 </ng-template>
                                             </p-carousel>
+                                            <div id="mobile-attachments" *ngFor="let file of topic.files">
+                                                <div class="border-1 surface-border border-round text-center">
+                                                    <div>
+                                                        <h5 class="mb-1">{{ file.name }}</h5>
+                                                        <h6 class="mt-0 mb-3">{{ file.type }}</h6>
+                                                        <div class="car-buttons mb-3">
+                                                            <p-button type="button"
+                                                                styleClass="p-button p-button-rounded mr-2"
+                                                                icon="pi pi-search"></p-button>
+                                                        </div>
+                                                        <p-divider></p-divider>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </p-accordionTab>
                                 </div>

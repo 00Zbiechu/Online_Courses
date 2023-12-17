@@ -15,7 +15,7 @@ export class OwnerPageComponent implements OnInit {
   @Input() courseId: number;
   topics: ITopic[];
 
-  filesToUpload: File[] | null = null;
+  filesToUpload: File[] | null;
   topicForm: FormGroup;
 
   editorConfig: AngularEditorConfig = {
@@ -52,8 +52,11 @@ export class OwnerPageComponent implements OnInit {
     this.getTopics(this.courseId);
   }
 
-  onFileSelected(event: any) {
-    this.filesToUpload = event.files;
+  onFilesSelected(event: any) {
+    const files: FileList = event.files;
+    if (files && files.length > 0) {
+      this.filesToUpload = Array.from(files);
+    }
   }
 
   getTopics(courseId: number) {
@@ -68,7 +71,6 @@ export class OwnerPageComponent implements OnInit {
       const formData: FormData = new FormData();
       formData.append('addTopicDTO', new Blob([JSON.stringify(topicData)], { type: 'application/json' }));
 
-      //TODO: Does not work
       if (this.filesToUpload) {
         for (const file of this.filesToUpload) {
           formData.append('files', file);

@@ -31,6 +31,10 @@ button {
     display: none;
 }
 
+#attachments {
+    display: none;
+}
+
 @media screen and (min-width: 768px) {
 
     #divider {
@@ -38,6 +42,14 @@ button {
     }
 
     #desktop-divider {
+        display: block;
+    }
+
+    #mobile-attachments {
+        display: none;
+    }
+
+    #attachments {
         display: block;
     }
 }
