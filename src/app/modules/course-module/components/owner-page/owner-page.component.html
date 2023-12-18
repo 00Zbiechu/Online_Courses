@@ -117,6 +117,10 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div id="control-panel">
+                                            <button pButton label="Delete topic" class="p-button-danger"
+                                                (click)="deleteTopic(courseId, topic.id)"></button>
+                                        </div>
                                     </p-accordionTab>
                                 </div>
                             </p-accordion>

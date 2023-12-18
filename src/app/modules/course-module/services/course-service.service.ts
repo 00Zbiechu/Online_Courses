@@ -27,4 +27,12 @@ export class CourseServiceService {
     const params = new HttpParams().set('courseId', courseId.toString());
     return this.httpClient.post<ITopics>(this.url + '/add-topic', formData, { params });
   }
+
+  deleteTopic(courseId: number, topicId: number): Observable<ITopics> {
+    const params = new HttpParams()
+      .set('courseId', courseId.toString())
+      .set('topicId', topicId.toString());
+
+    return this.httpClient.delete<ITopics>(`${this.url}/delete-topic`, { params });
+  }
 }

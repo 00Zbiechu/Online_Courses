@@ -79,7 +79,14 @@ export class OwnerPageComponent implements OnInit {
 
       this.courseService.addTopic(courseId, formData).subscribe(result => {
         this.topics = result.topics;
+        this.topicForm.reset();
       })
     }
+  }
+
+  deleteTopic(courseId: number, topicId: number) {
+    this.courseService.deleteTopic(courseId, topicId).subscribe(result => {
+      this.topics = result.topics;
+    })
   }
 }
