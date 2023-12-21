@@ -29,12 +29,14 @@ export class CalendarComponent implements OnChanges {
   }
 
   setCalendarEvents() {
-    this.calendarOptions.events = this.courses.map(event => {
-      return {
-        title: event.title,
-        start: new Date(event.startDate),
-        end: new Date(event.endDate)
-      };
-    });
+    if (this.courses != null) {
+      this.calendarOptions.events = this.courses.map(event => {
+        return {
+          title: event.title,
+          start: new Date(event.startDate),
+          end: new Date(event.endDate)
+        };
+      });
+    }
   }
 }

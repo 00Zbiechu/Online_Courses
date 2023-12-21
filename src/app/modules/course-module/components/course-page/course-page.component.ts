@@ -36,7 +36,7 @@ export class CoursePageComponent {
       }
     })
 
-    if (isLoggedIn != false && this.userData != null && this.userData.username != null && this.userData.username == this.courseData.username) {
+    if (isLoggedIn != false && this.userData != null && this.userData.username != null && this.courseData != null && this.userData.username == this.courseData.username) {
       return true;
     }
 

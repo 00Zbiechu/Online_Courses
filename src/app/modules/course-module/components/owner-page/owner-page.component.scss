@@ -35,6 +35,11 @@ button {
     display: none;
 }
 
+#attachment {
+    display: flex;
+    justify-content: center;
+}
+
 #control-panel {
     display: flex;
     justify-content: flex-end;

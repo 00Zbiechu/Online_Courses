@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICourseForList } from '../../search-module/components/course-list/model/ICourseForList';
+import { IAttachment } from '../components/owner-page/model/IAttachment';
 import { ITopics } from '../components/owner-page/model/ITopics';
 
 @Injectable({
@@ -34,5 +35,13 @@ export class CourseServiceService {
       .set('topicId', topicId.toString());
 
     return this.httpClient.delete<ITopics>(`${this.url}/delete-topic`, { params });
+  }
+
+  getAttachment(courseId: number, topicId: number, fileId: number): Observable<IAttachment> {
+    const params = new HttpParams()
+      .set('courseId', courseId.toString())
+      .set('topicId', topicId.toString())
+      .set('fileId', fileId.toString());
+    return this.httpClient.get<IAttachment>(`${this.url}/get-attachment`, { params });
   }
 }

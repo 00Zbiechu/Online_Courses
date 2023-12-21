@@ -1,151 +1,163 @@
 <section class="jumbotron text-center my-4">
-    <div class="container">
-        <h1>Create content</h1>
-        <p class="lead text-muted text mb-2">Explore our new feature for adding topics to courses! Easily share notes
-            and attachments, while browsing through engaging content. Discover a fresh way to collaborate, share
-            knowledge, and grow together with us!
-            Additionally, you can enhance collaboration by effortlessly adding members to your courses, fostering a
-            dynamic learning
-            community.</p>
-    </div>
+  <div class="container">
+    <h1>Create content</h1>
+    <p class="lead text-muted text mb-2">Explore our new feature for adding topics to courses! Easily share notes
+      and attachments, while browsing through engaging content. Discover a fresh way to collaborate, share
+      knowledge, and grow together with us!
+      Additionally, you can enhance collaboration by effortlessly adding members to your courses, fostering a
+      dynamic learning
+      community.</p>
+  </div>
 </section>
 <div id="container" class="d-flex col-12 col-md-10"><p-tabView styleClass="tabview-custom">
-        <p-tabPanel>
-            <ng-template pTemplate="header">
-                <span><i class="pi pi-calendar"></i> Course</span>
-            </ng-template>
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span><i class="pi pi-calendar"></i> Course</span>
+      </ng-template>
 
-            <div class="d-flex justify-content-md-around flex-column flex-md-row">
+      <div class="d-flex justify-content-md-around flex-column flex-md-row">
 
-                <div class="col-12 col-md-5">
-                    <h2 class="text-center">Add new topic</h2>
-                    <form [formGroup]="topicForm" (ngSubmit)="addTopic(courseId)" class="d-flex flex-column">
+        <div class="col-12 col-md-5">
+          <h2 class="text-center">Add new topic</h2>
+          <form [formGroup]="topicForm" (ngSubmit)="addTopic(courseId)" class="d-flex flex-column">
 
-                        <div>
-                            <label htmlFor="title" class="col-12"><b><i class="pi pi-pencil"></i> Topic</b></label>
-                            <input pInputText [style]="{'width':'100%'}" id="title" formControlName="title" />
-                        </div>
-                        <div *ngIf="topicForm.get('title')?.invalid && (topicForm.get('title')?.dirty || topicForm.get('title')?.touched)"
-                            class="alert alert-danger">
-                            <div *ngIf="topicForm.get('title')?.errors?.['required']">
-                                Title is required
-                            </div>
-                            <div *ngIf="topicForm.get('title')?.errors?.['minlength']">
-                                Title must be at least 5 characters
-                            </div>
-                            <div *ngIf="topicForm.get('title')?.errors?.['maxlength']">
-                                Title can't exceed 50 characters
-                            </div>
-                        </div>
-
-                        <div>
-                            <label htmlFor="note" class="col-12"><b><i class="pi pi-book"></i> Content</b></label>
-                            <angular-editor id="note" [placeholder]="'Enter text here...'" [config]="editorConfig"
-                                formControlName="note"></angular-editor>
-                        </div>
-                        <div *ngIf="topicForm.get('note')?.invalid && (topicForm.get('note')?.dirty || topicForm.get('note')?.touched)"
-                            class="alert alert-danger">
-                            <div *ngIf="topicForm.get('note')?.errors?.['required']">
-                                Content is required
-                            </div>
-                            <div *ngIf="topicForm.get('note')?.errors?.['minlength']">
-                                Content must be at least 10 characters
-                            </div>
-                            <div *ngIf="topicForm.get('note')?.errors?.['maxlength']">
-                                Content can't exceed 3000 characters
-                            </div>
-                        </div>
-
-                        <div>
-                            <label htmlFor="files" class="col-12"><b><i class="pi pi-file"></i> Select
-                                    files</b></label>
-                            <p-fileUpload id="files" [multiple]=" true" [showUploadButton]="false"
-                                (onSelect)="onFilesSelected($event)">
-                            </p-fileUpload>
-                        </div>
-
-                        <button pButton pRipple label="Save" class="p-button-success" type="submit"></button>
-                    </form>
-                </div>
-
-                <p-divider id="desktop-divider" layout="vertical"></p-divider>
-
-                <p-divider id="divider"></p-divider>
-
-                <div class="col-12 col-md-5">
-                    <h2 class="text-center">Your topics</h2>
-                    <ng-container *ngIf="topics && topics.length > 0; else noTopics">
-                        <p-card>
-                            <p-accordion [activeIndex]="0" class="col-12">
-                                <div *ngFor="let topic of topics;">
-                                    <p-accordionTab header="{{topic.title}}">
-                                        <p-divider align="center" type="solid">
-                                            <b>Note</b>
-                                        </p-divider>
-                                        <div [innerHTML]="topic.notes.at(0)?.data"></div>
-                                        <div *ngIf="topic.files && topic.files.length > 0;">
-                                            <p-divider align="center" type="solid">
-                                                <b>Attachments</b>
-                                            </p-divider>
-                                            <p-carousel id="attachments" [value]="topic.files">
-                                                <ng-template let-file pTemplate="file">
-                                                    <div class="border-1 surface-border border-round text-center">
-                                                        <div>
-                                                            <h5 class="mb-1">{{ file.name }}</h5>
-                                                            <h6 class="mt-0 mb-3">{{ file.type }}</h6>
-                                                            <div class="car-buttons mt-5 mb-3">
-                                                                <p-button type="button"
-                                                                    styleClass="p-button p-button-rounded mr-2"
-                                                                    icon="pi pi-search"></p-button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </ng-template>
-                                            </p-carousel>
-                                            <div id="mobile-attachments" *ngFor="let file of topic.files">
-                                                <div class="border-1 surface-border border-round text-center">
-                                                    <div>
-                                                        <h5 class="mb-1">{{ file.name }}</h5>
-                                                        <h6 class="mt-0 mb-3">{{ file.type }}</h6>
-                                                        <div class="car-buttons mb-3">
-                                                            <p-button type="button"
-                                                                styleClass="p-button p-button-rounded mr-2"
-                                                                icon="pi pi-search"></p-button>
-                                                        </div>
-                                                        <p-divider></p-divider>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="control-panel">
-                                            <button pButton label="Delete topic" class="p-button-danger"
-                                                (click)="deleteTopic(courseId, topic.id)"></button>
-                                        </div>
-                                    </p-accordionTab>
-                                </div>
-                            </p-accordion>
-                        </p-card>
-                    </ng-container>
-                    <ng-template #noTopics>
-                        <p class="text-center m-2">You don't have any topic.</p>
-                    </ng-template>
-                </div>
+            <div>
+              <label htmlFor="title" class="col-12"><b><i class="pi pi-pencil"></i> Topic</b></label>
+              <input pInputText [style]="{'width':'100%'}" id="title" formControlName="title" />
             </div>
-        </p-tabPanel>
+            <div
+              *ngIf="topicForm.get('title')?.invalid && (topicForm.get('title')?.dirty || topicForm.get('title')?.touched)"
+              class="alert alert-danger">
+              <div *ngIf="topicForm.get('title')?.errors?.['required']">
+                Title is required
+              </div>
+              <div *ngIf="topicForm.get('title')?.errors?.['minlength']">
+                Title must be at least 5 characters
+              </div>
+              <div *ngIf="topicForm.get('title')?.errors?.['maxlength']">
+                Title can't exceed 50 characters
+              </div>
+            </div>
 
-        <p-tabPanel header="Header II">
-            <ng-template pTemplate="header">
-                <span><i class="pi pi-user"></i> Participants</span>
-            </ng-template>
-            <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-                rem
-                aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-                explicabo.
-                Nemo enim
-                ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-                eos
-                qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-            </p>
-        </p-tabPanel>
-    </p-tabView></div>
+            <div>
+              <label htmlFor="note" class="col-12"><b><i class="pi pi-book"></i> Content</b></label>
+              <angular-editor id="note" [placeholder]="'Enter text here...'" [config]="editorConfig"
+                formControlName="note"></angular-editor>
+            </div>
+            <div
+              *ngIf="topicForm.get('note')?.invalid && (topicForm.get('note')?.dirty || topicForm.get('note')?.touched)"
+              class="alert alert-danger">
+              <div *ngIf="topicForm.get('note')?.errors?.['required']">
+                Content is required
+              </div>
+              <div *ngIf="topicForm.get('note')?.errors?.['minlength']">
+                Content must be at least 10 characters
+              </div>
+              <div *ngIf="topicForm.get('note')?.errors?.['maxlength']">
+                Content can't exceed 3000 characters
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="files" class="col-12"><b><i class="pi pi-file"></i> Select
+                  files</b></label>
+              <p-fileUpload [files]="filesToUpload" id="files" [multiple]=" true" [showUploadButton]="false"
+                (onSelect)="onFilesSelected($event)">
+              </p-fileUpload>
+            </div>
+
+            <button pButton pRipple label="Save" class="p-button-success" type="submit"></button>
+          </form>
+        </div>
+
+        <p-divider id="desktop-divider" layout="vertical"></p-divider>
+
+        <p-divider id="divider"></p-divider>
+
+        <div class="col-12 col-md-5">
+          <h2 class="text-center">Your topics</h2>
+          <ng-container *ngIf="topics && topics.length > 0; else noTopics">
+            <p-card>
+              <p-accordion [activeIndex]="0" class="col-12">
+                <div *ngFor="let topic of topics;">
+                  <p-accordionTab header="{{topic.title}}">
+                    <p-divider align="center" type="solid">
+                      <b>Note</b>
+                    </p-divider>
+                    <div [innerHTML]="topic.notes.at(0)?.data"></div>
+                    <div *ngIf="topic.files && topic.files.length > 0;">
+                      <p-divider align="center" type="solid">
+                        <b>Attachments</b>
+                      </p-divider>
+                      <p-carousel id="attachments" [value]="topic.files">
+                        <ng-template let-file pTemplate="file">
+                          <div class="border-1 surface-border border-round text-center">
+                            <div>
+                              <h5 class="mb-1">{{ file.name }}</h5>
+                              <h6 class="mt-0 mb-3">{{ file.type }}</h6>
+                              <div class="car-buttons mt-5 mb-3">
+                                <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"
+                                  (onClick)="getAttachment(courseId, topic.id, file.id)"></p-button>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </p-carousel>
+                      <div id="mobile-attachments" *ngFor="let file of topic.files">
+                        <div class="border-1 surface-border border-round text-center">
+                          <div>
+                            <h5 class="mb-1">{{ file.name }}</h5>
+                            <h6 class="mt-0 mb-3">{{ file.type }}</h6>
+                            <div class="car-buttons mb-3">
+                              <p-button type="button" styleClass="p-button p-button-rounded mr-2"
+                                icon="pi pi-search"></p-button>
+                            </div>
+                            <p-divider></p-divider>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="control-panel">
+                      <button pButton label="Delete topic" class="p-button-danger"
+                        (click)="deleteTopic(courseId, topic.id)"></button>
+                    </div>
+                  </p-accordionTab>
+                </div>
+              </p-accordion>
+            </p-card>
+          </ng-container>
+          <ng-template #noTopics>
+            <p class="text-center m-2">You don't have any topic.</p>
+          </ng-template>
+        </div>
+      </div>
+    </p-tabPanel>
+
+    <p-dialog header="Attachment" [modal]=true [(visible)]="dialogVisible" [breakpoints]="{ '960px': '75vw' }"
+      [draggable]="false" [resizable]="false">
+
+      <div *ngIf="attachement!=null && isAttachmentImage()" id="attachment">
+        <img [src]="'data:'+ attachement.type +';base64,' + attachement.data">
+      </div>
+
+      <div *ngIf="attachement!=null && !isAttachmentImage()" id="attachment">
+        {{generatePdf()}}
+      </div>
+    </p-dialog>
+
+    <p-tabPanel header="Header II">
+      <ng-template pTemplate="header">
+        <span><i class="pi pi-user"></i> Participants</span>
+      </ng-template>
+      <p>
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+        rem
+        aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+        explicabo.
+        Nemo enim
+        ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+        eos
+        qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+      </p>
+    </p-tabPanel>
+  </p-tabView></div>

@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { CourseServiceService } from '../../services/course-service.service';
+import { IAttachment } from './model/IAttachment';
 import { ITopic } from './model/ITopic';
 
 @Component({
@@ -14,8 +16,11 @@ export class OwnerPageComponent implements OnInit {
 
   @Input() courseId: number;
   topics: ITopic[];
+  attachement: IAttachment;
+  pdfUrl: SafeResourceUrl;
+  dialogVisible: boolean = false;
 
-  filesToUpload: File[] | null;
+  filesToUpload: File[] = [];
   topicForm: FormGroup;
 
   editorConfig: AngularEditorConfig = {
@@ -41,7 +46,7 @@ export class OwnerPageComponent implements OnInit {
     ]
   };
 
-  constructor(private formBuilder: FormBuilder, private courseService: CourseServiceService) {
+  constructor(private formBuilder: FormBuilder, private courseService: CourseServiceService, private sanitizer: DomSanitizer) {
     this.topicForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
       note: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(8000)]]
@@ -80,6 +85,7 @@ export class OwnerPageComponent implements OnInit {
       this.courseService.addTopic(courseId, formData).subscribe(result => {
         this.topics = result.topics;
         this.topicForm.reset();
+        this.filesToUpload = [];
       })
     }
   }
@@ -88,5 +94,27 @@ export class OwnerPageComponent implements OnInit {
     this.courseService.deleteTopic(courseId, topicId).subscribe(result => {
       this.topics = result.topics;
     })
+  }
+
+  getAttachment(courseId: number, topicId: number, fileId: number) {
+    this.courseService.getAttachment(courseId, topicId, fileId).subscribe(result => {
+      this.attachement = result;
+      this.dialogVisible = true;
+    })
+  }
+
+  isAttachmentImage(): boolean {
+    if (this.attachement.type != null && this.attachement.type.startsWith("image")) {
+      return true;
+    }
+    return false;
+  }
+
+  generatePdf() {
+    if (this.attachement.type != null && !this.attachement.type.startsWith("image")) {
+      const pdfBlob = new Blob([this.attachement.data], { type: 'application/pdf' });
+      const pdfData = URL.createObjectURL(pdfBlob);
+      window.open(pdfData);
+    }
   }
 }

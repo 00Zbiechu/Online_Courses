@@ -12,6 +12,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { TabViewModule } from 'primeng/tabview';
 import { LoaderModuleModule } from '../loader-module/loader-module.module';
+import { DialogModule } from 'primeng/dialog';
 import { CoursePageComponent } from './components/course-page/course-page.component';
 import { OwnerPageComponent } from './components/owner-page/owner-page.component';
 import { VisitorPageComponent } from './components/visitor-page/visitor-page.component';
@@ -33,6 +34,7 @@ import { VisitorPageComponent } from './components/visitor-page/visitor-page.com
     CarouselModule,
     AccordionModule,
     FileUploadModule,
+    DialogModule,
     InputTextModule,
     LoaderModuleModule,
     RouterModule.forChild([
