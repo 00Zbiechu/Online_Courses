@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { CourseServiceService } from '../../services/course-service.service';
 import { IAttachment } from './model/IAttachment';
@@ -17,7 +16,6 @@ export class OwnerPageComponent implements OnInit {
   @Input() courseId: number;
   topics: ITopic[];
   attachement: IAttachment;
-  pdfUrl: SafeResourceUrl;
   dialogVisible: boolean = false;
 
   filesToUpload: File[] = [];
@@ -46,7 +44,7 @@ export class OwnerPageComponent implements OnInit {
     ]
   };
 
-  constructor(private formBuilder: FormBuilder, private courseService: CourseServiceService, private sanitizer: DomSanitizer) {
+  constructor(private formBuilder: FormBuilder, private courseService: CourseServiceService) {
     this.topicForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
       note: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(8000)]]
@@ -100,6 +98,7 @@ export class OwnerPageComponent implements OnInit {
     this.courseService.getAttachment(courseId, topicId, fileId).subscribe(result => {
       this.attachement = result;
       this.dialogVisible = true;
+      this.generatePdf();
     })
   }
 
@@ -112,9 +111,10 @@ export class OwnerPageComponent implements OnInit {
 
   generatePdf() {
     if (this.attachement.type != null && !this.attachement.type.startsWith("image")) {
-      const pdfBlob = new Blob([this.attachement.data], { type: 'application/pdf' });
-      const pdfData = URL.createObjectURL(pdfBlob);
-      window.open(pdfData);
+      const byteArray = new Uint8Array(atob(this.attachement.data).split('').map(char => char.charCodeAt(0)));
+      const blob: Blob = new Blob([byteArray], { type: 'application/pdf' });
+      const blobUrl = URL.createObjectURL(blob);
+      window.open(blobUrl);
     }
   }
 }

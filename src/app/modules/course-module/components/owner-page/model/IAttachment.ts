@@ -1,4 +1,5 @@
 export interface IAttachment {
-    data: Uint8Array;
+    name: string;
+    data: string;
     type: string;
 }
