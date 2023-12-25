@@ -1,1 +1,80 @@
-<p>visitor-page works!</p>
+<section class="jumbotron text-center">
+    <div *ngIf="courseData" class="container">
+        <img *ngIf="courseData.photo" src="data:image/jpg;base64,{{courseData.photo}}">
+        <h1>{{courseData.title}}</h1>
+        <p class="lead text-muted text">{{courseData.description}}</p>
+        <div class="d-flex justify-content-center align-items-center">
+            <p><i class="pi pi-clock"></i> Start date: <b>{{courseData.startDate}}</b></p>
+            <p-divider layout="vertical"></p-divider>
+            <p><i class="pi pi-clock"></i> End date: <b>{{courseData.endDate}}</b></p>
+        </div>
+    </div>
+</section>
+
+<p-divider align="center">
+    <b>Topics</b>
+</p-divider>
+
+<div id="data" class="col-11">
+    <ng-container *ngIf="topics && topics.length > 0; else noTopics">
+        <p-card>
+            <p-accordion [activeIndex]="0" class="col-12">
+                <div *ngFor="let topic of topics;">
+                    <p-accordionTab header="{{topic.title}}">
+                        <p-divider align="center" type="solid">
+                            <b>Note</b>
+                        </p-divider>
+                        <div [innerHTML]="topic.notes.at(0)?.data"></div>
+                        <div *ngIf="topic.files && topic.files.length > 0;">
+                            <p-divider align="center" type="solid">
+                                <b>Attachments</b>
+                            </p-divider>
+                            <p-carousel id="attachments" [value]="topic.files">
+                                <ng-template let-file pTemplate="file">
+                                    <div class="border-1 surface-border border-round text-center">
+                                        <div>
+                                            <h5 class="mb-1">{{ file.name }}</h5>
+                                            <h6 class="mt-0 mb-3">{{ file.type }}</h6>
+                                            <div class="car-buttons mt-5 mb-3">
+                                                <p-button type="button" styleClass="p-button p-button-rounded mr-2"
+                                                    icon="pi pi-search"
+                                                    (onClick)="getAttachment(courseData.id, topic.id, file.id)"></p-button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </p-carousel>
+                            <div id="mobile-attachments" *ngFor="let file of topic.files">
+                                <div class="border-1 surface-border border-round text-center">
+                                    <div>
+                                        <h5 class="mb-1">{{ file.name }}</h5>
+                                        <h6 class="mt-0 mb-3">{{ file.type }}</h6>
+                                        <div class="car-buttons mb-3">
+                                            <p-button type="button" styleClass="p-button p-button-rounded mr-2"
+                                                icon="pi pi-search"
+                                                (onClick)="getAttachment(courseData.id, topic.id, file.id)"></p-button>
+                                        </div>
+                                        <p-divider></p-divider>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-accordionTab>
+                </div>
+            </p-accordion>
+        </p-card>
+    </ng-container>
+
+    <ng-template #noTopics>
+        <p class="text-center m-2">Course have not any topic.</p>
+    </ng-template>
+
+    <p-dialog *ngIf="attachement!=null && isAttachmentImage()" header="{{attachement.name}}" [modal]=true
+        [(visible)]="dialogVisible" [breakpoints]="{ '960px': '75vw' }" [draggable]="false" [resizable]="false">
+
+        <div class="attachment">
+            <img [src]="'data:'+ attachement.type +';base64,' + attachement.data">
+        </div>
+
+    </p-dialog>
+</div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { CourseServiceService } from '../../services/course-service.service';
@@ -11,10 +11,10 @@ import { ITopic } from './model/ITopic';
   styleUrls: ['./owner-page.component.scss'],
   encapsulation: ViewEncapsulation.Emulated
 })
-export class OwnerPageComponent implements OnInit {
+export class OwnerPageComponent {
 
   @Input() courseId: number;
-  topics: ITopic[];
+  @Input() topics: ITopic[];
   attachement: IAttachment;
   dialogVisible: boolean = false;
 
@@ -51,21 +51,11 @@ export class OwnerPageComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.getTopics(this.courseId);
-  }
-
   onFilesSelected(event: any) {
     const files: FileList = event.files;
     if (files && files.length > 0) {
       this.filesToUpload = Array.from(files);
     }
-  }
-
-  getTopics(courseId: number) {
-    this.courseService.getTopics(courseId).subscribe(result => {
-      this.topics = result.topics;
-    });
   }
 
   addTopic(courseId: number) {

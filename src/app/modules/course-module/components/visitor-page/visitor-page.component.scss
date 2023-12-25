@@ -1,0 +1,43 @@
+section {
+    padding: 2em;
+}
+
+h1 {
+    font-weight: bold;
+    margin: 0;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+
+
+    img {
+        width: 9em;
+        height: 9em;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+
+#data {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#attachments {
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+
+    #mobile-attachments {
+        display: none;
+    }
+
+    #attachments {
+        display: block;
+    }
+}

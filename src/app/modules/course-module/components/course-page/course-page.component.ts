@@ -4,6 +4,7 @@ import { UserData } from 'src/app/modules/login-module/components/login/model/Us
 import { LoginServiceService } from 'src/app/modules/login-module/services/login-service.service';
 import { ICourseForList } from 'src/app/modules/search-module/components/course-list/model/ICourseForList';
 import { CourseServiceService } from '../../services/course-service.service';
+import { ITopic } from '../owner-page/model/ITopic';
 
 @Component({
   selector: 'app-course-page',
@@ -14,6 +15,7 @@ export class CoursePageComponent {
 
   courseId: number;
   courseData: ICourseForList;
+  topics: ITopic[];
   userData: UserData;
   owner: boolean;
 
@@ -24,6 +26,7 @@ export class CoursePageComponent {
     this.courseService.getCourseData(Number(this.courseId)).subscribe(result => {
       this.courseData = result;
     });
+    this.getTopics(this.courseId);
     this.userData = this.loginService.getUserDataFromToken();
     this.checkIfLoggedUserIsOwner();
   }
@@ -41,5 +44,11 @@ export class CoursePageComponent {
     }
 
     return false;
+  }
+
+  getTopics(courseId: number) {
+    this.courseService.getTopics(courseId).subscribe(result => {
+      this.topics = result.topics;
+    });
   }
 }
