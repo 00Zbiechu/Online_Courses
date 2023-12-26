@@ -41,4 +41,9 @@ export class AddCourseServiceService {
 
     return this.httpClient.delete<ICoursesForAdmin>(url, { params: queryParams });
   }
+
+  getCourseData(courseId: number): Observable<Course> {
+    const params = new HttpParams().set('courseId', courseId.toString());
+    return this.httpClient.get<Course>(this.url + '/get-course', { params });
+  }
 }

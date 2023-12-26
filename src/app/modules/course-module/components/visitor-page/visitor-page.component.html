@@ -17,7 +17,7 @@
 
 <div id="data" class="col-11">
     <ng-container *ngIf="topics && topics.length > 0; else noTopics">
-        <p-card>
+        <p-card class="col-11">
             <p-accordion [activeIndex]="0" class="col-12">
                 <div *ngFor="let topic of topics;">
                     <p-accordionTab header="{{topic.title}}">
@@ -70,7 +70,7 @@
     </ng-template>
 
     <p-dialog *ngIf="attachement!=null && isAttachmentImage()" header="{{attachement.name}}" [modal]=true
-        [(visible)]="dialogVisible" [breakpoints]="{ '960px': '75vw' }" [draggable]="false" [resizable]="false">
+        [(visible)]="dialogVisible" [breakpoints]="{ '960px': '95vw' }" [draggable]="false" [resizable]="false">
 
         <div class="attachment">
             <img [src]="'data:'+ attachement.type +';base64,' + attachement.data">

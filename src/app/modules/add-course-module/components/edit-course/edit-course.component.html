@@ -33,14 +33,14 @@
                                 <button pButton pRipple icon="pi pi-search" [style]="{'color':'white'}"
                                     (click)="viewCourseDetails(course.id)"></button>
                                 <button pButton pRipple icon="pi pi-file-edit" class="p-button-secondary"
-                                    (click)="showEditDialog()"></button>
+                                    (click)="showEditDialog(course.id)"></button>
 
                                 <p-dialog position="top" header="Edit course data" [draggable]="false"
                                     [resizable]="false" [(visible)]="edit" [modal]="true" appendTo="body">
 
                                     <form [formGroup]="registerForm" (ngSubmit)="editCourse(course.id)">
                                         <span class="p-float-label">
-                                            <input pInputText id="title" formControlName="title" />
+                                            <input pInputText formControlName="title" />
                                             <label htmlFor="title">Title</label>
                                         </span>
                                         <div *ngIf="registerForm.get('title')?.invalid && (registerForm.get('title')?.dirty || registerForm.get('title')?.touched)"
@@ -126,9 +126,8 @@
                                         </div>
 
                                         <span class="p-float-label">
-                                            <textarea id="float-input" rows="3" cols="30" pInputTextarea
+                                            <textarea rows="3" cols="30" pInputTextarea placeholder="Description"
                                                 formControlName="description" [style]="{'width':'100%'}"></textarea>
-                                            <label for="float-input">Description</label>
                                         </span>
                                         <div *ngIf="registerForm.get('description')?.invalid && (registerForm.get('description')?.dirty || registerForm.get('description')?.touched)"
                                             class="alert alert-danger">
@@ -199,14 +198,14 @@
                                 <button pButton pRipple icon="pi pi-search" [style]="{'color':'white'}"
                                     (click)="viewCourseDetails(course.id)"></button>
                                 <button pButton pRipple icon="pi pi-file-edit" class="p-button-secondary"
-                                    (click)="showEditDialog()"></button>
+                                    (click)="showEditDialog(course.id)"></button>
 
                                 <p-dialog position="top" header="Edit course data" [draggable]="false"
                                     [resizable]="false" [(visible)]="edit" [modal]="true" appendTo="body">
 
                                     <form [formGroup]="registerForm" (ngSubmit)="editCourse(course.id)">
                                         <span class="p-float-label">
-                                            <input pInputText id="title" formControlName="title" />
+                                            <input pInputText formControlName="title" />
                                             <label htmlFor="title">Title</label>
                                         </span>
                                         <div *ngIf="registerForm.get('title')?.invalid && (registerForm.get('title')?.dirty || registerForm.get('title')?.touched)"
@@ -292,9 +291,9 @@
                                         </div>
 
                                         <span class="p-float-label">
-                                            <textarea id="float-input" rows="3" cols="30" pInputTextarea
-                                                formControlName="description" [style]="{'width':'100%'}"></textarea>
-                                            <label for="float-input">Description</label>
+                                            <textarea id="description" rows="3" cols="30" pInputTextarea
+                                                placeholder="Description" formControlName="description"
+                                                [style]="{'width':'100%'}"></textarea>
                                         </span>
                                         <div *ngIf="registerForm.get('description')?.invalid && (registerForm.get('description')?.dirty || registerForm.get('description')?.touched)"
                                             class="alert alert-danger">

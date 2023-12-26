@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ITopic } from 'src/app/modules/search-module/components/sidebar/model/ITopic';
 import { AddCourseServiceService } from '../../services/add-course-service.service';
+import { ICourseForAdmin } from '../create-course/model/ICourseForAdmin';
 import { ICourseForEdit } from './model/ICourseForEdit';
 
 @Component({
@@ -17,7 +18,7 @@ import { ICourseForEdit } from './model/ICourseForEdit';
 export class EditCourseComponent implements OnInit {
 
   @Input() courses: ICourseForEdit[];
-
+  courseDataForEdit: ICourseForAdmin;
   registerForm: FormGroup;
   topics: ITopic[];
   fileToUpload: File | null = null;
@@ -84,7 +85,8 @@ export class EditCourseComponent implements OnInit {
     };
   };
 
-  showEditDialog() {
+  showEditDialog(courseId: number) {
+    this.getCourseData(courseId);
     this.edit = true;
   }
 
@@ -118,5 +120,23 @@ export class EditCourseComponent implements OnInit {
 
   viewCourseDetails(courseId: number) {
     this.router.navigate(['/course', courseId]);
+  }
+
+  getCourseData(courseId: number) {
+    this.addCourseService.getCourseData(courseId).subscribe(result => {
+
+      this.registerForm = this.formBuilder.group({
+        title: [result.title, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+        startDate: [result.startDate, [Validators.required]],
+        endDate: [result.endDate, [Validators.required]],
+        topic: [result.topic, [Validators.required, Validators.minLength(10), Validators.maxLength(30)]],
+        description: [result.description, [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
+        password: [result.password, [Validators.minLength(6), Validators.maxLength(30)]],
+        confirmPassword: [result.password],
+      }, {
+        validator: this.passwordMatchValidator
+      });
+
+    })
   }
 }

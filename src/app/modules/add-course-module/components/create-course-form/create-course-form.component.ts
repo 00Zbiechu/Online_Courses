@@ -33,8 +33,8 @@ export class CreateCourseFormComponent implements OnInit {
       endDate: [null, [Validators.required]],
       topic: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(30)]],
       description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
-      confirmPassword: ['', Validators.required],
+      password: ['', [Validators.minLength(6), Validators.maxLength(30)]],
+      confirmPassword: [''],
     }, {
       validator: this.passwordMatchValidator
     });
