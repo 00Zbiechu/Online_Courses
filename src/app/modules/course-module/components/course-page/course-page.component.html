@@ -1,3 +1,23 @@
 <app-loader></app-loader>
 <app-owner-page [courseId]="courseId" [topics]="topics" *ngIf="checkIfLoggedUserIsOwner()"></app-owner-page>
-<app-visitor-page [courseData]="courseData" [topics]="topics" *ngIf="!checkIfLoggedUserIsOwner()"></app-visitor-page>
+<app-visitor-page [password]="password" [courseData]="courseData" [topics]="topics"
+    *ngIf="!checkIfLoggedUserIsOwner() && accessGranted"></app-visitor-page>
+
+<p-dialog header="Password required" [(visible)]="!accessGranted" [modal]="true" [draggable]="false"
+    [resizable]="false">
+
+    <div class="d-flex flex-column align-items-center">
+        <p class="text-center">To access the course, please provide the required password as your account is not on the
+            invited list.<br><b>Thank you.</b>
+        </p>
+
+        <span class="p-input-icon-left">
+            <i class="pi pi-hashtag"></i>
+            <input type="text" pInputText [(ngModel)]="password" required />
+        </span>
+
+        <button pButton pRipple label="Access course" icon="pi pi-arrow-right" style="margin:1em"
+            class="p-button-success" (click)="sendPassword()"></button>
+    </div>
+
+</p-dialog>

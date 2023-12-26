@@ -14,6 +14,7 @@ export class VisitorPageComponent {
 
   @Input() topics: ITopic[];
   @Input() courseData: ICourseForList;
+  @Input() password: string;
   attachement: IAttachment;
   dialogVisible: boolean = false;
 
@@ -21,7 +22,7 @@ export class VisitorPageComponent {
   }
 
   getAttachment(courseId: number, topicId: number, fileId: number) {
-    this.courseService.getAttachment(courseId, topicId, fileId).subscribe(result => {
+    this.courseService.getAttachment(courseId, topicId, fileId, this.password).subscribe(result => {
       this.attachement = result;
       this.dialogVisible = true;
       this.generatePdf();

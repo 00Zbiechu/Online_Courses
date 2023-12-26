@@ -17,16 +17,25 @@ export class CoursePageComponent {
   courseData: ICourseForList;
   topics: ITopic[];
   userData: UserData;
-  owner: boolean;
+  accessGranted: boolean;
+  password: string;
+  passwordPanel: boolean;
 
   constructor(private route: ActivatedRoute, private courseService: CourseServiceService, private loginService: LoginServiceService) { }
 
   ngOnInit() {
     this.courseId = parseInt(this.route.snapshot.paramMap.get('id')!);
-    this.courseService.getCourseData(Number(this.courseId)).subscribe(result => {
+    this.courseService.getCourseData(Number(this.courseId), this.password).subscribe(result => {
       this.courseData = result;
-    });
-    this.getTopics(this.courseId);
+      this.passwordPanel = false;
+      this.accessGranted = true;
+    },
+      error => {
+        this.passwordPanel = true;
+        this.accessGranted = false;
+      });
+
+    this.getTopics(this.courseId, this.password);
     this.userData = this.loginService.getUserDataFromToken();
     this.checkIfLoggedUserIsOwner();
   }
@@ -46,9 +55,26 @@ export class CoursePageComponent {
     return false;
   }
 
-  getTopics(courseId: number) {
-    this.courseService.getTopics(courseId).subscribe(result => {
+  getTopics(courseId: number, password: string) {
+    this.courseService.getTopics(courseId, password).subscribe(result => {
       this.topics = result.topics;
     });
+  }
+
+  sendPassword() {
+    this.courseId = parseInt(this.route.snapshot.paramMap.get('id')!);
+    this.courseService.getCourseData(Number(this.courseId), this.password).subscribe(result => {
+      this.courseData = result;
+      this.passwordPanel = false;
+      this.accessGranted = true;
+    },
+      error => {
+        this.passwordPanel = true;
+        this.accessGranted = false;
+      });
+
+    this.getTopics(this.courseId, this.password);
+    this.userData = this.loginService.getUserDataFromToken();
+    this.checkIfLoggedUserIsOwner();
   }
 }

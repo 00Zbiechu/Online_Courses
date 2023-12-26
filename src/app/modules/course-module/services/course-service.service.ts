@@ -14,13 +14,19 @@ export class CourseServiceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getCourseData(courseId: number): Observable<ICourseForList> {
-    const params = new HttpParams().set('courseId', courseId.toString());
+  getCourseData(courseId: number, password: string): Observable<ICourseForList> {
+    const params = new HttpParams()
+      .set('courseId', courseId.toString())
+      .set('password', password);
+
     return this.httpClient.get<ICourseForList>(this.url + '/get-course', { params });
   }
 
-  getTopics(courseId: number): Observable<ITopics> {
-    const params = new HttpParams().set('courseId', courseId.toString());
+  getTopics(courseId: number, password: string): Observable<ITopics> {
+    const params = new HttpParams()
+      .set('courseId', courseId.toString())
+      .set('password', password);
+
     return this.httpClient.get<ITopics>(this.url + '/get-topics', { params });
   }
 
@@ -37,11 +43,12 @@ export class CourseServiceService {
     return this.httpClient.delete<ITopics>(`${this.url}/delete-topic`, { params });
   }
 
-  getAttachment(courseId: number, topicId: number, fileId: number): Observable<IAttachment> {
+  getAttachment(courseId: number, topicId: number, fileId: number, password: string): Observable<IAttachment> {
     const params = new HttpParams()
       .set('courseId', courseId.toString())
       .set('topicId', topicId.toString())
-      .set('fileId', fileId.toString());
+      .set('fileId', fileId.toString())
+      .set('password', password);
     return this.httpClient.get<IAttachment>(`${this.url}/get-attachment`, { params });
   }
 }

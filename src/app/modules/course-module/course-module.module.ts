@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { AccordionModule } from 'primeng/accordion';
@@ -27,6 +27,7 @@ import { VisitorPageComponent } from './components/visitor-page/visitor-page.com
     CommonModule,
     TabViewModule,
     ReactiveFormsModule,
+    FormsModule,
     AngularEditorModule,
     CardModule,
     ButtonModule,
