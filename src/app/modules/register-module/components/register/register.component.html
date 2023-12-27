@@ -76,8 +76,8 @@
                         </div>
                     </div>
 
-                    <p-fileUpload mode="basic" chooseLabel="User Photo" name="photo" accept=".png, .jpg, .jpeg"
-                        (onSelect)="onFileSelected($event)">
+                    <p-fileUpload [(ngModel)]="fileToUpload" mode="basic" chooseLabel="User Photo" name="photo"
+                        accept=".png, .jpg, .jpeg" (onSelect)="onFileSelected($event)">
                     </p-fileUpload>
 
                     <hr>
@@ -92,3 +92,20 @@
         </div>
     </div>
 </div>
+
+<p-dialog header="Confirm account" [(visible)]="confirmationDialog" [modal]="true" [draggable]="false"
+    [resizable]="false">
+
+    <div class="d-flex flex-column align-items-center">
+        <p class="text-center">Please confirm your account creation before attempting to log in. You have one day to
+            complete this confirmation.
+            <br>
+            An email has been sent to your registered email address with further instructions.<br><b>Thank
+                you.</b>
+        </p>
+
+        <a href="/login"><button pButton pRipple label="Sing in" icon="pi pi-arrow-right" style="margin:1em"
+                class="p-button-success"></button></a>
+    </div>
+
+</p-dialog>

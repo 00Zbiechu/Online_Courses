@@ -11,8 +11,9 @@ import { RegisterServiceService } from '../../services/register-service.service'
 })
 export class RegisterComponent {
 
-  fileToUpload: File | null = null;
+  fileToUpload: File | null;
   registerForm: FormGroup;
+  confirmationDialog: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private registerService: RegisterServiceService, private router: Router) {
     this.registerForm = this.formBuilder.group({
@@ -56,7 +57,9 @@ export class RegisterComponent {
       }
 
       this.registerService.registration(formData).subscribe(result => {
-        this.router.navigate(['/login']);
+        this.registerForm.reset();
+        this.fileToUpload = null;
+        this.confirmationDialog = true;
       });
     }
   }
