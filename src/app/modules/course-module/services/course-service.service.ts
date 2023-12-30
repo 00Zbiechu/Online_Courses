@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICourseForList } from '../../search-module/components/course-list/model/ICourseForList';
@@ -67,12 +67,6 @@ export class CourseServiceService {
   }
 
   addCourseParticipant(courseId: number, username: string) {
-    const body = new HttpParams()
-      .set('courseId', courseId.toString())
-      .set('username', username);
-
-    return this.httpClient.post(`${this.url}/add-course-participant`, body.toString(), {
-      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    });
+    return this.httpClient.post(`${this.url}/add-course-participant?courseId=` + courseId + `&username=` + username, null);
   }
 }
