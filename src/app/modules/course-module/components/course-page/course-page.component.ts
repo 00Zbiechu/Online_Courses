@@ -4,6 +4,7 @@ import { UserData } from 'src/app/modules/login-module/components/login/model/Us
 import { LoginServiceService } from 'src/app/modules/login-module/services/login-service.service';
 import { ICourseForList } from 'src/app/modules/search-module/components/course-list/model/ICourseForList';
 import { CourseServiceService } from '../../services/course-service.service';
+import { IParticipant } from '../owner-page/model/IParticipant';
 import { ITopic } from '../owner-page/model/ITopic';
 
 @Component({
@@ -16,6 +17,7 @@ export class CoursePageComponent {
   courseId: number;
   courseData: ICourseForList;
   topics: ITopic[];
+  participants: IParticipant[];
   userData: UserData;
   accessGranted: boolean;
   password: string;
@@ -37,6 +39,7 @@ export class CoursePageComponent {
 
     this.getTopics(this.courseId, this.password);
     this.userData = this.loginService.getUserDataFromToken();
+    this.getCourseParticipants();
     this.checkIfLoggedUserIsOwner();
   }
 
@@ -76,5 +79,11 @@ export class CoursePageComponent {
     this.getTopics(this.courseId, this.password);
     this.userData = this.loginService.getUserDataFromToken();
     this.checkIfLoggedUserIsOwner();
+  }
+
+  getCourseParticipants() {
+    this.courseService.getCourseParticipants(this.courseId).subscribe(result => {
+      this.participants = result.participants;
+    })
   }
 }

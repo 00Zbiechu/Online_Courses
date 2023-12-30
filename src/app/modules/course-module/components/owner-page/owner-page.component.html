@@ -146,15 +146,62 @@
       <ng-template pTemplate="header">
         <span><i class="pi pi-user"></i> Participants</span>
       </ng-template>
-      <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-        rem
-        aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-        explicabo.
-        Nemo enim
-        ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-        eos
-        qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-      </p>
+
+      <div id="newParticipant">
+        <button pButton pRipple label="Add new participant" icon="pi pi-user" class="p-button-success"
+          (click)="showAddNewParticipantDialog()"></button>
+      </div>
+
+      <div id="table">
+        <p-table [value]="participants" responsiveLayout="stack" [breakpoint]="'960px'"
+          [tableStyle]="{'min-width': '50rem'}">>
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Photo</th>
+              <th pSortableColumn="username">Username<p-sortIcon field="username"></p-sortIcon></th>
+              <th pSortableColumn="joiningDate">Joining Date<p-sortIcon field="joiningDate"></p-sortIcon></th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-participant>
+            <tr>
+              <td>
+                <p-avatar *ngIf="participant.photo" image="data:image/jpeg;base64,{{participant.photo}}" size="xlarge"
+                  shape="circle"></p-avatar>
+
+                <p-avatar *ngIf="!participant.photo" icon="pi pi-user" size="large" shape="circle"></p-avatar>
+              </td>
+              <td>{{ participant.username }}</td>
+              <td>{{ participant.joiningDate }}</td>
+              <td>Participant</td>
+              <td><button icon="pi pi-times" pButton label="Delete participant" class="p-button-danger"
+                  (click)="deleteParticipant(participant.userId)"></button></td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
     </p-tabPanel>
   </p-tabView></div>
+
+
+
+<p-dialog header="Add new participant" [(visible)]="addNewParticipantDialog" [modal]="true" [draggable]="false"
+  [resizable]="false">
+
+  <div class="d-flex flex-column align-items-center">
+    <p class="text-center">To add new participant to the course, please provide the required username of user you would
+      like to add.<br>
+    </p>
+
+    <span class="p-input-icon-left">
+      <i class="pi pi-hashtag"></i>
+      <input type="text" pInputText [(ngModel)]="usernameNewParticipant" required />
+    </span>
+
+    <button pButton pRipple label="Add new participant" icon="pi pi-user" style="margin:1em" class="p-button-success"
+      (click)="addCourseParticipant()"></button>
+  </div>
+
+</p-dialog>

@@ -1,8 +1,9 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICourseForList } from '../../search-module/components/course-list/model/ICourseForList';
 import { IAttachment } from '../components/owner-page/model/IAttachment';
+import { IParticipants } from '../components/owner-page/model/IParticipants';
 import { ITopics } from '../components/owner-page/model/ITopics';
 
 @Injectable({
@@ -50,5 +51,28 @@ export class CourseServiceService {
       .set('fileId', fileId.toString())
       .set('password', password);
     return this.httpClient.get<IAttachment>(`${this.url}/get-attachment`, { params });
+  }
+
+  getCourseParticipants(courseId: number): Observable<IParticipants> {
+    const params = new HttpParams()
+      .set('courseId', courseId.toString());
+    return this.httpClient.get<IParticipants>(`${this.url}/get-course-participants`, { params });
+  }
+
+  deleteParticipant(courseId: number, userId: number): Observable<IParticipants> {
+    const params = new HttpParams()
+      .set('courseId', courseId.toString())
+      .set('userId', userId.toString());
+    return this.httpClient.delete<IParticipants>(`${this.url}/delete-course-participant`, { params });
+  }
+
+  addCourseParticipant(courseId: number, username: string) {
+    const body = new HttpParams()
+      .set('courseId', courseId.toString())
+      .set('username', username);
+
+    return this.httpClient.post(`${this.url}/add-course-participant`, body.toString(), {
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    });
   }
 }

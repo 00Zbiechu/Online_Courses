@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { CourseServiceService } from '../../services/course-service.service';
 import { IAttachment } from './model/IAttachment';
+import { IParticipant } from './model/IParticipant';
 import { ITopic } from './model/ITopic';
 
 @Component({
@@ -16,9 +17,11 @@ export class OwnerPageComponent {
   @Input() courseId: number;
   @Input() topics: ITopic[];
   @Input() password: string;
+  @Input() participants: IParticipant[];
+  usernameNewParticipant: string;
+  addNewParticipantDialog: boolean;
   attachement: IAttachment;
   dialogVisible: boolean = false;
-
   filesToUpload: File[] = [];
   topicForm: FormGroup;
 
@@ -106,6 +109,25 @@ export class OwnerPageComponent {
       const blob: Blob = new Blob([byteArray], { type: 'application/pdf' });
       const blobUrl = URL.createObjectURL(blob);
       window.open(blobUrl);
+    }
+  }
+
+  deleteParticipant(userId: number) {
+    this.courseService.deleteParticipant(this.courseId, userId).subscribe(result => {
+      this.participants = result.participants;
+    })
+  }
+
+  showAddNewParticipantDialog() {
+    this.addNewParticipantDialog = true;
+  }
+
+  addCourseParticipant() {
+    if (this.usernameNewParticipant != null && this.usernameNewParticipant.length > 3) {
+      this.courseService.addCourseParticipant(this.courseId, this.usernameNewParticipant)
+        .subscribe(result => {
+          this.addNewParticipantDialog = false;
+        });
     }
   }
 }

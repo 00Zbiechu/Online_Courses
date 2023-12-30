@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { AccordionModule } from 'primeng/accordion';
+import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
@@ -11,6 +12,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { LoaderModuleModule } from '../loader-module/loader-module.module';
 import { CoursePageComponent } from './components/course-page/course-page.component';
@@ -29,6 +31,7 @@ import { VisitorPageComponent } from './components/visitor-page/visitor-page.com
     ReactiveFormsModule,
     FormsModule,
     AngularEditorModule,
+    AvatarModule,
     CardModule,
     ButtonModule,
     DividerModule,
@@ -36,6 +39,7 @@ import { VisitorPageComponent } from './components/visitor-page/visitor-page.com
     AccordionModule,
     FileUploadModule,
     DialogModule,
+    TableModule,
     InputTextModule,
     LoaderModuleModule,
     RouterModule.forChild([
