@@ -17,7 +17,6 @@ export class CoursePageComponent {
   courseId: number;
   courseData: ICourseForList;
   topics: ITopic[];
-  participants: IParticipant[];
   userData: UserData;
   accessGranted: boolean;
   password: string;
@@ -39,7 +38,6 @@ export class CoursePageComponent {
 
     this.getTopics(this.courseId, this.password);
     this.userData = this.loginService.getUserDataFromToken();
-    this.getCourseParticipants();
     this.checkIfLoggedUserIsOwner();
   }
 
@@ -79,11 +77,5 @@ export class CoursePageComponent {
     this.getTopics(this.courseId, this.password);
     this.userData = this.loginService.getUserDataFromToken();
     this.checkIfLoggedUserIsOwner();
-  }
-
-  getCourseParticipants() {
-    this.courseService.getCourseParticipants(this.courseId).subscribe(result => {
-      this.participants = result.participants;
-    })
   }
 }

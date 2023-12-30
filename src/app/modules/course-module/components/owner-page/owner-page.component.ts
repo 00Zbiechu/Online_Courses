@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { CourseServiceService } from '../../services/course-service.service';
@@ -12,12 +12,12 @@ import { ITopic } from './model/ITopic';
   styleUrls: ['./owner-page.component.scss'],
   encapsulation: ViewEncapsulation.Emulated
 })
-export class OwnerPageComponent {
+export class OwnerPageComponent implements OnInit {
 
   @Input() courseId: number;
   @Input() topics: ITopic[];
   @Input() password: string;
-  @Input() participants: IParticipant[];
+  participants: IParticipant[];
   usernameNewParticipant: string;
   addNewParticipantDialog: boolean;
   attachement: IAttachment;
@@ -53,6 +53,9 @@ export class OwnerPageComponent {
       title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
       note: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(8000)]]
     });
+  }
+  ngOnInit(): void {
+    this.getCourseParticipants();
   }
 
   onFilesSelected(event: any) {
@@ -129,5 +132,11 @@ export class OwnerPageComponent {
           this.addNewParticipantDialog = false;
         });
     }
+  }
+
+  getCourseParticipants() {
+    this.courseService.getCourseParticipants(this.courseId).subscribe(result => {
+      this.participants = result.participants;
+    })
   }
 }
