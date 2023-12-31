@@ -7,6 +7,8 @@ const routes: Routes = [
   { path: 'register', loadChildren: () => import('./modules/register-module/register-module.module').then(m => m.RegisterModuleModule) },
   { path: 'create', loadChildren: () => import('./modules/add-course-module/add-course-module.module').then(m => m.AddCourseModuleModule) },
   { path: 'course/:id', loadChildren: () => import('./modules/course-module/course-module.module').then(m => m.CourseModuleModule) },
+  { path: 'participation', loadChildren: () => import('./modules/participant-module/participant-module.module').then(m => m.ParticipantModuleModule) },
+
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

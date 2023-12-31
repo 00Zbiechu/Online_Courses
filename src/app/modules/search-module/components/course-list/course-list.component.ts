@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Router } from '@angular/router';
 import { faBookmark, faClock, faList, faScroll, faUser } from '@fortawesome/free-solid-svg-icons';
 import { SelectItem } from 'primeng/api';
 import { SearchServiceService } from '../../services/search-service.service';
 import { ICourseForList } from "./model/ICourseForList";
 import { ICoursePage } from './model/ICoursePage';
 import { IPaginationForCourseList } from './model/IPaginationForCourseList';
-import { Router } from '@angular/router';
 
 
 @Component({

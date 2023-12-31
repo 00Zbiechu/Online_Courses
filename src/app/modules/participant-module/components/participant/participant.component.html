@@ -1,0 +1,63 @@
+<section class="jumbotron text-center my-4">
+    <div class="container">
+        <h1>Observed courses</h1>
+        <p class="lead text-muted text mb-2">Welcome to the course dashboard! Here, you can easily explore and navigate
+            through the courses you are a member of.
+            Enjoy seamless access to the rich content offered in each course.</p>
+    </div>
+</section>
+
+<div class="album p-4 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <ng-container *ngFor="let course of coursesForList">
+                <div class="col-12 col-md-3 mt-2 mb-3">
+                    <p-card *ngIf="course" [header]="course.title">
+
+                        <ng-template pTemplate="header">
+
+                            <img *ngIf="!isPhotoAvailable(course.photo)"
+                                src="https://primefaces.org/cdn/primeng/images/usercard.png" alt="Course photo"
+                                class="course_icon" />
+
+                            <img *ngIf="isPhotoAvailable(course.photo)" [src]="'data:image/jpeg;base64,' + course.photo"
+                                alt="Course photo" class="course_icon">
+
+                        </ng-template>
+
+                        <div>
+                            <p><b><fa-icon [icon]="faBookmark"></fa-icon> Topic</b> {{ course.topic }}</p>
+                        </div>
+
+                        <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'"></p-divider>
+
+                        <div>
+                            <p><b><fa-icon [icon]="faScroll"></fa-icon> Description</b></p>
+                            <p>{{ course.description }}</p>
+                        </div>
+
+                        <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'"></p-divider>
+
+                        <div>
+                            <p><b><fa-icon [icon]="faClock"></fa-icon> Beginning</b> {{ course.startDate }}</p>
+                        </div>
+
+                        <div>
+                            <p><b><fa-icon [icon]="faClock"></fa-icon> End</b> {{ course.endDate }}</p>
+                        </div>
+
+                        <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'"></p-divider>
+
+                        <div>
+                            <p><b><fa-icon [icon]="faUser"></fa-icon> Author</b> {{ course.username }}</p>
+                        </div>
+                        <p-button icon="pi pi-sign-in" label="Join" (onClick)="viewCourseDetails(course.id)"></p-button>
+                    </p-card>
+                </div>
+            </ng-container>
+
+            <p *ngIf="coursesForList!=null && coursesForList.length==0">You don't have any online courses you're
+                following</p>
+        </div>
+    </div>
+</div>

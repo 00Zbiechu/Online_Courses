@@ -1,0 +1,26 @@
+h1 {
+    padding: 2%;
+    font-weight: bold;
+    margin: 0;
+}
+
+main,
+.album {
+    border-radius: 10px;
+    width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.course_icon {
+    height: 20vh;
+    object-fit: cover;
+}
+
+fa-icon {
+    color: #212529;
+}
+
+p {
+    text-align: center;
+}

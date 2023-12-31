@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
         items: [
           { label: 'Course list', icon: 'pi pi-fw pi-list', routerLink: "/" },
           { label: 'Manage courses', icon: 'pi pi-fw pi-plus', routerLink: "/create" },
-          { label: 'Observed courses', icon: 'pi pi-fw pi-user', routerLink: "/create" },
+          { label: 'Observed courses', icon: 'pi pi-fw pi-user', routerLink: "/participation" },
         ]
       },
       {
