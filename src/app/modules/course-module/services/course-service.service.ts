@@ -5,7 +5,7 @@ import { ICourseForList } from '../../search-module/components/course-list/model
 import { IAttachment } from '../components/owner-page/model/IAttachment';
 import { IParticipants } from '../components/owner-page/model/IParticipants';
 import { IQuestions } from '../components/owner-page/model/IQuestions';
-import { IQuizUser } from '../components/owner-page/model/IQuizUser';
+import { IQuizUsers } from '../components/owner-page/model/IQuizUsers';
 import { ITopics } from '../components/owner-page/model/ITopics';
 
 @Injectable({
@@ -96,10 +96,9 @@ export class CourseServiceService {
     return this.httpClient.post<IQuestions>(this.quizUrl + '/add-question', formData, { params });
   }
 
-  getQuizUserResult(username: string, courseTitle: string): Observable<IQuizUser> {
+  getQuizUsersResult(courseTitle: string): Observable<IQuizUsers> {
     const params = new HttpParams()
-      .set('courseTitle', courseTitle)
-      .set('username', username);
-    return this.httpClient.get<IQuizUser>(this.quizUserUrl + '/get-result', { params })
+      .set('courseTitle', courseTitle);
+    return this.httpClient.get<IQuizUsers>(this.quizUserUrl + '/get-result', { params })
   }
 }

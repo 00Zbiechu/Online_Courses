@@ -174,7 +174,7 @@
               </td>
               <td>{{ participant.username }}</td>
               <td>{{ participant.joiningDate }}</td>
-              <!-- <td>{{calculateResult(participant.username, courseData.title)}}%</td> -->
+              <td>{{ calculateResult(participant.username) }}%</td>
               <td><button icon="pi pi-times" pButton label="Delete participant" class="p-button-danger"
                   (click)="deleteParticipant(participant.userId)"></button></td>
             </tr>

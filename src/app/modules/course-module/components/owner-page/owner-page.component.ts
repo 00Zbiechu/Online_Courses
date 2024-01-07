@@ -7,6 +7,7 @@ import { IAnwser } from './model/IAnwser';
 import { IAttachment } from './model/IAttachment';
 import { IParticipant } from './model/IParticipant';
 import { IQuestion } from './model/IQuestion';
+import { IQuizUser } from './model/IQuizUser';
 import { ITopic } from './model/ITopic';
 
 @Component({
@@ -23,6 +24,7 @@ export class OwnerPageComponent implements OnInit {
   @Input() courseData: ICourseForList;
   questions: IQuestion[];
   participants: IParticipant[];
+  quizUsersResult: IQuizUser[];
   usernameNewParticipant: string;
   addNewParticipantDialog: boolean;
   addNewQuestionDialogVisible: boolean;
@@ -74,6 +76,7 @@ export class OwnerPageComponent implements OnInit {
   ngOnInit(): void {
     this.getCourseParticipants();
     this.getQuestionListForCourse();
+    this.getQuizUsersResult(this.courseData.title);
 
     this.answer = [
       {
@@ -202,11 +205,19 @@ export class OwnerPageComponent implements OnInit {
     }
   }
 
-  calculateResult(username: string, courseTitle: string): number {
-    let score: number;
-    this.courseService.getQuizUserResult(username, courseTitle).subscribe(result => {
-      return score = result.correctAnswer / result.wrongAnswer;
+  getQuizUsersResult(courseTitle: string) {
+    this.courseService.getQuizUsersResult(courseTitle).subscribe(result => {
+      this.quizUsersResult = result.quizUserList;
     })
+  }
+
+  calculateResult(username: string): number {
+    for (const quizUser of this.quizUsersResult) {
+      if (quizUser.username === username) {
+        console.log(quizUser.correctAnswer / (quizUser.correctAnswer + quizUser.wrongAnswer));
+        return (quizUser.correctAnswer / (quizUser.correctAnswer + quizUser.wrongAnswer)) * 100;
+      }
+    }
     return 0;
   }
 }
