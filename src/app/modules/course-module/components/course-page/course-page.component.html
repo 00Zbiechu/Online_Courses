@@ -1,5 +1,8 @@
 <app-loader></app-loader>
-<app-owner-page [courseId]="courseId" [topics]="topics" *ngIf="checkIfLoggedUserIsOwner()"></app-owner-page>
+
+<app-owner-page [courseId]="courseId" [topics]="topics" [courseData]="courseData"
+    *ngIf="checkIfLoggedUserIsOwner()"></app-owner-page>
+
 <app-visitor-page [password]="password" [courseData]="courseData" [topics]="topics"
     *ngIf="!checkIfLoggedUserIsOwner() && accessGranted"></app-visitor-page>
 

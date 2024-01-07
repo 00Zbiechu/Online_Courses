@@ -1,4 +1,6 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { UserData } from 'src/app/modules/login-module/components/login/model/UserData';
+import { LoginServiceService } from 'src/app/modules/login-module/services/login-service.service';
 import { ICourseForList } from 'src/app/modules/search-module/components/course-list/model/ICourseForList';
 import { CourseServiceService } from '../../services/course-service.service';
 import { IAttachment } from '../owner-page/model/IAttachment';
@@ -10,15 +12,20 @@ import { ITopic } from '../owner-page/model/ITopic';
   styleUrls: ['./visitor-page.component.scss'],
   encapsulation: ViewEncapsulation.Emulated
 })
-export class VisitorPageComponent {
+export class VisitorPageComponent implements OnInit {
 
   @Input() topics: ITopic[];
   @Input() courseData: ICourseForList;
   @Input() password: string;
   attachement: IAttachment;
   dialogVisible: boolean = false;
+  userData: UserData;
 
-  constructor(private courseService: CourseServiceService) {
+  constructor(private courseService: CourseServiceService, private loginService: LoginServiceService) {
+  }
+
+  ngOnInit(): void {
+    this.getUserData();
   }
 
   getAttachment(courseId: number, topicId: number, fileId: number) {
@@ -43,5 +50,9 @@ export class VisitorPageComponent {
       const blobUrl = URL.createObjectURL(blob);
       window.open(blobUrl);
     }
+  }
+
+  getUserData() {
+    this.userData = this.loginService.getUserDataFromToken();
   }
 }

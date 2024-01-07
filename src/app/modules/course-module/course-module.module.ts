@@ -10,6 +10,7 @@ import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
 import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
+import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
@@ -32,6 +33,7 @@ import { VisitorPageComponent } from './components/visitor-page/visitor-page.com
     FormsModule,
     AngularEditorModule,
     AvatarModule,
+    DropdownModule,
     CardModule,
     ButtonModule,
     DividerModule,

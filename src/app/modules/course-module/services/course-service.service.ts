@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { ICourseForList } from '../../search-module/components/course-list/model/ICourseForList';
 import { IAttachment } from '../components/owner-page/model/IAttachment';
 import { IParticipants } from '../components/owner-page/model/IParticipants';
+import { IQuestions } from '../components/owner-page/model/IQuestions';
+import { IQuizUser } from '../components/owner-page/model/IQuizUser';
 import { ITopics } from '../components/owner-page/model/ITopics';
 
 @Injectable({
@@ -12,6 +14,11 @@ import { ITopics } from '../components/owner-page/model/ITopics';
 export class CourseServiceService {
 
   private url = 'http://localhost:8080/api/courses';
+
+  private quizUrl = 'http://localhost:8080/api/question';
+
+  private quizUserUrl = 'http://localhost:8080/api/quiz-user';
+
 
   constructor(private httpClient: HttpClient) { }
 
@@ -68,5 +75,31 @@ export class CourseServiceService {
 
   addCourseParticipant(courseId: number, username: string) {
     return this.httpClient.post(`${this.url}/add-course-participant?courseId=` + courseId + `&username=` + username, null);
+  }
+
+  getQuestionListForCourse(courseTitle: string): Observable<IQuestions> {
+    const params = new HttpParams()
+      .set('courseTitle', courseTitle);
+    return this.httpClient.get<IQuestions>(`${this.quizUrl}/question-list`, { params })
+  }
+
+  deleteQuestion(courseTitle: string, title: string): Observable<IQuestions> {
+    const params = new HttpParams()
+      .set('courseTitle', courseTitle)
+      .set('title', title);
+    return this.httpClient.delete<IQuestions>(`${this.quizUrl}/delete-question`, { params })
+  }
+
+  addQuestion(formData: FormData, courseTitle: string): Observable<IQuestions> {
+    const params = new HttpParams()
+      .set('courseTitle', courseTitle);
+    return this.httpClient.post<IQuestions>(this.quizUrl + '/add-question', formData, { params });
+  }
+
+  getQuizUserResult(username: string, courseTitle: string): Observable<IQuizUser> {
+    const params = new HttpParams()
+      .set('courseTitle', courseTitle)
+      .set('username', username);
+    return this.httpClient.get<IQuizUser>(this.quizUserUrl + '/get-result', { params })
   }
 }

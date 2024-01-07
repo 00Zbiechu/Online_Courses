@@ -1,3 +1,3 @@
-export interface ITopic{
+export interface ITopic {
     name: string;
 }

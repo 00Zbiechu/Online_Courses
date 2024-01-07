@@ -1,9 +1,12 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { ICourseForList } from 'src/app/modules/search-module/components/course-list/model/ICourseForList';
 import { CourseServiceService } from '../../services/course-service.service';
+import { IAnwser } from './model/IAnwser';
 import { IAttachment } from './model/IAttachment';
 import { IParticipant } from './model/IParticipant';
+import { IQuestion } from './model/IQuestion';
 import { ITopic } from './model/ITopic';
 
 @Component({
@@ -17,13 +20,18 @@ export class OwnerPageComponent implements OnInit {
   @Input() courseId: number;
   @Input() topics: ITopic[];
   @Input() password: string;
+  @Input() courseData: ICourseForList;
+  questions: IQuestion[];
   participants: IParticipant[];
   usernameNewParticipant: string;
   addNewParticipantDialog: boolean;
+  addNewQuestionDialogVisible: boolean;
   attachement: IAttachment;
   dialogVisible: boolean = false;
   filesToUpload: File[] = [];
   topicForm: FormGroup;
+  questionForm: FormGroup;
+  answer!: IAnwser[];
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -53,9 +61,36 @@ export class OwnerPageComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
       note: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(8000)]]
     });
+
+    this.questionForm = this.formBuilder.group({
+      title: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(300)]],
+      optionA: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(200)]],
+      optionB: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(200)]],
+      optionC: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(200)]],
+      answer: ['', [Validators.required]]
+    });
   }
+
   ngOnInit(): void {
     this.getCourseParticipants();
+    this.getQuestionListForCourse();
+
+    this.answer = [
+      {
+        name: '1',
+        value: 1
+      },
+
+      {
+        name: '2',
+        value: 2
+      },
+
+      {
+        name: '3',
+        value: 3
+      },
+    ];
   }
 
   onFilesSelected(event: any) {
@@ -138,5 +173,40 @@ export class OwnerPageComponent implements OnInit {
     this.courseService.getCourseParticipants(this.courseId).subscribe(result => {
       this.participants = result.participants;
     })
+  }
+
+  getQuestionListForCourse() {
+    this.courseService.getQuestionListForCourse(this.courseData.title).subscribe(result => {
+      this.questions = result.questionList;
+    })
+  }
+
+  deleteQuestion(title: string) {
+    this.courseService.deleteQuestion(this.courseData.title, title).subscribe(result => {
+      this.questions = result.questionList;
+    })
+  }
+
+  showAddNewQuestionDialog() {
+    this.addNewQuestionDialogVisible = true;
+  }
+
+  addQuestion() {
+    console.log(this.questionForm.value);
+    if (this.questionForm.valid) {
+      this.courseService.addQuestion(this.questionForm.value, this.courseData.title).subscribe(result => {
+        this.questions = result.questionList;
+        this.questionForm.reset();
+        this.addNewQuestionDialogVisible = false;
+      });
+    }
+  }
+
+  calculateResult(username: string, courseTitle: string): number {
+    let score: number;
+    this.courseService.getQuizUserResult(username, courseTitle).subscribe(result => {
+      return score = result.correctAnswer / result.wrongAnswer;
+    })
+    return 0;
   }
 }

@@ -59,6 +59,24 @@ button {
     align-items: center;
 }
 
+.question-title {
+    text-align: justify;
+}
+
+.question-option {
+    margin-left: 0.5em;
+}
+
+#newQuestion {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.textarea-question {
+    margin-bottom: 1em;
+}
+
 @media screen and (min-width: 768px) {
 
     #divider {
