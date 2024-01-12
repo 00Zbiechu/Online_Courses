@@ -16,11 +16,18 @@
 
         <span class="p-input-icon-left">
             <i class="pi pi-hashtag"></i>
-            <input type="text" pInputText [(ngModel)]="password" required />
+            <p-password [(ngModel)]="password" [toggleMask]="true" [feedback]="false"></p-password>
         </span>
 
-        <button pButton pRipple label="Access course" icon="pi pi-arrow-right" style="margin:1em"
-            class="p-button-success" (click)="sendPassword()"></button>
+        <div class="d-flex">
+
+            <button pButton pRipple label="Back to home page" icon="pi pi-arrow-left" style="margin:1em"
+                class="p-button-warning" routerLink="/"></button>
+
+            <button pButton pRipple label="Access course" icon="pi pi-arrow-right" style="margin:1em"
+                class="p-button-success" (click)="sendPassword()"></button>
+
+        </div>
     </div>
 
 </p-dialog>

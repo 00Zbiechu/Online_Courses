@@ -38,7 +38,7 @@
                                 <p-dialog position="top" header="Edit course data" [draggable]="false"
                                     [resizable]="false" [(visible)]="edit" [modal]="true" appendTo="body">
 
-                                    <form [formGroup]="registerForm" (ngSubmit)="editCourse(course.id)">
+                                    <form [formGroup]="registerForm" (ngSubmit)="editCourse()">
                                         <span class="p-float-label">
                                             <input pInputText formControlName="title" />
                                             <label htmlFor="title">Title</label>
@@ -203,7 +203,7 @@
                                 <p-dialog position="top" header="Edit course data" [draggable]="false"
                                     [resizable]="false" [(visible)]="edit" [modal]="true" appendTo="body">
 
-                                    <form [formGroup]="registerForm" (ngSubmit)="editCourse(course.id)">
+                                    <form [formGroup]="registerForm" (ngSubmit)="editCourse()">
                                         <span class="p-float-label">
                                             <input pInputText formControlName="title" />
                                             <label htmlFor="title">Title</label>

@@ -14,6 +14,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
+import { PasswordModule } from 'primeng/password';
 import { TabViewModule } from 'primeng/tabview';
 import { LoaderModuleModule } from '../loader-module/loader-module.module';
 import { CoursePageComponent } from './components/course-page/course-page.component';
@@ -38,6 +39,7 @@ import { VisitorPageComponent } from './components/visitor-page/visitor-page.com
     ButtonModule,
     DividerModule,
     CarouselModule,
+    PasswordModule,
     AccordionModule,
     FileUploadModule,
     DialogModule,

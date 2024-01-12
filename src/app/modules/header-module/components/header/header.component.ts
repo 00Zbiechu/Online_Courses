@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit {
         label: 'Options',
         icon: 'pi pi-cog',
         items: [
-          { label: 'Sing-in', icon: 'pi pi-fw pi-check-square', routerLink: "/login" },
+          { label: 'Sing-in', icon: 'pi pi-fw pi-check-square', routerLink: "/login", command: () => this.logoutUser() },
           { label: 'Sign-up', icon: 'pi pi-fw pi-sync', routerLink: "/register" },
           { label: 'Logout', icon: 'pi pi-fw pi-times', command: () => this.logoutUser() },
         ]
@@ -58,9 +58,8 @@ export class HeaderComponent implements OnInit {
     this.headerService.logout().subscribe(
       () => {
         this.userData = null;
+        this.userPhoto = null;
         this.loginService.logoutState();
-        this.router.navigate(['/']);
-        window.location.reload();
       },
       (error) => {
         console.error('Error during logout:', error);

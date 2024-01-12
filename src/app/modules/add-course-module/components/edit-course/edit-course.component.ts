@@ -23,6 +23,7 @@ export class EditCourseComponent implements OnInit {
   topics: ITopic[];
   fileToUpload: File | null = null;
   edit: boolean;
+  courseIdToEdit: number;
 
   ngOnInit(): void {
     this.topics = [
@@ -72,12 +73,12 @@ export class EditCourseComponent implements OnInit {
     });
   }
 
-  editCourse(courseId: number) {
+  editCourse() {
     if (this.registerForm.valid) {
       this.transformStartDateFormat();
       this.transformEndDateFormat();
       const userData = this.registerForm.value;
-      this.addCourseService.editCourse(courseId, userData).subscribe(result => {
+      this.addCourseService.editCourse(this.courseIdToEdit, userData).subscribe(result => {
         let courseId = result.id;
         this.saveCoursePhoto(courseId);
         window.location.reload();
@@ -86,6 +87,7 @@ export class EditCourseComponent implements OnInit {
   };
 
   showEditDialog(courseId: number) {
+    this.courseIdToEdit = courseId;
     this.getCourseData(courseId);
     this.edit = true;
   }
