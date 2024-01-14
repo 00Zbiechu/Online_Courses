@@ -34,28 +34,25 @@ export class ForbiddenInterceptor implements HttpInterceptor {
             sessionStorage.removeItem('token');
             sessionStorage.removeItem('refreshToken');
 
-            this.loginService.refresh(new Refresh(oldRefreshToken!)).subscribe(result => {
-              localStorage.setItem('token', result.accessToken);
-              localStorage.setItem('refreshToken', result.refreshToken);
-              window.location.reload();
-            })
+            return this.loginService.refresh(new Refresh(oldRefreshToken!)).pipe(
+              catchError((refreshError: any) => {
 
-            // Should redirect to login page if request error - does not work
+                localStorage.removeItem('token');
+                localStorage.removeItem('refreshToken');
+                sessionStorage.removeItem('token');
+                sessionStorage.removeItem('refreshToken');
+                this.loginService.logoutState();
+                window.location.reload();
 
-            // this.loginService.refresh(new Refresh(oldRefreshToken!)).pipe(
-            //   switchMap((tokens) => {
-            // localStorage.setItem('token', tokens.accessToken);
-            // localStorage.setItem('refreshToken', tokens.refreshToken);
-            // console.log("Set new refreshed token")
-            //     return next.handle(request);
-            //   }),
-            //   catchError(() => {
-            //     console.log("Refresh error -> login page")
-            //     this.loginService.logoutState();
-            //     this.router.navigate(['/login']);
-            //     return next.handle(request);
-            //   })
-            // ).subscribe();
+                return throwError(refreshError);
+              }),
+              switchMap((result: any) => {
+                localStorage.setItem('token', result.accessToken);
+                localStorage.setItem('refreshToken', result.refreshToken);
+                window.location.reload();
+                return next.handle(request);
+              })
+            );
           }
         }
         return throwError(error);
