@@ -31,3 +31,8 @@
     </div>
 
 </p-dialog>
+
+<a *ngIf="userData && courseData"
+    href="http://localhost:8030?courseTitle={{courseData.title}}&username={{userData.username}}" target="_blank">
+    <button id="chat" pButton pRipple icon="pi pi-comments"></button>
+</a>
