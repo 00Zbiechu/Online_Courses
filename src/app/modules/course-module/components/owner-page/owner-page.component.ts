@@ -214,8 +214,8 @@ export class OwnerPageComponent implements OnInit {
   calculateResult(username: string): number {
     for (const quizUser of this.quizUsersResult) {
       if (quizUser.username === username) {
-        console.log(quizUser.correctAnswer / (quizUser.correctAnswer + quizUser.wrongAnswer));
-        return (quizUser.correctAnswer / (quizUser.correctAnswer + quizUser.wrongAnswer)) * 100;
+        const result = (quizUser.correctAnswer / (quizUser.correctAnswer + quizUser.wrongAnswer)) * 100;
+        return parseFloat(result.toFixed(2));
       }
     }
     return 0;

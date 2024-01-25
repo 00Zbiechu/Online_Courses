@@ -1,11 +1,13 @@
 <p-menubar [model]="items" styleClass="menubar">
   <ng-template pTemplate="start">
-    <a routerLink="/"><img id="logo" src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="60"
-        class="m-1" /></a>
+    <a routerLink="/">
+      <h1 id="logo">Online Courses</h1>
+    </a>
   </ng-template>
   <ng-template pTemplate="end">
-    <a routerLink="/"><img id="mlogo" src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="60"
-        class="m-1" /></a>
+    <a routerLink="/">
+      <h1 id="mlogo">Online Courses</h1>
+    </a>
     <div id="userwelcome" *ngIf="isUserDataSet()">
 
       <div id="userdata">
@@ -17,7 +19,7 @@
         size="large"></p-avatar>
       <p-avatar *ngIf="!isUserPhotoSet()" icon="pi pi-user" styleClass="mr-3" size="large"
         [style]="{ 'background-color': '#4caf4f', color: '#ffffff' }"></p-avatar>
-        
+
     </div>
   </ng-template>
 </p-menubar>

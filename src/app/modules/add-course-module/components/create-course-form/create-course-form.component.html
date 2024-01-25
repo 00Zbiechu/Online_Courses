@@ -23,8 +23,8 @@
         </div>
 
         <span class="p-float-label">
-            <p-calendar id="startDate" [showIcon]="true" formControlName="startDate"
-                dateFormat="yy-mm-dd" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
+            <p-calendar id="startDate" [showIcon]="true" formControlName="startDate" dateFormat="yy-mm-dd"
+                [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
             <label htmlFor="startDate">Start date</label>
         </span>
         <div *ngIf="registerForm.get('startDate')?.invalid && (registerForm.get('startDate')?.dirty || registerForm.get('startDate')?.touched)"
