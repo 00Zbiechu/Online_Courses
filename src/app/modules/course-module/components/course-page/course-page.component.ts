@@ -25,20 +25,7 @@ export class CoursePageComponent {
   constructor(private route: ActivatedRoute, private courseService: CourseServiceService, private loginService: LoginServiceService) { }
 
   ngOnInit() {
-    this.courseId = parseInt(this.route.snapshot.paramMap.get('id')!);
-    this.courseService.getCourseData(Number(this.courseId), this.password).subscribe(result => {
-      this.courseData = result;
-      this.passwordPanel = false;
-      this.accessGranted = true;
-    },
-      error => {
-        this.passwordPanel = true;
-        this.accessGranted = false;
-      });
-
-    this.getTopics(this.courseId, this.password);
-    this.userData = this.loginService.getUserDataFromToken();
-    this.checkIfLoggedUserIsOwner();
+    this.sendPassword();
   }
 
   checkIfLoggedUserIsOwner(): boolean {
